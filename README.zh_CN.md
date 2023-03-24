@@ -1,15 +1,8 @@
-# @kirklin/vite-plugin-vben-theme
+# vite-vue-plugin-theme
 
 **中文** | [English](./README.md)
 
 [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript_code style][code-style-image]][code-style-url]
-
-[npm-image]: https://img.shields.io/npm/v/@kirklin/vite-plugin-vben-theme.svg
-[npm-url]: https://npmjs.org/package/@kirklin/vite-plugin-vben-theme
-[downloads-image]: https://img.shields.io/npm/dm/@kirklin/vite-plugin-vben-theme.svg
-[downloads-url]: https://npmjs.org/package/@kirklin/vite-plugin-vben-theme
-[code-style-image]: https://img.shields.io/badge/code__style-%40kirklin%2Feslint--config-brightgreen
-[code-style-url]: https://github.com/kirklin/eslint-config/
 
 用于动态更改界面主题色的 vite 插件。
 
@@ -17,16 +10,16 @@
 
 ### 安装 (pnpm or npm)
 
-**vite version:** >=3.2.0
+**vite version:** >=4.2.0
 
 ```
-pnpm i @kirklin/vite-plugin-vben-theme -D
+pnpm i vite-vue-plugin-theme -D
 ```
 
 或者
 
 ```
-npm i @kirklin/vite-plugin-vben-theme -D
+npm i vite-vue-plugin-theme -D
 ```
 
 ## 使用
@@ -37,7 +30,7 @@ npm i @kirklin/vite-plugin-vben-theme -D
 import { defineConfig, Plugin } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
-import { viteThemePlugin, mixLighten, mixDarken, tinycolor } from '@kirklin/vite-plugin-vben-theme';
+import { viteThemePlugin, mixLighten, mixDarken, tinycolor } from 'vite-vue-plugin-theme';
 
 export default defineConfig({
   plugins: [

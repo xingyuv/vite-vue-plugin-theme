@@ -2,7 +2,7 @@ import { normalizePath } from "vite";
 
 export const VITE_CLIENT_ENTRY = "/@vite/client";
 
-export const VITE_PLUGIN_THEME_CLIENT_ENTRY = normalizePath("node_modules/@kirklin/vite-plugin-vben-theme/es/");
+export const VITE_PLUGIN_THEME_CLIENT_ENTRY = normalizePath("node_modules/vite-vue-plugin-theme/es/");
 
 export const CLIENT_PUBLIC_ABSOLUTE_PATH = normalizePath(`/${VITE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
 

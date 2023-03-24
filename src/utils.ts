@@ -48,7 +48,7 @@ export function createFileHash() {
 export async function minifyCSS(css: string, config: ResolvedConfig) {
   const res = new CleanCSS({
     rebase: false,
-    ...config.build.cleanCssOptions,
+    ...config.esbuild,
   }).minify(css);
 
   if (res.errors && res.errors.length) {

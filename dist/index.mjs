@@ -30,6 +30,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -396,7 +400,7 @@ var require_legacy_streams = __commonJS({
         if (!(this instanceof ReadStream))
           return new ReadStream(path4, options);
         Stream.call(this);
-        var self2 = this;
+        var self = this;
         this.path = path4;
         this.fd = null;
         this.readable = true;
@@ -428,19 +432,19 @@ var require_legacy_streams = __commonJS({
         }
         if (this.fd !== null) {
           process.nextTick(function() {
-            self2._read();
+            self._read();
           });
           return;
         }
         fs4.open(this.path, this.flags, this.mode, function(err, fd) {
           if (err) {
-            self2.emit("error", err);
-            self2.readable = false;
+            self.emit("error", err);
+            self.readable = false;
             return;
           }
-          self2.fd = fd;
-          self2.emit("open", fd);
-          self2._read();
+          self.fd = fd;
+          self.emit("open", fd);
+          self._read();
         });
       }
       function WriteStream(path4, options) {
@@ -874,9 +878,9 @@ var require_graceful_fs = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/fs/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/fs/index.js
 var require_fs = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/fs/index.js"(exports) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/fs/index.js"(exports) {
     "use strict";
     var u = require_universalify().fromCallback;
     var fs4 = require_graceful_fs();
@@ -990,9 +994,9 @@ var require_fs = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/mkdirs/utils.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/mkdirs/utils.js
 var require_utils = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/mkdirs/utils.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/mkdirs/utils.js"(exports, module) {
     "use strict";
     var path4 = __require("path");
     module.exports.checkPath = function checkPath(pth) {
@@ -1008,9 +1012,9 @@ var require_utils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/mkdirs/make-dir.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/mkdirs/make-dir.js
 var require_make_dir = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/mkdirs/make-dir.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/mkdirs/make-dir.js"(exports, module) {
     "use strict";
     var fs4 = require_fs();
     var { checkPath } = require_utils();
@@ -1037,9 +1041,9 @@ var require_make_dir = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/mkdirs/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/mkdirs/index.js
 var require_mkdirs = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/mkdirs/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/mkdirs/index.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromPromise;
     var { makeDir: _makeDir, makeDirSync } = require_make_dir();
@@ -1047,6 +1051,7 @@ var require_mkdirs = __commonJS({
     module.exports = {
       mkdirs: makeDir,
       mkdirsSync: makeDirSync,
+      // alias
       mkdirp: makeDir,
       mkdirpSync: makeDirSync,
       ensureDir: makeDir,
@@ -1055,9 +1060,9 @@ var require_mkdirs = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/path-exists/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/path-exists/index.js
 var require_path_exists = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/path-exists/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/path-exists/index.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromPromise;
     var fs4 = require_fs();
@@ -1071,9 +1076,9 @@ var require_path_exists = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/util/utimes.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/util/utimes.js
 var require_utimes = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/util/utimes.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/util/utimes.js"(exports, module) {
     "use strict";
     var fs4 = require_graceful_fs();
     function utimesMillis(path4, atime, mtime, callback) {
@@ -1100,9 +1105,9 @@ var require_utimes = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/util/stat.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/util/stat.js
 var require_stat = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/util/stat.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/util/stat.js"(exports, module) {
     "use strict";
     var fs4 = require_fs();
     var path4 = __require("path");
@@ -1238,9 +1243,9 @@ var require_stat = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/copy/copy.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/copy/copy.js
 var require_copy = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/copy/copy.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/copy/copy.js"(exports, module) {
     "use strict";
     var fs4 = require_graceful_fs();
     var path4 = __require("path");
@@ -1470,9 +1475,9 @@ var require_copy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/copy/copy-sync.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/copy/copy-sync.js
 var require_copy_sync = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/copy/copy-sync.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/copy/copy-sync.js"(exports, module) {
     "use strict";
     var fs4 = require_graceful_fs();
     var path4 = __require("path");
@@ -1611,9 +1616,9 @@ var require_copy_sync = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/copy/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/copy/index.js
 var require_copy2 = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/copy/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/copy/index.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromCallback;
     module.exports = {
@@ -1623,9 +1628,9 @@ var require_copy2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/remove/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/remove/index.js
 var require_remove = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/remove/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/remove/index.js"(exports, module) {
     "use strict";
     var fs4 = require_graceful_fs();
     var u = require_universalify().fromCallback;
@@ -1642,9 +1647,9 @@ var require_remove = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/empty/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/empty/index.js
 var require_empty = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/empty/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/empty/index.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromPromise;
     var fs4 = require_fs();
@@ -1681,9 +1686,9 @@ var require_empty = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/file.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/file.js
 var require_file = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/file.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/file.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromCallback;
     var path4 = __require("path");
@@ -1751,9 +1756,9 @@ var require_file = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/link.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/link.js
 var require_link = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/link.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/link.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromCallback;
     var path4 = __require("path");
@@ -1820,9 +1825,9 @@ var require_link = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/symlink-paths.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/symlink-paths.js
 var require_symlink_paths = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/symlink-paths.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/symlink-paths.js"(exports, module) {
     "use strict";
     var path4 = __require("path");
     var fs4 = require_graceful_fs();
@@ -1902,9 +1907,9 @@ var require_symlink_paths = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/symlink-type.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/symlink-type.js
 var require_symlink_type = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/symlink-type.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/symlink-type.js"(exports, module) {
     "use strict";
     var fs4 = require_graceful_fs();
     function symlinkType(srcpath, type, callback) {
@@ -1937,9 +1942,9 @@ var require_symlink_type = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/symlink.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/symlink.js
 var require_symlink = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/symlink.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/symlink.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromCallback;
     var path4 = __require("path");
@@ -2024,22 +2029,25 @@ var require_symlink = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/index.js
 var require_ensure = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/ensure/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/ensure/index.js"(exports, module) {
     "use strict";
     var { createFile, createFileSync } = require_file();
     var { createLink, createLinkSync } = require_link();
     var { createSymlink, createSymlinkSync } = require_symlink();
     module.exports = {
+      // file
       createFile,
       createFileSync,
       ensureFile: createFile,
       ensureFileSync: createFileSync,
+      // link
       createLink,
       createLinkSync,
       ensureLink: createLink,
       ensureLinkSync: createLinkSync,
+      // symlink
       createSymlink,
       createSymlinkSync,
       ensureSymlink: createSymlink,
@@ -2138,12 +2146,13 @@ var require_jsonfile = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/jsonfile.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/jsonfile.js
 var require_jsonfile2 = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/jsonfile.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/jsonfile.js"(exports, module) {
     "use strict";
     var jsonFile = require_jsonfile();
     module.exports = {
+      // jsonfile exports
       readJson: jsonFile.readFile,
       readJsonSync: jsonFile.readFileSync,
       writeJson: jsonFile.writeFile,
@@ -2152,9 +2161,9 @@ var require_jsonfile2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/output-file/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/output-file/index.js
 var require_output_file = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/output-file/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/output-file/index.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromCallback;
     var fs4 = require_graceful_fs();
@@ -2194,9 +2203,9 @@ var require_output_file = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/output-json.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/output-json.js
 var require_output_json = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/output-json.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/output-json.js"(exports, module) {
     "use strict";
     var { stringify } = require_utils2();
     var { outputFile } = require_output_file();
@@ -2208,9 +2217,9 @@ var require_output_json = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/output-json-sync.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/output-json-sync.js
 var require_output_json_sync = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/output-json-sync.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/output-json-sync.js"(exports, module) {
     "use strict";
     var { stringify } = require_utils2();
     var { outputFileSync } = require_output_file();
@@ -2222,9 +2231,9 @@ var require_output_json_sync = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/index.js
 var require_json = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/json/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/json/index.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromPromise;
     var jsonFile = require_jsonfile2();
@@ -2240,9 +2249,9 @@ var require_json = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/move/move.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/move/move.js
 var require_move = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/move/move.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/move/move.js"(exports, module) {
     "use strict";
     var fs4 = require_graceful_fs();
     var path4 = __require("path");
@@ -2310,7 +2319,8 @@ var require_move = __commonJS({
     function moveAcrossDevice(src, dest, overwrite, cb) {
       const opts = {
         overwrite,
-        errorOnExist: true
+        errorOnExist: true,
+        preserveTimestamps: true
       };
       copy(src, dest, opts, (err) => {
         if (err)
@@ -2322,9 +2332,9 @@ var require_move = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/move/move-sync.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/move/move-sync.js
 var require_move_sync = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/move/move-sync.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/move/move-sync.js"(exports, module) {
     "use strict";
     var fs4 = require_graceful_fs();
     var path4 = __require("path");
@@ -2369,7 +2379,8 @@ var require_move_sync = __commonJS({
     function moveAcrossDevice(src, dest, overwrite) {
       const opts = {
         overwrite,
-        errorOnExist: true
+        errorOnExist: true,
+        preserveTimestamps: true
       };
       copySync(src, dest, opts);
       return removeSync(src);
@@ -2378,9 +2389,9 @@ var require_move_sync = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/move/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/move/index.js
 var require_move2 = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/move/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/move/index.js"(exports, module) {
     "use strict";
     var u = require_universalify().fromCallback;
     module.exports = {
@@ -2390,12 +2401,14 @@ var require_move2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/index.js
+// node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/index.js
 var require_lib = __commonJS({
-  "node_modules/.pnpm/fs-extra@11.1.0/node_modules/fs-extra/lib/index.js"(exports, module) {
+  "node_modules/.pnpm/fs-extra@11.1.1/node_modules/fs-extra/lib/index.js"(exports, module) {
     "use strict";
     module.exports = {
+      // Export promiseified graceful-fs:
       ...require_fs(),
+      // Export extra methods:
       ...require_copy2(),
       ...require_empty(),
       ...require_ensure(),
@@ -2409,75 +2422,373 @@ var require_lib = __commonJS({
   }
 });
 
-// node_modules/.pnpm/tslib@2.4.1/node_modules/tslib/tslib.js
-var require_tslib = __commonJS({
-  "node_modules/.pnpm/tslib@2.4.1/node_modules/tslib/tslib.js"(exports, module) {
-    var __extends;
-    var __assign;
-    var __rest;
-    var __decorate;
-    var __param;
-    var __metadata;
-    var __awaiter;
-    var __generator;
-    var __exportStar;
-    var __values;
-    var __read;
-    var __spread;
-    var __spreadArrays;
-    var __spreadArray;
-    var __await;
-    var __asyncGenerator;
-    var __asyncDelegator;
-    var __asyncValues;
-    var __makeTemplateObject;
-    var __importStar;
-    var __importDefault;
-    var __classPrivateFieldGet;
-    var __classPrivateFieldSet;
-    var __classPrivateFieldIn;
-    var __createBinding;
-    (function(factory) {
-      var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
-      if (typeof define === "function" && define.amd) {
-        define("tslib", ["exports"], function(exports2) {
-          factory(createExporter(root, createExporter(exports2)));
+// node_modules/.pnpm/tslib@2.4.1/node_modules/tslib/tslib.es6.js
+var tslib_es6_exports = {};
+__export(tslib_es6_exports, {
+  __assign: () => __assign,
+  __asyncDelegator: () => __asyncDelegator,
+  __asyncGenerator: () => __asyncGenerator,
+  __asyncValues: () => __asyncValues,
+  __await: () => __await,
+  __awaiter: () => __awaiter,
+  __classPrivateFieldGet: () => __classPrivateFieldGet,
+  __classPrivateFieldIn: () => __classPrivateFieldIn,
+  __classPrivateFieldSet: () => __classPrivateFieldSet,
+  __createBinding: () => __createBinding,
+  __decorate: () => __decorate,
+  __exportStar: () => __exportStar,
+  __extends: () => __extends,
+  __generator: () => __generator,
+  __importDefault: () => __importDefault,
+  __importStar: () => __importStar,
+  __makeTemplateObject: () => __makeTemplateObject,
+  __metadata: () => __metadata,
+  __param: () => __param,
+  __read: () => __read,
+  __rest: () => __rest,
+  __spread: () => __spread,
+  __spreadArray: () => __spreadArray,
+  __spreadArrays: () => __spreadArrays,
+  __values: () => __values
+});
+function __extends(d, b) {
+  if (typeof b !== "function" && b !== null)
+    throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+  extendStatics(d, b);
+  function __() {
+    this.constructor = d;
+  }
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+function __rest(s, e) {
+  var t = {};
+  for (var p in s)
+    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+      t[p] = s[p];
+  if (s != null && typeof Object.getOwnPropertySymbols === "function")
+    for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+      if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+        t[p[i]] = s[p[i]];
+    }
+  return t;
+}
+function __decorate(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+function __param(paramIndex, decorator) {
+  return function(target, key) {
+    decorator(target, key, paramIndex);
+  };
+}
+function __metadata(metadataKey, metadataValue) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+    return Reflect.metadata(metadataKey, metadataValue);
+}
+function __awaiter(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+}
+function __generator(thisArg, body) {
+  var _ = { label: 0, sent: function() {
+    if (t[0] & 1)
+      throw t[1];
+    return t[1];
+  }, trys: [], ops: [] }, f, y, t, g;
+  return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+    return this;
+  }), g;
+  function verb(n) {
+    return function(v) {
+      return step([n, v]);
+    };
+  }
+  function step(op) {
+    if (f)
+      throw new TypeError("Generator is already executing.");
+    while (g && (g = 0, op[0] && (_ = 0)), _)
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+          return t;
+        if (y = 0, t)
+          op = [op[0] & 2, t.value];
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+          case 4:
+            _.label++;
+            return { value: op[1], done: false };
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+          case 7:
+            op = _.ops.pop();
+            _.trys.pop();
+            continue;
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+              _.ops.push(op);
+              break;
+            }
+            if (t[2])
+              _.ops.pop();
+            _.trys.pop();
+            continue;
+        }
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    if (op[0] & 5)
+      throw op[1];
+    return { value: op[0] ? op[1] : void 0, done: true };
+  }
+}
+function __exportStar(m, o) {
+  for (var p in m)
+    if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+      __createBinding(o, m, p);
+}
+function __values(o) {
+  var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+  if (m)
+    return m.call(o);
+  if (o && typeof o.length === "number")
+    return {
+      next: function() {
+        if (o && i >= o.length)
+          o = void 0;
+        return { value: o && o[i++], done: !o };
+      }
+    };
+  throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+function __read(o, n) {
+  var m = typeof Symbol === "function" && o[Symbol.iterator];
+  if (!m)
+    return o;
+  var i = m.call(o), r, ar = [], e;
+  try {
+    while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+      ar.push(r.value);
+  } catch (error) {
+    e = { error };
+  } finally {
+    try {
+      if (r && !r.done && (m = i["return"]))
+        m.call(i);
+    } finally {
+      if (e)
+        throw e.error;
+    }
+  }
+  return ar;
+}
+function __spread() {
+  for (var ar = [], i = 0; i < arguments.length; i++)
+    ar = ar.concat(__read(arguments[i]));
+  return ar;
+}
+function __spreadArrays() {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+    s += arguments[i].length;
+  for (var r = Array(s), k = 0, i = 0; i < il; i++)
+    for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+      r[k] = a[j];
+  return r;
+}
+function __spreadArray(to, from, pack) {
+  if (pack || arguments.length === 2)
+    for (var i = 0, l = from.length, ar; i < l; i++) {
+      if (ar || !(i in from)) {
+        if (!ar)
+          ar = Array.prototype.slice.call(from, 0, i);
+        ar[i] = from[i];
+      }
+    }
+  return to.concat(ar || Array.prototype.slice.call(from));
+}
+function __await(v) {
+  return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+function __asyncGenerator(thisArg, _arguments, generator) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var g = generator.apply(thisArg, _arguments || []), i, q = [];
+  return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+    return this;
+  }, i;
+  function verb(n) {
+    if (g[n])
+      i[n] = function(v) {
+        return new Promise(function(a, b) {
+          q.push([n, v, a, b]) > 1 || resume(n, v);
         });
-      } else if (typeof module === "object" && typeof module.exports === "object") {
-        factory(createExporter(root, createExporter(module.exports)));
-      } else {
-        factory(createExporter(root));
-      }
-      function createExporter(exports2, previous) {
-        if (exports2 !== root) {
-          if (typeof Object.create === "function") {
-            Object.defineProperty(exports2, "__esModule", { value: true });
-          } else {
-            exports2.__esModule = true;
-          }
-        }
-        return function(id, v) {
-          return exports2[id] = previous ? previous(id, v) : v;
-        };
-      }
-    })(function(exporter) {
-      var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b) {
-        d.__proto__ = b;
-      } || function(d, b) {
-        for (var p in b)
-          if (Object.prototype.hasOwnProperty.call(b, p))
-            d[p] = b[p];
       };
-      __extends = function(d, b) {
-        if (typeof b !== "function" && b !== null)
-          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  }
+  function resume(n, v) {
+    try {
+      step(g[n](v));
+    } catch (e) {
+      settle(q[0][3], e);
+    }
+  }
+  function step(r) {
+    r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
+  }
+  function fulfill(value) {
+    resume("next", value);
+  }
+  function reject(value) {
+    resume("throw", value);
+  }
+  function settle(f, v) {
+    if (f(v), q.shift(), q.length)
+      resume(q[0][0], q[0][1]);
+  }
+}
+function __asyncDelegator(o) {
+  var i, p;
+  return i = {}, verb("next"), verb("throw", function(e) {
+    throw e;
+  }), verb("return"), i[Symbol.iterator] = function() {
+    return this;
+  }, i;
+  function verb(n, f) {
+    i[n] = o[n] ? function(v) {
+      return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v;
+    } : f;
+  }
+}
+function __asyncValues(o) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var m = o[Symbol.asyncIterator], i;
+  return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+    return this;
+  }, i);
+  function verb(n) {
+    i[n] = o[n] && function(v) {
+      return new Promise(function(resolve, reject) {
+        v = o[n](v), settle(resolve, reject, v.done, v.value);
+      });
+    };
+  }
+  function settle(resolve, reject, d, v) {
+    Promise.resolve(v).then(function(v2) {
+      resolve({ value: v2, done: d });
+    }, reject);
+  }
+}
+function __makeTemplateObject(cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", { value: raw });
+  } else {
+    cooked.raw = raw;
+  }
+  return cooked;
+}
+function __importStar(mod) {
+  if (mod && mod.__esModule)
+    return mod;
+  var result = {};
+  if (mod != null) {
+    for (var k in mod)
+      if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+        __createBinding(result, mod, k);
+  }
+  __setModuleDefault(result, mod);
+  return result;
+}
+function __importDefault(mod) {
+  return mod && mod.__esModule ? mod : { default: mod };
+}
+function __classPrivateFieldGet(receiver, state, kind, f) {
+  if (kind === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+}
+function __classPrivateFieldSet(receiver, state, value, kind, f) {
+  if (kind === "m")
+    throw new TypeError("Private method is not writable");
+  if (kind === "a" && !f)
+    throw new TypeError("Private accessor was defined without a setter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot write private member to an object whose class did not declare it");
+  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+}
+function __classPrivateFieldIn(state, receiver) {
+  if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function")
+    throw new TypeError("Cannot use 'in' operator on non-object");
+  return typeof state === "function" ? receiver === state : state.has(receiver);
+}
+var extendStatics, __assign, __createBinding, __setModuleDefault;
+var init_tslib_es6 = __esm({
+  "node_modules/.pnpm/tslib@2.4.1/node_modules/tslib/tslib.es6.js"() {
+    extendStatics = function(d, b) {
+      extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
+        d2.__proto__ = b2;
+      } || function(d2, b2) {
+        for (var p in b2)
+          if (Object.prototype.hasOwnProperty.call(b2, p))
+            d2[p] = b2[p];
       };
-      __assign = Object.assign || function(t) {
+      return extendStatics(d, b);
+    };
+    __assign = function() {
+      __assign = Object.assign || function __assign2(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
           s = arguments[i];
           for (var p in s)
@@ -2486,366 +2797,28 @@ var require_tslib = __commonJS({
         }
         return t;
       };
-      __rest = function(s, e) {
-        var t = {};
-        for (var p in s)
-          if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === "function")
-          for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-              t[p[i]] = s[p[i]];
-          }
-        return t;
-      };
-      __decorate = function(decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
-          r = Reflect.decorate(decorators, target, key, desc);
-        else
-          for (var i = decorators.length - 1; i >= 0; i--)
-            if (d = decorators[i])
-              r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-      };
-      __param = function(paramIndex, decorator) {
-        return function(target, key) {
-          decorator(target, key, paramIndex);
-        };
-      };
-      __metadata = function(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
-          return Reflect.metadata(metadataKey, metadataValue);
-      };
-      __awaiter = function(thisArg, _arguments, P, generator) {
-        function adopt(value) {
-          return value instanceof P ? value : new P(function(resolve) {
-            resolve(value);
-          });
-        }
-        return new (P || (P = Promise))(function(resolve, reject) {
-          function fulfilled(value) {
-            try {
-              step(generator.next(value));
-            } catch (e) {
-              reject(e);
-            }
-          }
-          function rejected(value) {
-            try {
-              step(generator["throw"](value));
-            } catch (e) {
-              reject(e);
-            }
-          }
-          function step(result) {
-            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-          }
-          step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-      };
-      __generator = function(thisArg, body) {
-        var _ = { label: 0, sent: function() {
-          if (t[0] & 1)
-            throw t[1];
-          return t[1];
-        }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
-          return this;
-        }), g;
-        function verb(n) {
-          return function(v) {
-            return step([n, v]);
-          };
-        }
-        function step(op) {
-          if (f)
-            throw new TypeError("Generator is already executing.");
-          while (g && (g = 0, op[0] && (_ = 0)), _)
-            try {
-              if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
-                return t;
-              if (y = 0, t)
-                op = [op[0] & 2, t.value];
-              switch (op[0]) {
-                case 0:
-                case 1:
-                  t = op;
-                  break;
-                case 4:
-                  _.label++;
-                  return { value: op[1], done: false };
-                case 5:
-                  _.label++;
-                  y = op[1];
-                  op = [0];
-                  continue;
-                case 7:
-                  op = _.ops.pop();
-                  _.trys.pop();
-                  continue;
-                default:
-                  if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                    _ = 0;
-                    continue;
-                  }
-                  if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-                    _.label = op[1];
-                    break;
-                  }
-                  if (op[0] === 6 && _.label < t[1]) {
-                    _.label = t[1];
-                    t = op;
-                    break;
-                  }
-                  if (t && _.label < t[2]) {
-                    _.label = t[2];
-                    _.ops.push(op);
-                    break;
-                  }
-                  if (t[2])
-                    _.ops.pop();
-                  _.trys.pop();
-                  continue;
-              }
-              op = body.call(thisArg, _);
-            } catch (e) {
-              op = [6, e];
-              y = 0;
-            } finally {
-              f = t = 0;
-            }
-          if (op[0] & 5)
-            throw op[1];
-          return { value: op[0] ? op[1] : void 0, done: true };
-        }
-      };
-      __exportStar = function(m, o) {
-        for (var p in m)
-          if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
-            __createBinding(o, m, p);
-      };
-      __createBinding = Object.create ? function(o, m, k, k2) {
-        if (k2 === void 0)
-          k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: function() {
-            return m[k];
-          } };
-        }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
-        if (k2 === void 0)
-          k2 = k;
-        o[k2] = m[k];
-      };
-      __values = function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m)
-          return m.call(o);
-        if (o && typeof o.length === "number")
-          return {
-            next: function() {
-              if (o && i >= o.length)
-                o = void 0;
-              return { value: o && o[i++], done: !o };
-            }
-          };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      __read = function(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m)
-          return o;
-        var i = m.call(o), r, ar = [], e;
-        try {
-          while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
-            ar.push(r.value);
-        } catch (error) {
-          e = { error };
-        } finally {
-          try {
-            if (r && !r.done && (m = i["return"]))
-              m.call(i);
-          } finally {
-            if (e)
-              throw e.error;
-          }
-        }
-        return ar;
-      };
-      __spread = function() {
-        for (var ar = [], i = 0; i < arguments.length; i++)
-          ar = ar.concat(__read(arguments[i]));
-        return ar;
-      };
-      __spreadArrays = function() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
-          s += arguments[i].length;
-        for (var r = Array(s), k = 0, i = 0; i < il; i++)
-          for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-        return r;
-      };
-      __spreadArray = function(to, from, pack) {
-        if (pack || arguments.length === 2)
-          for (var i = 0, l = from.length, ar; i < l; i++) {
-            if (ar || !(i in from)) {
-              if (!ar)
-                ar = Array.prototype.slice.call(from, 0, i);
-              ar[i] = from[i];
-            }
-          }
-        return to.concat(ar || Array.prototype.slice.call(from));
-      };
-      __await = function(v) {
-        return this instanceof __await ? (this.v = v, this) : new __await(v);
-      };
-      __asyncGenerator = function(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator)
-          throw new TypeError("Symbol.asyncIterator is not defined.");
-        var g = generator.apply(thisArg, _arguments || []), i, q = [];
-        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
-          return this;
-        }, i;
-        function verb(n) {
-          if (g[n])
-            i[n] = function(v) {
-              return new Promise(function(a, b) {
-                q.push([n, v, a, b]) > 1 || resume(n, v);
-              });
-            };
-        }
-        function resume(n, v) {
-          try {
-            step(g[n](v));
-          } catch (e) {
-            settle(q[0][3], e);
-          }
-        }
-        function step(r) {
-          r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
-        }
-        function fulfill(value) {
-          resume("next", value);
-        }
-        function reject(value) {
-          resume("throw", value);
-        }
-        function settle(f, v) {
-          if (f(v), q.shift(), q.length)
-            resume(q[0][0], q[0][1]);
-        }
-      };
-      __asyncDelegator = function(o) {
-        var i, p;
-        return i = {}, verb("next"), verb("throw", function(e) {
-          throw e;
-        }), verb("return"), i[Symbol.iterator] = function() {
-          return this;
-        }, i;
-        function verb(n, f) {
-          i[n] = o[n] ? function(v) {
-            return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v;
-          } : f;
-        }
-      };
-      __asyncValues = function(o) {
-        if (!Symbol.asyncIterator)
-          throw new TypeError("Symbol.asyncIterator is not defined.");
-        var m = o[Symbol.asyncIterator], i;
-        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
-          return this;
-        }, i);
-        function verb(n) {
-          i[n] = o[n] && function(v) {
-            return new Promise(function(resolve, reject) {
-              v = o[n](v), settle(resolve, reject, v.done, v.value);
-            });
-          };
-        }
-        function settle(resolve, reject, d, v) {
-          Promise.resolve(v).then(function(v2) {
-            resolve({ value: v2, done: d });
-          }, reject);
-        }
-      };
-      __makeTemplateObject = function(cooked, raw) {
-        if (Object.defineProperty) {
-          Object.defineProperty(cooked, "raw", { value: raw });
-        } else {
-          cooked.raw = raw;
-        }
-        return cooked;
-      };
-      var __setModuleDefault = Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
-      };
-      __importStar = function(mod) {
-        if (mod && mod.__esModule)
-          return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k in mod)
-            if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
-              __createBinding(result, mod, k);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-      __importDefault = function(mod) {
-        return mod && mod.__esModule ? mod : { "default": mod };
-      };
-      __classPrivateFieldGet = function(receiver, state, kind, f) {
-        if (kind === "a" && !f)
-          throw new TypeError("Private accessor was defined without a getter");
-        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-          throw new TypeError("Cannot read private member from an object whose class did not declare it");
-        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-      };
-      __classPrivateFieldSet = function(receiver, state, value, kind, f) {
-        if (kind === "m")
-          throw new TypeError("Private method is not writable");
-        if (kind === "a" && !f)
-          throw new TypeError("Private accessor was defined without a setter");
-        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-          throw new TypeError("Cannot write private member to an object whose class did not declare it");
-        return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-      };
-      __classPrivateFieldIn = function(state, receiver) {
-        if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function")
-          throw new TypeError("Cannot use 'in' operator on non-object");
-        return typeof state === "function" ? receiver === state : state.has(receiver);
-      };
-      exporter("__extends", __extends);
-      exporter("__assign", __assign);
-      exporter("__rest", __rest);
-      exporter("__decorate", __decorate);
-      exporter("__param", __param);
-      exporter("__metadata", __metadata);
-      exporter("__awaiter", __awaiter);
-      exporter("__generator", __generator);
-      exporter("__exportStar", __exportStar);
-      exporter("__createBinding", __createBinding);
-      exporter("__values", __values);
-      exporter("__read", __read);
-      exporter("__spread", __spread);
-      exporter("__spreadArrays", __spreadArrays);
-      exporter("__spreadArray", __spreadArray);
-      exporter("__await", __await);
-      exporter("__asyncGenerator", __asyncGenerator);
-      exporter("__asyncDelegator", __asyncDelegator);
-      exporter("__asyncValues", __asyncValues);
-      exporter("__makeTemplateObject", __makeTemplateObject);
-      exporter("__importStar", __importStar);
-      exporter("__importDefault", __importDefault);
-      exporter("__classPrivateFieldGet", __classPrivateFieldGet);
-      exporter("__classPrivateFieldSet", __classPrivateFieldSet);
-      exporter("__classPrivateFieldIn", __classPrivateFieldIn);
-    });
+      return __assign.apply(this, arguments);
+    };
+    __createBinding = Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    };
+    __setModuleDefault = Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    };
   }
 });
 
@@ -4251,6 +4224,8 @@ var require_source_map_consumer = __commonJS({
         lastOffset = offset;
         return {
           generatedOffset: {
+            // The offset fields are 0-based, but we use 1-based indices when
+            // encoding/decoding from VLQ.
             generatedLine: offsetLine + 1,
             generatedColumn: offsetColumn + 1
           },
@@ -4699,113 +4674,116 @@ var require_abstract_file_manager = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/environment/abstract-file-manager.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var AbstractFileManager = function() {
-      function AbstractFileManager2() {
-      }
-      AbstractFileManager2.prototype.getPath = function(filename) {
-        var j = filename.lastIndexOf("?");
-        if (j > 0) {
-          filename = filename.slice(0, j);
+    var AbstractFileManager = (
+      /** @class */
+      function() {
+        function AbstractFileManager2() {
         }
-        j = filename.lastIndexOf("/");
-        if (j < 0) {
-          j = filename.lastIndexOf("\\");
-        }
-        if (j < 0) {
-          return "";
-        }
-        return filename.slice(0, j + 1);
-      };
-      AbstractFileManager2.prototype.tryAppendExtension = function(path4, ext) {
-        return /(\.[a-z]*$)|([\?;].*)$/.test(path4) ? path4 : path4 + ext;
-      };
-      AbstractFileManager2.prototype.tryAppendLessExtension = function(path4) {
-        return this.tryAppendExtension(path4, ".less");
-      };
-      AbstractFileManager2.prototype.supportsSync = function() {
-        return false;
-      };
-      AbstractFileManager2.prototype.alwaysMakePathsAbsolute = function() {
-        return false;
-      };
-      AbstractFileManager2.prototype.isPathAbsolute = function(filename) {
-        return /^(?:[a-z-]+:|\/|\\|#)/i.test(filename);
-      };
-      AbstractFileManager2.prototype.join = function(basePath, laterPath) {
-        if (!basePath) {
-          return laterPath;
-        }
-        return basePath + laterPath;
-      };
-      AbstractFileManager2.prototype.pathDiff = function(url, baseUrl) {
-        var urlParts = this.extractUrlParts(url);
-        var baseUrlParts = this.extractUrlParts(baseUrl);
-        var i;
-        var max;
-        var urlDirectories;
-        var baseUrlDirectories;
-        var diff = "";
-        if (urlParts.hostPart !== baseUrlParts.hostPart) {
-          return "";
-        }
-        max = Math.max(baseUrlParts.directories.length, urlParts.directories.length);
-        for (i = 0; i < max; i++) {
-          if (baseUrlParts.directories[i] !== urlParts.directories[i]) {
-            break;
+        AbstractFileManager2.prototype.getPath = function(filename) {
+          var j = filename.lastIndexOf("?");
+          if (j > 0) {
+            filename = filename.slice(0, j);
           }
-        }
-        baseUrlDirectories = baseUrlParts.directories.slice(i);
-        urlDirectories = urlParts.directories.slice(i);
-        for (i = 0; i < baseUrlDirectories.length - 1; i++) {
-          diff += "../";
-        }
-        for (i = 0; i < urlDirectories.length - 1; i++) {
-          diff += urlDirectories[i] + "/";
-        }
-        return diff;
-      };
-      AbstractFileManager2.prototype.extractUrlParts = function(url, baseUrl) {
-        var urlPartsRegex = /^((?:[a-z-]+:)?\/{2}(?:[^\/\?#]*\/)|([\/\\]))?((?:[^\/\\\?#]*[\/\\])*)([^\/\\\?#]*)([#\?].*)?$/i;
-        var urlParts = url.match(urlPartsRegex);
-        var returner = {};
-        var rawDirectories = [];
-        var directories = [];
-        var i;
-        var baseUrlParts;
-        if (!urlParts) {
-          throw new Error("Could not parse sheet href - '" + url + "'");
-        }
-        if (baseUrl && (!urlParts[1] || urlParts[2])) {
-          baseUrlParts = baseUrl.match(urlPartsRegex);
-          if (!baseUrlParts) {
-            throw new Error("Could not parse page url - '" + baseUrl + "'");
+          j = filename.lastIndexOf("/");
+          if (j < 0) {
+            j = filename.lastIndexOf("\\");
           }
-          urlParts[1] = urlParts[1] || baseUrlParts[1] || "";
-          if (!urlParts[2]) {
-            urlParts[3] = baseUrlParts[3] + urlParts[3];
+          if (j < 0) {
+            return "";
           }
-        }
-        if (urlParts[3]) {
-          rawDirectories = urlParts[3].replace(/\\/g, "/").split("/");
-          for (i = 0; i < rawDirectories.length; i++) {
-            if (rawDirectories[i] === "..") {
-              directories.pop();
-            } else if (rawDirectories[i] !== ".") {
-              directories.push(rawDirectories[i]);
+          return filename.slice(0, j + 1);
+        };
+        AbstractFileManager2.prototype.tryAppendExtension = function(path4, ext) {
+          return /(\.[a-z]*$)|([\?;].*)$/.test(path4) ? path4 : path4 + ext;
+        };
+        AbstractFileManager2.prototype.tryAppendLessExtension = function(path4) {
+          return this.tryAppendExtension(path4, ".less");
+        };
+        AbstractFileManager2.prototype.supportsSync = function() {
+          return false;
+        };
+        AbstractFileManager2.prototype.alwaysMakePathsAbsolute = function() {
+          return false;
+        };
+        AbstractFileManager2.prototype.isPathAbsolute = function(filename) {
+          return /^(?:[a-z-]+:|\/|\\|#)/i.test(filename);
+        };
+        AbstractFileManager2.prototype.join = function(basePath, laterPath) {
+          if (!basePath) {
+            return laterPath;
+          }
+          return basePath + laterPath;
+        };
+        AbstractFileManager2.prototype.pathDiff = function(url, baseUrl) {
+          var urlParts = this.extractUrlParts(url);
+          var baseUrlParts = this.extractUrlParts(baseUrl);
+          var i;
+          var max;
+          var urlDirectories;
+          var baseUrlDirectories;
+          var diff = "";
+          if (urlParts.hostPart !== baseUrlParts.hostPart) {
+            return "";
+          }
+          max = Math.max(baseUrlParts.directories.length, urlParts.directories.length);
+          for (i = 0; i < max; i++) {
+            if (baseUrlParts.directories[i] !== urlParts.directories[i]) {
+              break;
             }
           }
-        }
-        returner.hostPart = urlParts[1];
-        returner.directories = directories;
-        returner.rawPath = (urlParts[1] || "") + rawDirectories.join("/");
-        returner.path = (urlParts[1] || "") + directories.join("/");
-        returner.filename = urlParts[4];
-        returner.fileUrl = returner.path + (urlParts[4] || "");
-        returner.url = returner.fileUrl + (urlParts[5] || "");
-        return returner;
-      };
-      return AbstractFileManager2;
-    }();
+          baseUrlDirectories = baseUrlParts.directories.slice(i);
+          urlDirectories = urlParts.directories.slice(i);
+          for (i = 0; i < baseUrlDirectories.length - 1; i++) {
+            diff += "../";
+          }
+          for (i = 0; i < urlDirectories.length - 1; i++) {
+            diff += urlDirectories[i] + "/";
+          }
+          return diff;
+        };
+        AbstractFileManager2.prototype.extractUrlParts = function(url, baseUrl) {
+          var urlPartsRegex = /^((?:[a-z-]+:)?\/{2}(?:[^\/\?#]*\/)|([\/\\]))?((?:[^\/\\\?#]*[\/\\])*)([^\/\\\?#]*)([#\?].*)?$/i;
+          var urlParts = url.match(urlPartsRegex);
+          var returner = {};
+          var rawDirectories = [];
+          var directories = [];
+          var i;
+          var baseUrlParts;
+          if (!urlParts) {
+            throw new Error("Could not parse sheet href - '" + url + "'");
+          }
+          if (baseUrl && (!urlParts[1] || urlParts[2])) {
+            baseUrlParts = baseUrl.match(urlPartsRegex);
+            if (!baseUrlParts) {
+              throw new Error("Could not parse page url - '" + baseUrl + "'");
+            }
+            urlParts[1] = urlParts[1] || baseUrlParts[1] || "";
+            if (!urlParts[2]) {
+              urlParts[3] = baseUrlParts[3] + urlParts[3];
+            }
+          }
+          if (urlParts[3]) {
+            rawDirectories = urlParts[3].replace(/\\/g, "/").split("/");
+            for (i = 0; i < rawDirectories.length; i++) {
+              if (rawDirectories[i] === "..") {
+                directories.pop();
+              } else if (rawDirectories[i] !== ".") {
+                directories.push(rawDirectories[i]);
+              }
+            }
+          }
+          returner.hostPart = urlParts[1];
+          returner.directories = directories;
+          returner.rawPath = (urlParts[1] || "") + rawDirectories.join("/");
+          returner.path = (urlParts[1] || "") + directories.join("/");
+          returner.filename = urlParts[4];
+          returner.fileUrl = returner.path + (urlParts[4] || "");
+          returner.url = returner.fileUrl + (urlParts[5] || "");
+          return returner;
+        };
+        return AbstractFileManager2;
+      }()
+    );
     exports.default = AbstractFileManager;
   }
 });
@@ -4815,7 +4793,7 @@ var require_file_manager = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less-node/file-manager.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var path_1 = tslib_1.__importDefault(__require("path"));
     var fs_1 = tslib_1.__importDefault(require_fs2());
     var abstract_file_manager_js_1 = tslib_1.__importDefault(require_abstract_file_manager());
@@ -4832,7 +4810,7 @@ var require_file_manager = __commonJS({
         var fullFilename;
         var isAbsoluteFilename = this.isPathAbsolute(filename);
         var filenamesTried = [];
-        var self2 = this;
+        var self = this;
         var prefix = filename.slice(0, 1);
         var explicit = prefix === "." || prefix === "/";
         var result = null;
@@ -4871,7 +4849,7 @@ var require_file_manager = __commonJS({
               (function tryPrefix(j) {
                 if (j < prefixes.length) {
                   let tryWithExtension = function() {
-                    var extFilename = options.ext ? self2.tryAppendExtension(fullFilename, options.ext) : fullFilename;
+                    var extFilename = options.ext ? self.tryAppendExtension(fullFilename, options.ext) : fullFilename;
                     if (extFilename !== fullFilename && !explicit && paths[i] === ".") {
                       try {
                         fullFilename = __require.resolve(extFilename);
@@ -5500,41 +5478,77 @@ var require_sax = __commonJS({
       var S = 0;
       sax.STATE = {
         BEGIN: S++,
+        // leading byte order mark or whitespace
         BEGIN_WHITESPACE: S++,
+        // leading whitespace
         TEXT: S++,
+        // general stuff
         TEXT_ENTITY: S++,
+        // &amp and such.
         OPEN_WAKA: S++,
+        // <
         SGML_DECL: S++,
+        // <!BLARG
         SGML_DECL_QUOTED: S++,
+        // <!BLARG foo "bar
         DOCTYPE: S++,
+        // <!DOCTYPE
         DOCTYPE_QUOTED: S++,
+        // <!DOCTYPE "//blah
         DOCTYPE_DTD: S++,
+        // <!DOCTYPE "//blah" [ ...
         DOCTYPE_DTD_QUOTED: S++,
+        // <!DOCTYPE "//blah" [ "foo
         COMMENT_STARTING: S++,
+        // <!-
         COMMENT: S++,
+        // <!--
         COMMENT_ENDING: S++,
+        // <!-- blah -
         COMMENT_ENDED: S++,
+        // <!-- blah --
         CDATA: S++,
+        // <![CDATA[ something
         CDATA_ENDING: S++,
+        // ]
         CDATA_ENDING_2: S++,
+        // ]]
         PROC_INST: S++,
+        // <?hi
         PROC_INST_BODY: S++,
+        // <?hi there
         PROC_INST_ENDING: S++,
+        // <?hi "there" ?
         OPEN_TAG: S++,
+        // <strong
         OPEN_TAG_SLASH: S++,
+        // <strong /
         ATTRIB: S++,
+        // <a
         ATTRIB_NAME: S++,
+        // <a foo
         ATTRIB_NAME_SAW_WHITE: S++,
+        // <a foo _
         ATTRIB_VALUE: S++,
+        // <a foo=
         ATTRIB_VALUE_QUOTED: S++,
+        // <a foo="bar
         ATTRIB_VALUE_CLOSED: S++,
+        // <a foo="bar"
         ATTRIB_VALUE_UNQUOTED: S++,
+        // <a foo=bar
         ATTRIB_VALUE_ENTITY_Q: S++,
+        // <foo bar="&quot;"
         ATTRIB_VALUE_ENTITY_U: S++,
+        // <foo bar=&quot
         CLOSE_TAG: S++,
+        // </a
         CLOSE_TAG_SAW_WHITE: S++,
+        // </a   >
         SCRIPT: S++,
+        // <script> ...
         SCRIPT_ENDING: S++
+        // <script> ... <
       };
       sax.XML_ENTITIES = {
         "amp": "&",
@@ -6608,7 +6622,10 @@ var require_sax = __commonJS({
             var result = "";
             while (++index < length) {
               var codePoint = Number(arguments[index]);
-              if (!isFinite(codePoint) || codePoint < 0 || codePoint > 1114111 || floor(codePoint) !== codePoint) {
+              if (!isFinite(codePoint) || // `NaN`, `+Infinity`, or `-Infinity`
+              codePoint < 0 || // not a valid Unicode code point
+              codePoint > 1114111 || // not a valid Unicode code point
+              floor(codePoint) !== codePoint) {
                 throw RangeError("Invalid code point: " + codePoint);
               }
               if (codePoint <= 65535) {
@@ -6693,15 +6710,15 @@ var require_parsers = __commonJS({
           done();
         };
         stream._flush = function(done) {
-          var self2 = this, data = Buffer.concat(chunks);
+          var self = this, data = Buffer.concat(chunks);
           try {
             fn(data, function(err, result) {
               if (err)
                 throw err;
-              self2.push(result);
+              self.push(result);
             });
           } catch (err) {
-            self2.push(data);
+            self.push(data);
           } finally {
             done();
           }
@@ -6868,6 +6885,7 @@ var require_internal = __commonJS({
     "use strict";
     var Buffer2 = require_safer().Buffer;
     module.exports = {
+      // Encodings
       utf8: { type: "_internal", bomAware: true },
       cesu8: { type: "_internal", bomAware: true },
       unicode11utf8: "utf8",
@@ -6876,6 +6894,7 @@ var require_internal = __commonJS({
       binary: { type: "_internal" },
       base64: { type: "_internal" },
       hex: { type: "_internal" },
+      // Codec.
       _internal: InternalCodec
     };
     function InternalCodec(codecOptions, iconv) {
@@ -7639,6 +7658,7 @@ var require_sbcs_data = __commonJS({
   "node_modules/.pnpm/iconv-lite@0.6.3/node_modules/iconv-lite/encodings/sbcs-data.js"(exports, module) {
     "use strict";
     module.exports = {
+      // Not supported by iconv, not sure why.
       "10029": "maccenteuro",
       "maccenteuro": {
         "type": "_sbcs",
@@ -7658,6 +7678,7 @@ var require_sbcs_data = __commonJS({
         "type": "_sbcs",
         "chars": "\x80\x81\xE9\xE2\x84\xE0\x86\xE7\xEA\xEB\xE8\xEF\xEE\x8D\x8E\x8F\x90\u0651\u0652\xF4\xA4\u0640\xFB\xF9\u0621\u0622\u0623\u0624\xA3\u0625\u0626\u0627\u0628\u0629\u062A\u062B\u062C\u062D\u062E\u062F\u0630\u0631\u0632\u0633\u0634\u0635\xAB\xBB\u2591\u2592\u2593\u2502\u2524\u2561\u2562\u2556\u2555\u2563\u2551\u2557\u255D\u255C\u255B\u2510\u2514\u2534\u252C\u251C\u2500\u253C\u255E\u255F\u255A\u2554\u2569\u2566\u2560\u2550\u256C\u2567\u2568\u2564\u2565\u2559\u2558\u2552\u2553\u256B\u256A\u2518\u250C\u2588\u2584\u258C\u2590\u2580\u0636\u0637\u0638\u0639\u063A\u0641\xB5\u0642\u0643\u0644\u0645\u0646\u0647\u0648\u0649\u064A\u2261\u064B\u064C\u064D\u064E\u064F\u0650\u2248\xB0\u2219\xB7\u221A\u207F\xB2\u25A0\xA0"
       },
+      // Aliases of generated encodings.
       "ascii8bit": "ascii",
       "usascii": "ascii",
       "ansix34": "ascii",
@@ -9914,6 +9935,36 @@ var require_dbcs_data = __commonJS({
   "node_modules/.pnpm/iconv-lite@0.6.3/node_modules/iconv-lite/encodings/dbcs-data.js"(exports, module) {
     "use strict";
     module.exports = {
+      // == Japanese/ShiftJIS ====================================================
+      // All japanese encodings are based on JIS X set of standards:
+      // JIS X 0201 - Single-byte encoding of ASCII + ¥ + Kana chars at 0xA1-0xDF.
+      // JIS X 0208 - Main set of 6879 characters, placed in 94x94 plane, to be encoded by 2 bytes. 
+      //              Has several variations in 1978, 1983, 1990 and 1997.
+      // JIS X 0212 - Supplementary plane of 6067 chars in 94x94 plane. 1990. Effectively dead.
+      // JIS X 0213 - Extension and modern replacement of 0208 and 0212. Total chars: 11233.
+      //              2 planes, first is superset of 0208, second - revised 0212.
+      //              Introduced in 2000, revised 2004. Some characters are in Unicode Plane 2 (0x2xxxx)
+      // Byte encodings are:
+      //  * Shift_JIS: Compatible with 0201, uses not defined chars in top half as lead bytes for double-byte
+      //               encoding of 0208. Lead byte ranges: 0x81-0x9F, 0xE0-0xEF; Trail byte ranges: 0x40-0x7E, 0x80-0x9E, 0x9F-0xFC.
+      //               Windows CP932 is a superset of Shift_JIS. Some companies added more chars, notably KDDI.
+      //  * EUC-JP:    Up to 3 bytes per character. Used mostly on *nixes.
+      //               0x00-0x7F       - lower part of 0201
+      //               0x8E, 0xA1-0xDF - upper part of 0201
+      //               (0xA1-0xFE)x2   - 0208 plane (94x94).
+      //               0x8F, (0xA1-0xFE)x2 - 0212 plane (94x94).
+      //  * JIS X 208: 7-bit, direct encoding of 0208. Byte ranges: 0x21-0x7E (94 values). Uncommon.
+      //               Used as-is in ISO2022 family.
+      //  * ISO2022-JP: Stateful encoding, with escape sequences to switch between ASCII, 
+      //                0201-1976 Roman, 0208-1978, 0208-1983.
+      //  * ISO2022-JP-1: Adds esc seq for 0212-1990.
+      //  * ISO2022-JP-2: Adds esc seq for GB2313-1980, KSX1001-1992, ISO8859-1, ISO8859-7.
+      //  * ISO2022-JP-3: Adds esc seq for 0201-1976 Kana set, 0213-2000 Planes 1, 2.
+      //  * ISO2022-JP-2004: Adds 0213-2004 Plane 1.
+      //
+      // After JIS X 0213 appeared, Shift_JIS-2004, EUC-JISX0213 and ISO2022-JP-2004 followed, with just changing the planes.
+      //
+      // Overall, it seems that it's a mess :( http://www8.plala.or.jp/tkubota1/unicode-symbols-map2.html
       "shiftjis": {
         type: "_dbcs",
         table: function() {
@@ -9939,12 +9990,20 @@ var require_dbcs_data = __commonJS({
         },
         encodeAdd: { "\xA5": 92, "\u203E": 126 }
       },
+      // TODO: KDDI extension to Shift_JIS
+      // TODO: IBM CCSID 942 = CP932, but F0-F9 custom chars and other char changes.
+      // TODO: IBM CCSID 943 = Shift_JIS = CP932 with original Shift_JIS lower 128 chars.
+      // == Chinese/GBK ==========================================================
+      // http://en.wikipedia.org/wiki/GBK
+      // We mostly implement W3C recommendation: https://www.w3.org/TR/encoding/#gbk-encoder
+      // Oldest GB2312 (1981, ~7600 chars) is a subset of CP936
       "gb2312": "cp936",
       "gb231280": "cp936",
       "gb23121980": "cp936",
       "csgb2312": "cp936",
       "csiso58gb231280": "cp936",
       "euccn": "cp936",
+      // Microsoft's CP936 is a subset and approximation of GBK.
       "windows936": "cp936",
       "ms936": "cp936",
       "936": "cp936",
@@ -9954,6 +10013,7 @@ var require_dbcs_data = __commonJS({
           return require_cp936();
         }
       },
+      // GBK (~22000 chars) is an extension of CP936 that added user-mapped chars and some other.
       "gbk": {
         type: "_dbcs",
         table: function() {
@@ -9962,6 +10022,11 @@ var require_dbcs_data = __commonJS({
       },
       "xgbk": "gbk",
       "isoir58": "gbk",
+      // GB18030 is an algorithmic extension of GBK.
+      // Main source: https://www.w3.org/TR/encoding/#gbk-encoder
+      // http://icu-project.org/docs/papers/gb18030.html
+      // http://source.icu-project.org/repos/icu/data/trunk/charset/data/xml/gb-18030-2000.xml
+      // http://www.khngai.com/chinese/charmap/tblgbk.php?page=0
       "gb18030": {
         type: "_dbcs",
         table: function() {
@@ -9974,6 +10039,8 @@ var require_dbcs_data = __commonJS({
         encodeAdd: { "\u20AC": 41699 }
       },
       "chinese": "gb18030",
+      // == Korean ===============================================================
+      // EUC-KR, KS_C_5601 and KS X 1001 are exactly the same.
       "windows949": "cp949",
       "ms949": "cp949",
       "949": "cp949",
@@ -9991,6 +10058,28 @@ var require_dbcs_data = __commonJS({
       "ksc56011987": "cp949",
       "ksc56011989": "cp949",
       "ksc5601": "cp949",
+      // == Big5/Taiwan/Hong Kong ================================================
+      // There are lots of tables for Big5 and cp950. Please see the following links for history:
+      // http://moztw.org/docs/big5/  http://www.haible.de/bruno/charsets/conversion-tables/Big5.html
+      // Variations, in roughly number of defined chars:
+      //  * Windows CP 950: Microsoft variant of Big5. Canonical: http://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/CP950.TXT
+      //  * Windows CP 951: Microsoft variant of Big5-HKSCS-2001. Seems to be never public. http://me.abelcheung.org/articles/research/what-is-cp951/
+      //  * Big5-2003 (Taiwan standard) almost superset of cp950.
+      //  * Unicode-at-on (UAO) / Mozilla 1.8. Falling out of use on the Web. Not supported by other browsers.
+      //  * Big5-HKSCS (-2001, -2004, -2008). Hong Kong standard. 
+      //    many unicode code points moved from PUA to Supplementary plane (U+2XXXX) over the years.
+      //    Plus, it has 4 combining sequences.
+      //    Seems that Mozilla refused to support it for 10 yrs. https://bugzilla.mozilla.org/show_bug.cgi?id=162431 https://bugzilla.mozilla.org/show_bug.cgi?id=310299
+      //    because big5-hkscs is the only encoding to include astral characters in non-algorithmic way.
+      //    Implementations are not consistent within browsers; sometimes labeled as just big5.
+      //    MS Internet Explorer switches from big5 to big5-hkscs when a patch applied.
+      //    Great discussion & recap of what's going on https://bugzilla.mozilla.org/show_bug.cgi?id=912470#c31
+      //    In the encoder, it might make sense to support encoding old PUA mappings to Big5 bytes seq-s.
+      //    Official spec: http://www.ogcio.gov.hk/en/business/tech_promotion/ccli/terms/doc/2003cmp_2008.txt
+      //                   http://www.ogcio.gov.hk/tc/business/tech_promotion/ccli/terms/doc/hkscs-2008-big5-iso.txt
+      // 
+      // Current understanding of how to deal with Big5(-HKSCS) is in the Encoding Standard, http://encoding.spec.whatwg.org/#big5-encoder
+      // Unicode mapping (http://www.unicode.org/Public/MAPPINGS/OBSOLETE/EASTASIA/OTHER/BIG5.TXT) is said to be wrong.
       "windows950": "cp950",
       "ms950": "cp950",
       "950": "cp950",
@@ -10000,6 +10089,7 @@ var require_dbcs_data = __commonJS({
           return require_cp950();
         }
       },
+      // Big5 has many variations and is an extension of cp950. We use Encoding Standard's as a consensus.
       "big5": "big5hkscs",
       "big5hkscs": {
         type: "_dbcs",
@@ -10007,6 +10097,9 @@ var require_dbcs_data = __commonJS({
           return require_cp950().concat(require_big5_added());
         },
         encodeSkipVals: [
+          // Although Encoding Standard says we should avoid encoding to HKSCS area (See Step 1 of
+          // https://encoding.spec.whatwg.org/#index-big5-pointer), we still do it to increase compatibility with ICU.
+          // But if a single unicode point can be encoded both as HKSCS and regular Big5, we prefer the latter.
           36457,
           36463,
           36478,
@@ -10068,6 +10161,7 @@ var require_dbcs_data = __commonJS({
           37576,
           38468,
           38637,
+          // Step 2 of https://encoding.spec.whatwg.org/#index-big5-pointer: Use last pointer for U+2550, U+255E, U+2561, U+256A, U+5341, or U+5345
           41636,
           41637,
           41639,
@@ -10358,11 +10452,11 @@ var require_decoder = __commonJS({
         this.push(chunk);
         return done();
       }
-      var self2 = this;
+      var self = this;
       if (!this.decoder) {
         this.decoder = iconv.decodeStream(this.charset);
         this.decoder.on("data", function(decoded_chunk) {
-          self2.push(decoded_chunk);
+          self.push(decoded_chunk);
         });
       }
       ;
@@ -10599,19 +10693,24 @@ var require_needle = __commonJS({
     var zlib_options;
     var br_options;
     var defaults = {
+      // data
       boundary: "--------------------NODENEEDLEHTTPCLIENT",
       encoding: "utf8",
       parse_response: "all",
+      // same as true. valid options: 'json', 'xml' or false/null
       proxy: null,
+      // agent & headers
       agent: null,
       headers: {},
       accept: "*/*",
       user_agent,
+      // numbers
       open_timeout: 1e4,
       response_timeout: 0,
       read_timeout: 0,
       follow_max: 0,
       stream_length: -1,
+      // booleans
       compressed: false,
       decode_response: true,
       parse_cookies: true,
@@ -10675,6 +10774,7 @@ var require_needle = __commonJS({
           localAddress: get_option("localAddress", void 0),
           lookup: get_option("lookup", void 0)
         },
+        // passed later to http.request() directly
         headers: {},
         output: options.output,
         proxy: get_option("proxy", defaults.proxy),
@@ -10747,7 +10847,7 @@ var require_needle = __commonJS({
       var out = new stream.PassThrough({ objectMode: false }), uri = this.uri, data = this.data, method = this.method, callback = typeof this.options == "function" ? this.options : this.callback, options = this.options || {};
       if (uri.indexOf("http") === -1)
         uri = uri.replace(/^(\/\/)?/, "http://");
-      var self2 = this, body, waiting = false, config = this.setup(uri, options);
+      var self = this, body, waiting = false, config = this.setup(uri, options);
       var json = options.json || options.json !== false && config.headers["content-type"] == "application/json";
       if (data) {
         if (options.multipart) {
@@ -10790,7 +10890,7 @@ var require_needle = __commonJS({
         }
         if (options.json && (!options.accept && !(options.headers || {}).accept))
           config.headers["accept"] = "application/json";
-        self2.send_request(1, method, uri, config, body2, out, callback);
+        self.send_request(1, method, uri, config, body2, out, callback);
       }
       if (!waiting)
         next(body);
@@ -10834,7 +10934,7 @@ var require_needle = __commonJS({
         debug3("Modifying request URI", uri + " => " + modified_uri);
         uri = modified_uri;
       }
-      var request, timer, returned = 0, self2 = this, request_opts = this.get_request_opts(method, uri, config), protocol = request_opts.protocol == "https:" ? https : http;
+      var request, timer, returned = 0, self = this, request_opts = this.get_request_opts(method, uri, config), protocol = request_opts.protocol == "https:" ? https : http;
       function done(err, resp) {
         if (returned++ > 0)
           return debug3("Already finished, stopping here.");
@@ -10881,7 +10981,7 @@ var require_needle = __commonJS({
           resp.cookies = extend(config.previous_resp_cookies || {}, cookies.read(headers["set-cookie"]));
           debug3("Got cookies", resp.cookies);
         }
-        if (redirect_codes.indexOf(resp.statusCode) !== -1 && self2.should_follow(headers.location, config, uri)) {
+        if (redirect_codes.indexOf(resp.statusCode) !== -1 && self.should_follow(headers.location, config, uri)) {
           clearTimeout(timer);
           if (count <= config.follow_max) {
             out.emit("redirect", headers.location);
@@ -10905,7 +11005,7 @@ var require_needle = __commonJS({
             config.headers["host"] = null;
             var redirect_url = utils.resolve_url(headers.location, uri);
             debug3("Redirecting to " + redirect_url.toString());
-            return self2.send_request(++count, method, redirect_url.toString(), config, post_data, out, callback);
+            return self.send_request(++count, method, redirect_url.toString(), config, post_data, out, callback);
           } else if (config.follow_max > 0) {
             return done(new Error("Max redirects reached. Possible loop in: " + headers.location));
           }
@@ -10915,7 +11015,7 @@ var require_needle = __commonJS({
             var auth_header = auth.header(headers["www-authenticate"], config.credentials, request_opts);
             if (auth_header) {
               config.headers["authorization"] = auth_header;
-              return self2.send_request(count, method, uri, config, post_data, out, callback);
+              return self.send_request(count, method, uri, config, post_data, out, callback);
             }
           }
         }
@@ -11104,7 +11204,7 @@ var require_url_file_manager = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less-node/url-file-manager.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var isUrlRe = /^(?:https?:)?\/\//i;
     var url_1 = tslib_1.__importDefault(__require("url"));
     var request;
@@ -11159,52 +11259,55 @@ var require_environment2 = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/environment/environment.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var logger_1 = tslib_1.__importDefault(require_logger());
-    var Environment = function() {
-      function Environment2(externalEnvironment, fileManagers) {
-        this.fileManagers = fileManagers || [];
-        externalEnvironment = externalEnvironment || {};
-        var optionalFunctions = ["encodeBase64", "mimeLookup", "charsetLookup", "getSourceMapGenerator"];
-        var requiredFunctions = [];
-        var functions = requiredFunctions.concat(optionalFunctions);
-        for (var i = 0; i < functions.length; i++) {
-          var propName = functions[i];
-          var environmentFunc = externalEnvironment[propName];
-          if (environmentFunc) {
-            this[propName] = environmentFunc.bind(externalEnvironment);
-          } else if (i < requiredFunctions.length) {
-            this.warn("missing required function in environment - " + propName);
+    var Environment = (
+      /** @class */
+      function() {
+        function Environment2(externalEnvironment, fileManagers) {
+          this.fileManagers = fileManagers || [];
+          externalEnvironment = externalEnvironment || {};
+          var optionalFunctions = ["encodeBase64", "mimeLookup", "charsetLookup", "getSourceMapGenerator"];
+          var requiredFunctions = [];
+          var functions = requiredFunctions.concat(optionalFunctions);
+          for (var i = 0; i < functions.length; i++) {
+            var propName = functions[i];
+            var environmentFunc = externalEnvironment[propName];
+            if (environmentFunc) {
+              this[propName] = environmentFunc.bind(externalEnvironment);
+            } else if (i < requiredFunctions.length) {
+              this.warn("missing required function in environment - " + propName);
+            }
           }
         }
-      }
-      Environment2.prototype.getFileManager = function(filename, currentDirectory, options, environment, isSync) {
-        if (!filename) {
-          logger_1.default.warn("getFileManager called with no filename.. Please report this issue. continuing.");
-        }
-        if (currentDirectory == null) {
-          logger_1.default.warn("getFileManager called with null directory.. Please report this issue. continuing.");
-        }
-        var fileManagers = this.fileManagers;
-        if (options.pluginManager) {
-          fileManagers = [].concat(fileManagers).concat(options.pluginManager.getFileManagers());
-        }
-        for (var i = fileManagers.length - 1; i >= 0; i--) {
-          var fileManager = fileManagers[i];
-          if (fileManager[isSync ? "supportsSync" : "supports"](filename, currentDirectory, options, environment)) {
-            return fileManager;
+        Environment2.prototype.getFileManager = function(filename, currentDirectory, options, environment, isSync) {
+          if (!filename) {
+            logger_1.default.warn("getFileManager called with no filename.. Please report this issue. continuing.");
           }
-        }
-        return null;
-      };
-      Environment2.prototype.addFileManager = function(fileManager) {
-        this.fileManagers.push(fileManager);
-      };
-      Environment2.prototype.clearFileManagers = function() {
-        this.fileManagers = [];
-      };
-      return Environment2;
-    }();
+          if (currentDirectory == null) {
+            logger_1.default.warn("getFileManager called with null directory.. Please report this issue. continuing.");
+          }
+          var fileManagers = this.fileManagers;
+          if (options.pluginManager) {
+            fileManagers = [].concat(fileManagers).concat(options.pluginManager.getFileManagers());
+          }
+          for (var i = fileManagers.length - 1; i >= 0; i--) {
+            var fileManager = fileManagers[i];
+            if (fileManager[isSync ? "supportsSync" : "supports"](filename, currentDirectory, options, environment)) {
+              return fileManager;
+            }
+          }
+          return null;
+        };
+        Environment2.prototype.addFileManager = function(fileManager) {
+          this.fileManagers.push(fileManager);
+        };
+        Environment2.prototype.clearFileManagers = function() {
+          this.fileManagers = [];
+        };
+        return Environment2;
+      }()
+    );
     exports.default = Environment;
   }
 });
@@ -11401,7 +11504,7 @@ var require_data = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/data/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var colors_1 = tslib_1.__importDefault(require_colors());
     var unit_conversions_1 = tslib_1.__importDefault(require_unit_conversions());
     exports.default = { colors: colors_1.default, unitConversions: unit_conversions_1.default };
@@ -11413,154 +11516,159 @@ var require_node = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/node.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Node = function() {
-      function Node2() {
-        this.parent = null;
-        this.visibilityBlocks = void 0;
-        this.nodeVisible = void 0;
-        this.rootNode = null;
-        this.parsed = null;
-      }
-      Object.defineProperty(Node2.prototype, "currentFileInfo", {
-        get: function() {
-          return this.fileInfo();
-        },
-        enumerable: false,
-        configurable: true
-      });
-      Object.defineProperty(Node2.prototype, "index", {
-        get: function() {
-          return this.getIndex();
-        },
-        enumerable: false,
-        configurable: true
-      });
-      Node2.prototype.setParent = function(nodes, parent) {
-        function set(node) {
-          if (node && node instanceof Node2) {
-            node.parent = parent;
-          }
+    var Node = (
+      /** @class */
+      function() {
+        function Node2() {
+          this.parent = null;
+          this.visibilityBlocks = void 0;
+          this.nodeVisible = void 0;
+          this.rootNode = null;
+          this.parsed = null;
         }
-        if (Array.isArray(nodes)) {
-          nodes.forEach(set);
-        } else {
-          set(nodes);
-        }
-      };
-      Node2.prototype.getIndex = function() {
-        return this._index || this.parent && this.parent.getIndex() || 0;
-      };
-      Node2.prototype.fileInfo = function() {
-        return this._fileInfo || this.parent && this.parent.fileInfo() || {};
-      };
-      Node2.prototype.isRulesetLike = function() {
-        return false;
-      };
-      Node2.prototype.toCSS = function(context2) {
-        var strs = [];
-        this.genCSS(context2, {
-          add: function(chunk, fileInfo, index) {
-            strs.push(chunk);
+        Object.defineProperty(Node2.prototype, "currentFileInfo", {
+          get: function() {
+            return this.fileInfo();
           },
-          isEmpty: function() {
-            return strs.length === 0;
-          }
+          enumerable: false,
+          configurable: true
         });
-        return strs.join("");
-      };
-      Node2.prototype.genCSS = function(context2, output) {
-        output.add(this.value);
-      };
-      Node2.prototype.accept = function(visitor) {
-        this.value = visitor.visit(this.value);
-      };
-      Node2.prototype.eval = function() {
-        return this;
-      };
-      Node2.prototype._operate = function(context2, op, a, b) {
-        switch (op) {
-          case "+":
-            return a + b;
-          case "-":
-            return a - b;
-          case "*":
-            return a * b;
-          case "/":
-            return a / b;
-        }
-      };
-      Node2.prototype.fround = function(context2, value) {
-        var precision = context2 && context2.numPrecision;
-        return precision ? Number((value + 2e-16).toFixed(precision)) : value;
-      };
-      Node2.compare = function(a, b) {
-        if (a.compare && !(b.type === "Quoted" || b.type === "Anonymous")) {
-          return a.compare(b);
-        } else if (b.compare) {
-          return -b.compare(a);
-        } else if (a.type !== b.type) {
-          return void 0;
-        }
-        a = a.value;
-        b = b.value;
-        if (!Array.isArray(a)) {
-          return a === b ? 0 : void 0;
-        }
-        if (a.length !== b.length) {
-          return void 0;
-        }
-        for (var i = 0; i < a.length; i++) {
-          if (Node2.compare(a[i], b[i]) !== 0) {
+        Object.defineProperty(Node2.prototype, "index", {
+          get: function() {
+            return this.getIndex();
+          },
+          enumerable: false,
+          configurable: true
+        });
+        Node2.prototype.setParent = function(nodes, parent) {
+          function set(node) {
+            if (node && node instanceof Node2) {
+              node.parent = parent;
+            }
+          }
+          if (Array.isArray(nodes)) {
+            nodes.forEach(set);
+          } else {
+            set(nodes);
+          }
+        };
+        Node2.prototype.getIndex = function() {
+          return this._index || this.parent && this.parent.getIndex() || 0;
+        };
+        Node2.prototype.fileInfo = function() {
+          return this._fileInfo || this.parent && this.parent.fileInfo() || {};
+        };
+        Node2.prototype.isRulesetLike = function() {
+          return false;
+        };
+        Node2.prototype.toCSS = function(context2) {
+          var strs = [];
+          this.genCSS(context2, {
+            add: function(chunk, fileInfo, index) {
+              strs.push(chunk);
+            },
+            isEmpty: function() {
+              return strs.length === 0;
+            }
+          });
+          return strs.join("");
+        };
+        Node2.prototype.genCSS = function(context2, output) {
+          output.add(this.value);
+        };
+        Node2.prototype.accept = function(visitor) {
+          this.value = visitor.visit(this.value);
+        };
+        Node2.prototype.eval = function() {
+          return this;
+        };
+        Node2.prototype._operate = function(context2, op, a, b) {
+          switch (op) {
+            case "+":
+              return a + b;
+            case "-":
+              return a - b;
+            case "*":
+              return a * b;
+            case "/":
+              return a / b;
+          }
+        };
+        Node2.prototype.fround = function(context2, value) {
+          var precision = context2 && context2.numPrecision;
+          return precision ? Number((value + 2e-16).toFixed(precision)) : value;
+        };
+        Node2.compare = function(a, b) {
+          if (a.compare && // for "symmetric results" force toCSS-based comparison
+          // of Quoted or Anonymous if either value is one of those
+          !(b.type === "Quoted" || b.type === "Anonymous")) {
+            return a.compare(b);
+          } else if (b.compare) {
+            return -b.compare(a);
+          } else if (a.type !== b.type) {
             return void 0;
           }
-        }
-        return 0;
-      };
-      Node2.numericCompare = function(a, b) {
-        return a < b ? -1 : a === b ? 0 : a > b ? 1 : void 0;
-      };
-      Node2.prototype.blocksVisibility = function() {
-        if (this.visibilityBlocks == null) {
-          this.visibilityBlocks = 0;
-        }
-        return this.visibilityBlocks !== 0;
-      };
-      Node2.prototype.addVisibilityBlock = function() {
-        if (this.visibilityBlocks == null) {
-          this.visibilityBlocks = 0;
-        }
-        this.visibilityBlocks = this.visibilityBlocks + 1;
-      };
-      Node2.prototype.removeVisibilityBlock = function() {
-        if (this.visibilityBlocks == null) {
-          this.visibilityBlocks = 0;
-        }
-        this.visibilityBlocks = this.visibilityBlocks - 1;
-      };
-      Node2.prototype.ensureVisibility = function() {
-        this.nodeVisible = true;
-      };
-      Node2.prototype.ensureInvisibility = function() {
-        this.nodeVisible = false;
-      };
-      Node2.prototype.isVisible = function() {
-        return this.nodeVisible;
-      };
-      Node2.prototype.visibilityInfo = function() {
-        return {
-          visibilityBlocks: this.visibilityBlocks,
-          nodeVisible: this.nodeVisible
+          a = a.value;
+          b = b.value;
+          if (!Array.isArray(a)) {
+            return a === b ? 0 : void 0;
+          }
+          if (a.length !== b.length) {
+            return void 0;
+          }
+          for (var i = 0; i < a.length; i++) {
+            if (Node2.compare(a[i], b[i]) !== 0) {
+              return void 0;
+            }
+          }
+          return 0;
         };
-      };
-      Node2.prototype.copyVisibilityInfo = function(info) {
-        if (!info) {
-          return;
-        }
-        this.visibilityBlocks = info.visibilityBlocks;
-        this.nodeVisible = info.nodeVisible;
-      };
-      return Node2;
-    }();
+        Node2.numericCompare = function(a, b) {
+          return a < b ? -1 : a === b ? 0 : a > b ? 1 : void 0;
+        };
+        Node2.prototype.blocksVisibility = function() {
+          if (this.visibilityBlocks == null) {
+            this.visibilityBlocks = 0;
+          }
+          return this.visibilityBlocks !== 0;
+        };
+        Node2.prototype.addVisibilityBlock = function() {
+          if (this.visibilityBlocks == null) {
+            this.visibilityBlocks = 0;
+          }
+          this.visibilityBlocks = this.visibilityBlocks + 1;
+        };
+        Node2.prototype.removeVisibilityBlock = function() {
+          if (this.visibilityBlocks == null) {
+            this.visibilityBlocks = 0;
+          }
+          this.visibilityBlocks = this.visibilityBlocks - 1;
+        };
+        Node2.prototype.ensureVisibility = function() {
+          this.nodeVisible = true;
+        };
+        Node2.prototype.ensureInvisibility = function() {
+          this.nodeVisible = false;
+        };
+        Node2.prototype.isVisible = function() {
+          return this.nodeVisible;
+        };
+        Node2.prototype.visibilityInfo = function() {
+          return {
+            visibilityBlocks: this.visibilityBlocks,
+            nodeVisible: this.nodeVisible
+          };
+        };
+        Node2.prototype.copyVisibilityInfo = function(info) {
+          if (!info) {
+            return;
+          }
+          this.visibilityBlocks = info.visibilityBlocks;
+          this.nodeVisible = info.nodeVisible;
+        };
+        return Node2;
+      }()
+    );
     exports.default = Node;
   }
 });
@@ -11570,29 +11678,29 @@ var require_color = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/color.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var colors_1 = tslib_1.__importDefault(require_colors());
     var Color = function(rgb, a, originalForm) {
-      var self2 = this;
+      var self = this;
       if (Array.isArray(rgb)) {
         this.rgb = rgb;
       } else if (rgb.length >= 6) {
         this.rgb = [];
         rgb.match(/.{2}/g).map(function(c, i) {
           if (i < 3) {
-            self2.rgb.push(parseInt(c, 16));
+            self.rgb.push(parseInt(c, 16));
           } else {
-            self2.alpha = parseInt(c, 16) / 255;
+            self.alpha = parseInt(c, 16) / 255;
           }
         });
       } else {
         this.rgb = [];
         rgb.split("").map(function(c, i) {
           if (i < 3) {
-            self2.rgb.push(parseInt(c + c, 16));
+            self.rgb.push(parseInt(c + c, 16));
           } else {
-            self2.alpha = parseInt(c + c, 16) / 255;
+            self.alpha = parseInt(c + c, 16) / 255;
           }
         });
       }
@@ -11667,6 +11775,12 @@ var require_color = __commonJS({
         }
         return color;
       },
+      //
+      // Operations have to be done per-channel, if not,
+      // channels will spill onto each other. Once we have
+      // our result, in the form of an integer triplet,
+      // we create a new Color node to hold the result.
+      //
       operate: function(context2, op, other) {
         var rgb = new Array(3);
         var alpha = this.alpha * (1 - other.alpha) + other.alpha;
@@ -11704,6 +11818,7 @@ var require_color = __commonJS({
         }
         return { h: h * 360, s, l, a };
       },
+      // Adapted from http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
       toHSV: function() {
         var r = this.rgb[0] / 255, g = this.rgb[1] / 255, b = this.rgb[2] / 255, a = this.alpha;
         var max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -11772,7 +11887,7 @@ var require_paren = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/paren.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var Paren = function(node) {
       this.value = node;
@@ -11797,7 +11912,7 @@ var require_combinator = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/combinator.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var _noSpaceCombinators = {
       "": true,
@@ -11829,7 +11944,7 @@ var require_element = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/element.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var paren_1 = tslib_1.__importDefault(require_paren());
     var combinator_1 = tslib_1.__importDefault(require_combinator());
@@ -11896,6 +12011,7 @@ var require_constants = __commonJS({
       ALWAYS: 0,
       PARENS_DIVISION: 1,
       PARENS: 2
+      // removed - STRICT_LEGACY: 3
     };
     exports.RewriteUrls = {
       OFF: 0,
@@ -12108,7 +12224,7 @@ var require_utils4 = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.flattenArray = exports.merge = exports.copyOptions = exports.defaults = exports.clone = exports.copyArray = exports.getLocation = void 0;
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var Constants = tslib_1.__importStar(require_constants());
     var copy_anything_1 = require_dist();
     function getLocation(index, inputStream) {
@@ -12236,7 +12352,7 @@ var require_less_error = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/less-error.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var utils = tslib_1.__importStar(require_utils4());
     var anonymousFunc = /(<anonymous>|Function):(\d+):(\d+)/;
     var LessError = function(e, fileContentMap, currentFilename) {
@@ -12349,7 +12465,7 @@ var require_selector = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/selector.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var element_1 = tslib_1.__importDefault(require_element());
     var less_error_1 = tslib_1.__importDefault(require_less_error());
@@ -12478,7 +12594,7 @@ var require_value = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/value.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var Value = function(value) {
       if (!value) {
@@ -12525,7 +12641,7 @@ var require_keyword = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/keyword.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var Keyword = function(value) {
       this.value = value;
@@ -12550,7 +12666,7 @@ var require_anonymous = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/anonymous.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var Anonymous = function(value, index, currentFileInfo, mapLines, rulesetLike, visibilityInfo) {
       this.value = value;
@@ -12588,7 +12704,7 @@ var require_declaration = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/declaration.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var value_1 = tslib_1.__importDefault(require_value());
     var keyword_1 = tslib_1.__importDefault(require_keyword());
@@ -12725,7 +12841,7 @@ var require_comment = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/comment.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var debug_info_1 = tslib_1.__importDefault(require_debug_info());
     var Comment = function(value, isLineComment, index, currentFileInfo) {
@@ -12757,7 +12873,7 @@ var require_contexts = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/contexts.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var contexts = {};
     exports.default = contexts;
     var Constants = tslib_1.__importStar(require_constants());
@@ -12772,6 +12888,7 @@ var require_contexts = __commonJS({
       }
     };
     var parseCopyProperties = [
+      // options
       "paths",
       "rewriteUrls",
       "rootpath",
@@ -12783,8 +12900,11 @@ var require_contexts = __commonJS({
       "chunkInput",
       "mime",
       "useFileCache",
+      // context
       "processImports",
+      // Used by the import manager to stop multiple import visitors being created.
       "pluginManager"
+      // Used as the plugin manager for the session
     ];
     contexts.Parse = function(options) {
       copyFromOriginal(options, this, parseCopyProperties);
@@ -12804,6 +12924,7 @@ var require_contexts = __commonJS({
       "pluginManager",
       "importantScope",
       "rewriteUrls"
+      // option - whether to adjust URL's to be relative
     ];
     contexts.Eval = function(options, frames) {
       copyFromOriginal(options, this, evalCopyProperties);
@@ -12937,7 +13058,7 @@ var require_default = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/default.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var keyword_1 = tslib_1.__importDefault(require_keyword());
     var defaultFunc = {
       eval: function() {
@@ -12969,7 +13090,7 @@ var require_ruleset = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/ruleset.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var declaration_1 = tslib_1.__importDefault(require_declaration());
     var keyword_1 = tslib_1.__importDefault(require_keyword());
@@ -13182,6 +13303,7 @@ var require_ruleset = __commonJS({
       matchArgs: function(args) {
         return !args || args.length === 0;
       },
+      // lets you call a css selector with a guard
       matchCondition: function(args, context2) {
         var lastSelector = this.selectors[this.selectors.length - 1];
         if (!lastSelector.evaldCondition) {
@@ -13254,7 +13376,7 @@ var require_ruleset = __commonJS({
         }
       },
       parseValue: function(toParse) {
-        var self2 = this;
+        var self = this;
         function transformDeclaration(decl) {
           if (decl.value instanceof anonymous_1.default && !decl.parsed) {
             if (typeof decl.value.value === "string") {
@@ -13277,11 +13399,11 @@ var require_ruleset = __commonJS({
           }
         }
         if (!Array.isArray(toParse)) {
-          return transformDeclaration.call(self2, toParse);
+          return transformDeclaration.call(self, toParse);
         } else {
           var nodes_1 = [];
           toParse.forEach(function(n) {
-            nodes_1.push(transformDeclaration.call(self2, n));
+            nodes_1.push(transformDeclaration.call(self, n));
           });
           return nodes_1;
         }
@@ -13310,8 +13432,8 @@ var require_ruleset = __commonJS({
         }
         this.setParent(rule, this);
       },
-      find: function(selector, self2, filter) {
-        self2 = self2 || this;
+      find: function(selector, self, filter) {
+        self = self || this;
         var rules = [];
         var match;
         var foundMixins;
@@ -13320,13 +13442,13 @@ var require_ruleset = __commonJS({
           return this._lookups[key];
         }
         this.rulesets().forEach(function(rule) {
-          if (rule !== self2) {
+          if (rule !== self) {
             for (var j = 0; j < rule.selectors.length; j++) {
               match = selector.match(rule.selectors[j]);
               if (match) {
                 if (selector.elements.length > match) {
                   if (!filter || filter(rule)) {
-                    foundMixins = rule.find(new selector_1.default(selector.elements.slice(match)), self2, filter);
+                    foundMixins = rule.find(new selector_1.default(selector.elements.slice(match)), self, filter);
                     for (var i = 0; i < foundMixins.length; ++i) {
                       foundMixins[i].path.push(rule);
                     }
@@ -13617,7 +13739,7 @@ var require_atrule = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/atrule.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var selector_1 = tslib_1.__importDefault(require_selector());
     var ruleset_1 = tslib_1.__importDefault(require_ruleset());
@@ -13744,7 +13866,7 @@ var require_detached_ruleset = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/detached-ruleset.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var contexts_1 = tslib_1.__importDefault(require_contexts());
     var utils = tslib_1.__importStar(require_utils4());
@@ -13776,7 +13898,7 @@ var require_unit = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/unit.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var unit_conversions_1 = tslib_1.__importDefault(require_unit_conversions());
     var utils = tslib_1.__importStar(require_utils4());
@@ -13895,7 +14017,7 @@ var require_dimension = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/dimension.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var unit_conversions_1 = tslib_1.__importDefault(require_unit_conversions());
     var unit_1 = tslib_1.__importDefault(require_unit());
@@ -13940,6 +14062,9 @@ var require_dimension = __commonJS({
         output.add(strValue);
         this.unit.genCSS(context2, output);
       },
+      // In an operation between two Dimensions,
+      // we default to the first Dimension's unit,
+      // so `1px + 2` will yield `3px`.
       operate: function(context2, op, other) {
         var value = this._operate(context2, op, this.value, other.value);
         var unit = this.unit.clone();
@@ -14037,7 +14162,7 @@ var require_operation = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/operation.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var color_1 = tslib_1.__importDefault(require_color());
     var dimension_1 = tslib_1.__importDefault(require_dimension());
@@ -14098,7 +14223,7 @@ var require_expression = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/expression.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var paren_1 = tslib_1.__importDefault(require_paren());
     var comment_1 = tslib_1.__importDefault(require_comment());
@@ -14169,54 +14294,57 @@ var require_function_caller = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/function-caller.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var expression_1 = tslib_1.__importDefault(require_expression());
-    var functionCaller = function() {
-      function functionCaller2(name, context2, index, currentFileInfo) {
-        this.name = name.toLowerCase();
-        this.index = index;
-        this.context = context2;
-        this.currentFileInfo = currentFileInfo;
-        this.func = context2.frames[0].functionRegistry.get(this.name);
-      }
-      functionCaller2.prototype.isValid = function() {
-        return Boolean(this.func);
-      };
-      functionCaller2.prototype.call = function(args) {
-        var _this = this;
-        if (!Array.isArray(args)) {
-          args = [args];
+    var functionCaller = (
+      /** @class */
+      function() {
+        function functionCaller2(name, context2, index, currentFileInfo) {
+          this.name = name.toLowerCase();
+          this.index = index;
+          this.context = context2;
+          this.currentFileInfo = currentFileInfo;
+          this.func = context2.frames[0].functionRegistry.get(this.name);
         }
-        var evalArgs = this.func.evalArgs;
-        if (evalArgs !== false) {
-          args = args.map(function(a) {
-            return a.eval(_this.context);
-          });
-        }
-        var commentFilter = function(item) {
-          return !(item.type === "Comment");
+        functionCaller2.prototype.isValid = function() {
+          return Boolean(this.func);
         };
-        args = args.filter(commentFilter).map(function(item) {
-          if (item.type === "Expression") {
-            var subNodes = item.value.filter(commentFilter);
-            if (subNodes.length === 1) {
-              if (item.parens && subNodes[0].op === "/") {
-                return item;
-              }
-              return subNodes[0];
-            } else {
-              return new expression_1.default(subNodes);
-            }
+        functionCaller2.prototype.call = function(args) {
+          var _this = this;
+          if (!Array.isArray(args)) {
+            args = [args];
           }
-          return item;
-        });
-        if (evalArgs === false) {
-          return this.func.apply(this, tslib_1.__spreadArray([this.context], args));
-        }
-        return this.func.apply(this, args);
-      };
-      return functionCaller2;
-    }();
+          var evalArgs = this.func.evalArgs;
+          if (evalArgs !== false) {
+            args = args.map(function(a) {
+              return a.eval(_this.context);
+            });
+          }
+          var commentFilter = function(item) {
+            return !(item.type === "Comment");
+          };
+          args = args.filter(commentFilter).map(function(item) {
+            if (item.type === "Expression") {
+              var subNodes = item.value.filter(commentFilter);
+              if (subNodes.length === 1) {
+                if (item.parens && subNodes[0].op === "/") {
+                  return item;
+                }
+                return subNodes[0];
+              } else {
+                return new expression_1.default(subNodes);
+              }
+            }
+            return item;
+          });
+          if (evalArgs === false) {
+            return this.func.apply(this, tslib_1.__spreadArray([this.context], args));
+          }
+          return this.func.apply(this, args);
+        };
+        return functionCaller2;
+      }()
+    );
     exports.default = functionCaller;
   }
 });
@@ -14226,7 +14354,7 @@ var require_call = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/call.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var anonymous_1 = tslib_1.__importDefault(require_anonymous());
     var function_caller_1 = tslib_1.__importDefault(require_function_caller());
@@ -14244,6 +14372,17 @@ var require_call = __commonJS({
           this.args = visitor.visitArray(this.args);
         }
       },
+      //
+      // When evaluating a function call,
+      // we either find the function in the functionRegistry,
+      // in which case we call it, passing the  evaluated arguments,
+      // if this returns null or we cannot find the function, we
+      // simply print it out as it appeared originally [2].
+      //
+      // The reason why we evaluate the arguments, is in the case where
+      // we try to pass a variable to a function, like: `saturate(@color)`.
+      // The function should receive the value, not the variable.
+      //
       eval: function(context2) {
         var _this = this;
         var currentMathContext = context2.mathOn;
@@ -14315,7 +14454,7 @@ var require_variable = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/variable.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var call_1 = tslib_1.__importDefault(require_call());
     var Variable = function(name, index, currentFileInfo) {
@@ -14384,7 +14523,7 @@ var require_property = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/property.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var declaration_1 = tslib_1.__importDefault(require_declaration());
     var Property = function(name, index, currentFileInfo) {
@@ -14456,7 +14595,7 @@ var require_attribute = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/attribute.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var Attribute = function(key, op, value, cif) {
       this.key = key;
@@ -14493,7 +14632,7 @@ var require_quoted = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/quoted.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var variable_1 = tslib_1.__importDefault(require_variable());
     var property_1 = tslib_1.__importDefault(require_property());
@@ -14561,7 +14700,7 @@ var require_url = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/url.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     function escapePath(path4) {
       return path4.replace(/[\(\)'"\s]/g, function(match) {
@@ -14621,7 +14760,7 @@ var require_media = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/media.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var ruleset_1 = tslib_1.__importDefault(require_ruleset());
     var value_1 = tslib_1.__importDefault(require_value());
     var selector_1 = tslib_1.__importDefault(require_selector());
@@ -14746,7 +14885,7 @@ var require_import = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/import.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var media_1 = tslib_1.__importDefault(require_media());
     var url_1 = tslib_1.__importDefault(require_url());
@@ -14899,7 +15038,7 @@ var require_js_eval_node = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/js-eval-node.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var variable_1 = tslib_1.__importDefault(require_variable());
     var JsEvalNode = function() {
@@ -14969,7 +15108,7 @@ var require_javascript = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/javascript.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var js_eval_node_1 = tslib_1.__importDefault(require_js_eval_node());
     var dimension_1 = tslib_1.__importDefault(require_dimension());
     var quoted_1 = tslib_1.__importDefault(require_quoted());
@@ -15005,7 +15144,7 @@ var require_assignment = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/assignment.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var Assignment = function(key, val) {
       this.key = key;
@@ -15040,7 +15179,7 @@ var require_condition = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/condition.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var Condition = function(op, l, r, i, negate) {
       this.op = op.trim();
@@ -15087,7 +15226,7 @@ var require_unicode_descriptor = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/unicode-descriptor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var UnicodeDescriptor = function(value) {
       this.value = value;
@@ -15104,7 +15243,7 @@ var require_negative = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/negative.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var operation_1 = tslib_1.__importDefault(require_operation());
     var dimension_1 = tslib_1.__importDefault(require_dimension());
@@ -15133,7 +15272,7 @@ var require_extend = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/extend.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var selector_1 = tslib_1.__importDefault(require_selector());
     var Extend = function(selector, option, index, currentFileInfo, visibilityInfo) {
@@ -15168,6 +15307,7 @@ var require_extend = __commonJS({
       clone: function(context2) {
         return new Extend(this.selector, this.option, this.getIndex(), this.fileInfo(), this.visibilityInfo());
       },
+      // it concatenates (joins) all selectors in selector array
       findSelfSelectors: function(selectors) {
         var selfElements = [], i, selectorElements;
         for (i = 0; i < selectors.length; i++) {
@@ -15191,7 +15331,7 @@ var require_variable_call = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/variable-call.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var variable_1 = tslib_1.__importDefault(require_variable());
     var ruleset_1 = tslib_1.__importDefault(require_ruleset());
@@ -15236,7 +15376,7 @@ var require_namespace_value = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/namespace-value.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var variable_1 = tslib_1.__importDefault(require_variable());
     var ruleset_1 = tslib_1.__importDefault(require_ruleset());
@@ -15311,7 +15451,7 @@ var require_mixin_definition = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/mixin-definition.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var selector_1 = tslib_1.__importDefault(require_selector());
     var element_1 = tslib_1.__importDefault(require_element());
     var ruleset_1 = tslib_1.__importDefault(require_ruleset());
@@ -15467,7 +15607,13 @@ var require_mixin_definition = __commonJS({
         return ruleset;
       },
       matchCondition: function(args, context2) {
-        if (this.condition && !this.condition.eval(new contexts_1.default.Eval(context2, [this.evalParams(context2, new contexts_1.default.Eval(context2, this.frames ? this.frames.concat(context2.frames) : context2.frames), args, [])].concat(this.frames || []).concat(context2.frames)))) {
+        if (this.condition && !this.condition.eval(new contexts_1.default.Eval(context2, [this.evalParams(
+          context2,
+          /* the parameter variables */
+          new contexts_1.default.Eval(context2, this.frames ? this.frames.concat(context2.frames) : context2.frames),
+          args,
+          []
+        )].concat(this.frames || []).concat(context2.frames)))) {
           return false;
         }
         return true;
@@ -15515,7 +15661,7 @@ var require_mixin_call = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/mixin-call.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var selector_1 = tslib_1.__importDefault(require_selector());
     var mixin_definition_1 = tslib_1.__importDefault(require_mixin_definition());
@@ -15717,7 +15863,7 @@ var require_tree = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/tree/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_1 = tslib_1.__importDefault(require_node());
     var color_1 = tslib_1.__importDefault(require_color());
     var atrule_1 = tslib_1.__importDefault(require_atrule());
@@ -15802,29 +15948,79 @@ var require_abstract_plugin_loader = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/environment/abstract-plugin-loader.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var function_registry_1 = tslib_1.__importDefault(require_function_registry());
     var less_error_1 = tslib_1.__importDefault(require_less_error());
-    var AbstractPluginLoader = function() {
-      function AbstractPluginLoader2() {
-        this.require = function() {
-          return null;
-        };
-      }
-      AbstractPluginLoader2.prototype.evalPlugin = function(contents, context2, imports, pluginOptions, fileInfo) {
-        var loader, registry, pluginObj, localModule, pluginManager, filename, result;
-        pluginManager = context2.pluginManager;
-        if (fileInfo) {
-          if (typeof fileInfo === "string") {
-            filename = fileInfo;
-          } else {
-            filename = fileInfo.filename;
-          }
+    var AbstractPluginLoader = (
+      /** @class */
+      function() {
+        function AbstractPluginLoader2() {
+          this.require = function() {
+            return null;
+          };
         }
-        var shortname = new this.less.FileManager().extractUrlParts(filename).filename;
-        if (filename) {
-          pluginObj = pluginManager.get(filename);
+        AbstractPluginLoader2.prototype.evalPlugin = function(contents, context2, imports, pluginOptions, fileInfo) {
+          var loader, registry, pluginObj, localModule, pluginManager, filename, result;
+          pluginManager = context2.pluginManager;
+          if (fileInfo) {
+            if (typeof fileInfo === "string") {
+              filename = fileInfo;
+            } else {
+              filename = fileInfo.filename;
+            }
+          }
+          var shortname = new this.less.FileManager().extractUrlParts(filename).filename;
+          if (filename) {
+            pluginObj = pluginManager.get(filename);
+            if (pluginObj) {
+              result = this.trySetOptions(pluginObj, filename, shortname, pluginOptions);
+              if (result) {
+                return result;
+              }
+              try {
+                if (pluginObj.use) {
+                  pluginObj.use.call(this.context, pluginObj);
+                }
+              } catch (e) {
+                e.message = e.message || "Error during @plugin call";
+                return new less_error_1.default(e, imports, filename);
+              }
+              return pluginObj;
+            }
+          }
+          localModule = {
+            exports: {},
+            pluginManager,
+            fileInfo
+          };
+          registry = function_registry_1.default.create();
+          var registerPlugin = function(obj) {
+            pluginObj = obj;
+          };
+          try {
+            loader = new Function("module", "require", "registerPlugin", "functions", "tree", "less", "fileInfo", contents);
+            loader(localModule, this.require(filename), registerPlugin, registry, this.less.tree, this.less, fileInfo);
+          } catch (e) {
+            return new less_error_1.default(e, imports, filename);
+          }
+          if (!pluginObj) {
+            pluginObj = localModule.exports;
+          }
+          pluginObj = this.validatePlugin(pluginObj, filename, shortname);
+          if (pluginObj instanceof less_error_1.default) {
+            return pluginObj;
+          }
           if (pluginObj) {
+            pluginObj.imports = imports;
+            pluginObj.filename = filename;
+            if (!pluginObj.minVersion || this.compareVersion("3.0.0", pluginObj.minVersion) < 0) {
+              result = this.trySetOptions(pluginObj, filename, shortname, pluginOptions);
+              if (result) {
+                return result;
+              }
+            }
+            pluginManager.addPlugin(pluginObj, fileInfo.filename, registry);
+            pluginObj.functions = registry.getLocalFunctions();
             result = this.trySetOptions(pluginObj, filename, shortname, pluginOptions);
             if (result) {
               return result;
@@ -15837,116 +16033,69 @@ var require_abstract_plugin_loader = __commonJS({
               e.message = e.message || "Error during @plugin call";
               return new less_error_1.default(e, imports, filename);
             }
-            return pluginObj;
+          } else {
+            return new less_error_1.default({ message: "Not a valid plugin" }, imports, filename);
           }
-        }
-        localModule = {
-          exports: {},
-          pluginManager,
-          fileInfo
-        };
-        registry = function_registry_1.default.create();
-        var registerPlugin = function(obj) {
-          pluginObj = obj;
-        };
-        try {
-          loader = new Function("module", "require", "registerPlugin", "functions", "tree", "less", "fileInfo", contents);
-          loader(localModule, this.require(filename), registerPlugin, registry, this.less.tree, this.less, fileInfo);
-        } catch (e) {
-          return new less_error_1.default(e, imports, filename);
-        }
-        if (!pluginObj) {
-          pluginObj = localModule.exports;
-        }
-        pluginObj = this.validatePlugin(pluginObj, filename, shortname);
-        if (pluginObj instanceof less_error_1.default) {
           return pluginObj;
-        }
-        if (pluginObj) {
-          pluginObj.imports = imports;
-          pluginObj.filename = filename;
-          if (!pluginObj.minVersion || this.compareVersion("3.0.0", pluginObj.minVersion) < 0) {
-            result = this.trySetOptions(pluginObj, filename, shortname, pluginOptions);
-            if (result) {
-              return result;
-            }
-          }
-          pluginManager.addPlugin(pluginObj, fileInfo.filename, registry);
-          pluginObj.functions = registry.getLocalFunctions();
-          result = this.trySetOptions(pluginObj, filename, shortname, pluginOptions);
-          if (result) {
-            return result;
+        };
+        AbstractPluginLoader2.prototype.trySetOptions = function(plugin, filename, name, options) {
+          if (options && !plugin.setOptions) {
+            return new less_error_1.default({
+              message: "Options have been provided but the plugin " + name + " does not support any options."
+            });
           }
           try {
-            if (pluginObj.use) {
-              pluginObj.use.call(this.context, pluginObj);
-            }
+            plugin.setOptions && plugin.setOptions(options);
           } catch (e) {
-            e.message = e.message || "Error during @plugin call";
-            return new less_error_1.default(e, imports, filename);
+            return new less_error_1.default(e);
           }
-        } else {
-          return new less_error_1.default({ message: "Not a valid plugin" }, imports, filename);
-        }
-        return pluginObj;
-      };
-      AbstractPluginLoader2.prototype.trySetOptions = function(plugin, filename, name, options) {
-        if (options && !plugin.setOptions) {
-          return new less_error_1.default({
-            message: "Options have been provided but the plugin " + name + " does not support any options."
-          });
-        }
-        try {
-          plugin.setOptions && plugin.setOptions(options);
-        } catch (e) {
-          return new less_error_1.default(e);
-        }
-      };
-      AbstractPluginLoader2.prototype.validatePlugin = function(plugin, filename, name) {
-        if (plugin) {
-          if (typeof plugin === "function") {
-            plugin = new plugin();
+        };
+        AbstractPluginLoader2.prototype.validatePlugin = function(plugin, filename, name) {
+          if (plugin) {
+            if (typeof plugin === "function") {
+              plugin = new plugin();
+            }
+            if (plugin.minVersion) {
+              if (this.compareVersion(plugin.minVersion, this.less.version) < 0) {
+                return new less_error_1.default({
+                  message: "Plugin " + name + " requires version " + this.versionToString(plugin.minVersion)
+                });
+              }
+            }
+            return plugin;
           }
-          if (plugin.minVersion) {
-            if (this.compareVersion(plugin.minVersion, this.less.version) < 0) {
-              return new less_error_1.default({
-                message: "Plugin " + name + " requires version " + this.versionToString(plugin.minVersion)
-              });
+          return null;
+        };
+        AbstractPluginLoader2.prototype.compareVersion = function(aVersion, bVersion) {
+          if (typeof aVersion === "string") {
+            aVersion = aVersion.match(/^(\d+)\.?(\d+)?\.?(\d+)?/);
+            aVersion.shift();
+          }
+          for (var i = 0; i < aVersion.length; i++) {
+            if (aVersion[i] !== bVersion[i]) {
+              return parseInt(aVersion[i]) > parseInt(bVersion[i]) ? -1 : 1;
             }
           }
-          return plugin;
-        }
-        return null;
-      };
-      AbstractPluginLoader2.prototype.compareVersion = function(aVersion, bVersion) {
-        if (typeof aVersion === "string") {
-          aVersion = aVersion.match(/^(\d+)\.?(\d+)?\.?(\d+)?/);
-          aVersion.shift();
-        }
-        for (var i = 0; i < aVersion.length; i++) {
-          if (aVersion[i] !== bVersion[i]) {
-            return parseInt(aVersion[i]) > parseInt(bVersion[i]) ? -1 : 1;
+          return 0;
+        };
+        AbstractPluginLoader2.prototype.versionToString = function(version) {
+          var versionString = "";
+          for (var i = 0; i < version.length; i++) {
+            versionString += (versionString ? "." : "") + version[i];
           }
-        }
-        return 0;
-      };
-      AbstractPluginLoader2.prototype.versionToString = function(version) {
-        var versionString = "";
-        for (var i = 0; i < version.length; i++) {
-          versionString += (versionString ? "." : "") + version[i];
-        }
-        return versionString;
-      };
-      AbstractPluginLoader2.prototype.printUsage = function(plugins) {
-        for (var i = 0; i < plugins.length; i++) {
-          var plugin = plugins[i];
-          if (plugin.printUsage) {
-            plugin.printUsage();
+          return versionString;
+        };
+        AbstractPluginLoader2.prototype.printUsage = function(plugins) {
+          for (var i = 0; i < plugins.length; i++) {
+            var plugin = plugins[i];
+            if (plugin.printUsage) {
+              plugin.printUsage();
+            }
           }
-        }
-      };
-      return AbstractPluginLoader2;
-    }();
+        };
+        return AbstractPluginLoader2;
+      }()
+    );
     exports.default = AbstractPluginLoader;
   }
 });
@@ -15956,7 +16105,7 @@ var require_visitor = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/visitor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var tree_1 = tslib_1.__importDefault(require_tree());
     var _visitArgs = { visitDeeper: true };
     var _hasIndexed = false;
@@ -15980,118 +16129,121 @@ var require_visitor = __commonJS({
       }
       return ticker;
     }
-    var Visitor = function() {
-      function Visitor2(implementation) {
-        this._implementation = implementation;
-        this._visitInCache = {};
-        this._visitOutCache = {};
-        if (!_hasIndexed) {
-          indexNodeTypes(tree_1.default, 1);
-          _hasIndexed = true;
-        }
-      }
-      Visitor2.prototype.visit = function(node) {
-        if (!node) {
-          return node;
-        }
-        var nodeTypeIndex = node.typeIndex;
-        if (!nodeTypeIndex) {
-          if (node.value && node.value.typeIndex) {
-            this.visit(node.value);
-          }
-          return node;
-        }
-        var impl = this._implementation;
-        var func = this._visitInCache[nodeTypeIndex];
-        var funcOut = this._visitOutCache[nodeTypeIndex];
-        var visitArgs = _visitArgs;
-        var fnName;
-        visitArgs.visitDeeper = true;
-        if (!func) {
-          fnName = "visit" + node.type;
-          func = impl[fnName] || _noop;
-          funcOut = impl[fnName + "Out"] || _noop;
-          this._visitInCache[nodeTypeIndex] = func;
-          this._visitOutCache[nodeTypeIndex] = funcOut;
-        }
-        if (func !== _noop) {
-          var newNode = func.call(impl, node, visitArgs);
-          if (node && impl.isReplacing) {
-            node = newNode;
+    var Visitor = (
+      /** @class */
+      function() {
+        function Visitor2(implementation) {
+          this._implementation = implementation;
+          this._visitInCache = {};
+          this._visitOutCache = {};
+          if (!_hasIndexed) {
+            indexNodeTypes(tree_1.default, 1);
+            _hasIndexed = true;
           }
         }
-        if (visitArgs.visitDeeper && node) {
-          if (node.length) {
-            for (var i = 0, cnt = node.length; i < cnt; i++) {
-              if (node[i].accept) {
-                node[i].accept(this);
-              }
+        Visitor2.prototype.visit = function(node) {
+          if (!node) {
+            return node;
+          }
+          var nodeTypeIndex = node.typeIndex;
+          if (!nodeTypeIndex) {
+            if (node.value && node.value.typeIndex) {
+              this.visit(node.value);
             }
-          } else if (node.accept) {
-            node.accept(this);
+            return node;
           }
-        }
-        if (funcOut != _noop) {
-          funcOut.call(impl, node);
-        }
-        return node;
-      };
-      Visitor2.prototype.visitArray = function(nodes, nonReplacing) {
-        if (!nodes) {
-          return nodes;
-        }
-        var cnt = nodes.length;
-        var i;
-        if (nonReplacing || !this._implementation.isReplacing) {
+          var impl = this._implementation;
+          var func = this._visitInCache[nodeTypeIndex];
+          var funcOut = this._visitOutCache[nodeTypeIndex];
+          var visitArgs = _visitArgs;
+          var fnName;
+          visitArgs.visitDeeper = true;
+          if (!func) {
+            fnName = "visit" + node.type;
+            func = impl[fnName] || _noop;
+            funcOut = impl[fnName + "Out"] || _noop;
+            this._visitInCache[nodeTypeIndex] = func;
+            this._visitOutCache[nodeTypeIndex] = funcOut;
+          }
+          if (func !== _noop) {
+            var newNode = func.call(impl, node, visitArgs);
+            if (node && impl.isReplacing) {
+              node = newNode;
+            }
+          }
+          if (visitArgs.visitDeeper && node) {
+            if (node.length) {
+              for (var i = 0, cnt = node.length; i < cnt; i++) {
+                if (node[i].accept) {
+                  node[i].accept(this);
+                }
+              }
+            } else if (node.accept) {
+              node.accept(this);
+            }
+          }
+          if (funcOut != _noop) {
+            funcOut.call(impl, node);
+          }
+          return node;
+        };
+        Visitor2.prototype.visitArray = function(nodes, nonReplacing) {
+          if (!nodes) {
+            return nodes;
+          }
+          var cnt = nodes.length;
+          var i;
+          if (nonReplacing || !this._implementation.isReplacing) {
+            for (i = 0; i < cnt; i++) {
+              this.visit(nodes[i]);
+            }
+            return nodes;
+          }
+          var out = [];
           for (i = 0; i < cnt; i++) {
-            this.visit(nodes[i]);
-          }
-          return nodes;
-        }
-        var out = [];
-        for (i = 0; i < cnt; i++) {
-          var evald = this.visit(nodes[i]);
-          if (evald === void 0) {
-            continue;
-          }
-          if (!evald.splice) {
-            out.push(evald);
-          } else if (evald.length) {
-            this.flatten(evald, out);
-          }
-        }
-        return out;
-      };
-      Visitor2.prototype.flatten = function(arr, out) {
-        if (!out) {
-          out = [];
-        }
-        var cnt, i, item, nestedCnt, j, nestedItem;
-        for (i = 0, cnt = arr.length; i < cnt; i++) {
-          item = arr[i];
-          if (item === void 0) {
-            continue;
-          }
-          if (!item.splice) {
-            out.push(item);
-            continue;
-          }
-          for (j = 0, nestedCnt = item.length; j < nestedCnt; j++) {
-            nestedItem = item[j];
-            if (nestedItem === void 0) {
+            var evald = this.visit(nodes[i]);
+            if (evald === void 0) {
               continue;
             }
-            if (!nestedItem.splice) {
-              out.push(nestedItem);
-            } else if (nestedItem.length) {
-              this.flatten(nestedItem, out);
+            if (!evald.splice) {
+              out.push(evald);
+            } else if (evald.length) {
+              this.flatten(evald, out);
             }
           }
-        }
-        return out;
-      };
-      return Visitor2;
-    }();
+          return out;
+        };
+        Visitor2.prototype.flatten = function(arr, out) {
+          if (!out) {
+            out = [];
+          }
+          var cnt, i, item, nestedCnt, j, nestedItem;
+          for (i = 0, cnt = arr.length; i < cnt; i++) {
+            item = arr[i];
+            if (item === void 0) {
+              continue;
+            }
+            if (!item.splice) {
+              out.push(item);
+              continue;
+            }
+            for (j = 0, nestedCnt = item.length; j < nestedCnt; j++) {
+              nestedItem = item[j];
+              if (nestedItem === void 0) {
+                continue;
+              }
+              if (!nestedItem.splice) {
+                out.push(nestedItem);
+              } else if (nestedItem.length) {
+                this.flatten(nestedItem, out);
+              }
+            }
+          }
+          return out;
+        };
+        return Visitor2;
+      }()
+    );
     exports.default = Visitor;
   }
 });
@@ -16101,57 +16253,60 @@ var require_import_sequencer = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/import-sequencer.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var ImportSequencer = function() {
-      function ImportSequencer2(onSequencerEmpty) {
-        this.imports = [];
-        this.variableImports = [];
-        this._onSequencerEmpty = onSequencerEmpty;
-        this._currentDepth = 0;
-      }
-      ImportSequencer2.prototype.addImport = function(callback) {
-        var importSequencer = this, importItem = {
-          callback,
-          args: null,
-          isReady: false
+    var ImportSequencer = (
+      /** @class */
+      function() {
+        function ImportSequencer2(onSequencerEmpty) {
+          this.imports = [];
+          this.variableImports = [];
+          this._onSequencerEmpty = onSequencerEmpty;
+          this._currentDepth = 0;
+        }
+        ImportSequencer2.prototype.addImport = function(callback) {
+          var importSequencer = this, importItem = {
+            callback,
+            args: null,
+            isReady: false
+          };
+          this.imports.push(importItem);
+          return function() {
+            importItem.args = Array.prototype.slice.call(arguments, 0);
+            importItem.isReady = true;
+            importSequencer.tryRun();
+          };
         };
-        this.imports.push(importItem);
-        return function() {
-          importItem.args = Array.prototype.slice.call(arguments, 0);
-          importItem.isReady = true;
-          importSequencer.tryRun();
+        ImportSequencer2.prototype.addVariableImport = function(callback) {
+          this.variableImports.push(callback);
         };
-      };
-      ImportSequencer2.prototype.addVariableImport = function(callback) {
-        this.variableImports.push(callback);
-      };
-      ImportSequencer2.prototype.tryRun = function() {
-        this._currentDepth++;
-        try {
-          while (true) {
-            while (this.imports.length > 0) {
-              var importItem = this.imports[0];
-              if (!importItem.isReady) {
-                return;
+        ImportSequencer2.prototype.tryRun = function() {
+          this._currentDepth++;
+          try {
+            while (true) {
+              while (this.imports.length > 0) {
+                var importItem = this.imports[0];
+                if (!importItem.isReady) {
+                  return;
+                }
+                this.imports = this.imports.slice(1);
+                importItem.callback.apply(null, importItem.args);
               }
-              this.imports = this.imports.slice(1);
-              importItem.callback.apply(null, importItem.args);
+              if (this.variableImports.length === 0) {
+                break;
+              }
+              var variableImport = this.variableImports[0];
+              this.variableImports = this.variableImports.slice(1);
+              variableImport();
             }
-            if (this.variableImports.length === 0) {
-              break;
-            }
-            var variableImport = this.variableImports[0];
-            this.variableImports = this.variableImports.slice(1);
-            variableImport();
+          } finally {
+            this._currentDepth--;
           }
-        } finally {
-          this._currentDepth--;
-        }
-        if (this._currentDepth === 0 && this._onSequencerEmpty) {
-          this._onSequencerEmpty();
-        }
-      };
-      return ImportSequencer2;
-    }();
+          if (this._currentDepth === 0 && this._onSequencerEmpty) {
+            this._onSequencerEmpty();
+          }
+        };
+        return ImportSequencer2;
+      }()
+    );
     exports.default = ImportSequencer;
   }
 });
@@ -16161,7 +16316,7 @@ var require_import_visitor = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/import-visitor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var contexts_1 = tslib_1.__importDefault(require_contexts());
     var visitor_1 = tslib_1.__importDefault(require_visitor());
     var import_sequencer_1 = tslib_1.__importDefault(require_import_sequencer());
@@ -16331,44 +16486,47 @@ var require_set_tree_visibility_visitor = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/set-tree-visibility-visitor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SetTreeVisibilityVisitor = function() {
-      function SetTreeVisibilityVisitor2(visible) {
-        this.visible = visible;
-      }
-      SetTreeVisibilityVisitor2.prototype.run = function(root) {
-        this.visit(root);
-      };
-      SetTreeVisibilityVisitor2.prototype.visitArray = function(nodes) {
-        if (!nodes) {
+    var SetTreeVisibilityVisitor = (
+      /** @class */
+      function() {
+        function SetTreeVisibilityVisitor2(visible) {
+          this.visible = visible;
+        }
+        SetTreeVisibilityVisitor2.prototype.run = function(root) {
+          this.visit(root);
+        };
+        SetTreeVisibilityVisitor2.prototype.visitArray = function(nodes) {
+          if (!nodes) {
+            return nodes;
+          }
+          var cnt = nodes.length;
+          var i;
+          for (i = 0; i < cnt; i++) {
+            this.visit(nodes[i]);
+          }
           return nodes;
-        }
-        var cnt = nodes.length;
-        var i;
-        for (i = 0; i < cnt; i++) {
-          this.visit(nodes[i]);
-        }
-        return nodes;
-      };
-      SetTreeVisibilityVisitor2.prototype.visit = function(node) {
-        if (!node) {
+        };
+        SetTreeVisibilityVisitor2.prototype.visit = function(node) {
+          if (!node) {
+            return node;
+          }
+          if (node.constructor === Array) {
+            return this.visitArray(node);
+          }
+          if (!node.blocksVisibility || node.blocksVisibility()) {
+            return node;
+          }
+          if (this.visible) {
+            node.ensureVisibility();
+          } else {
+            node.ensureInvisibility();
+          }
+          node.accept(this);
           return node;
-        }
-        if (node.constructor === Array) {
-          return this.visitArray(node);
-        }
-        if (!node.blocksVisibility || node.blocksVisibility()) {
-          return node;
-        }
-        if (this.visible) {
-          node.ensureVisibility();
-        } else {
-          node.ensureInvisibility();
-        }
-        node.accept(this);
-        return node;
-      };
-      return SetTreeVisibilityVisitor2;
-    }();
+        };
+        return SetTreeVisibilityVisitor2;
+      }()
+    );
     exports.default = SetTreeVisibilityVisitor;
   }
 });
@@ -16378,377 +16536,383 @@ var require_extend_visitor = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/extend-visitor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var tree_1 = tslib_1.__importDefault(require_tree());
     var visitor_1 = tslib_1.__importDefault(require_visitor());
     var logger_1 = tslib_1.__importDefault(require_logger());
     var utils = tslib_1.__importStar(require_utils4());
-    var ExtendFinderVisitor = function() {
-      function ExtendFinderVisitor2() {
-        this._visitor = new visitor_1.default(this);
-        this.contexts = [];
-        this.allExtendsStack = [[]];
-      }
-      ExtendFinderVisitor2.prototype.run = function(root) {
-        root = this._visitor.visit(root);
-        root.allExtends = this.allExtendsStack[0];
-        return root;
-      };
-      ExtendFinderVisitor2.prototype.visitDeclaration = function(declNode, visitArgs) {
-        visitArgs.visitDeeper = false;
-      };
-      ExtendFinderVisitor2.prototype.visitMixinDefinition = function(mixinDefinitionNode, visitArgs) {
-        visitArgs.visitDeeper = false;
-      };
-      ExtendFinderVisitor2.prototype.visitRuleset = function(rulesetNode, visitArgs) {
-        if (rulesetNode.root) {
-          return;
+    var ExtendFinderVisitor = (
+      /** @class */
+      function() {
+        function ExtendFinderVisitor2() {
+          this._visitor = new visitor_1.default(this);
+          this.contexts = [];
+          this.allExtendsStack = [[]];
         }
-        var i;
-        var j;
-        var extend;
-        var allSelectorsExtendList = [];
-        var extendList;
-        var rules = rulesetNode.rules, ruleCnt = rules ? rules.length : 0;
-        for (i = 0; i < ruleCnt; i++) {
-          if (rulesetNode.rules[i] instanceof tree_1.default.Extend) {
-            allSelectorsExtendList.push(rules[i]);
-            rulesetNode.extendOnEveryPath = true;
-          }
-        }
-        var paths = rulesetNode.paths;
-        for (i = 0; i < paths.length; i++) {
-          var selectorPath = paths[i], selector = selectorPath[selectorPath.length - 1], selExtendList = selector.extendList;
-          extendList = selExtendList ? utils.copyArray(selExtendList).concat(allSelectorsExtendList) : allSelectorsExtendList;
-          if (extendList) {
-            extendList = extendList.map(function(allSelectorsExtend) {
-              return allSelectorsExtend.clone();
-            });
-          }
-          for (j = 0; j < extendList.length; j++) {
-            this.foundExtends = true;
-            extend = extendList[j];
-            extend.findSelfSelectors(selectorPath);
-            extend.ruleset = rulesetNode;
-            if (j === 0) {
-              extend.firstExtendOnThisSelectorPath = true;
-            }
-            this.allExtendsStack[this.allExtendsStack.length - 1].push(extend);
-          }
-        }
-        this.contexts.push(rulesetNode.selectors);
-      };
-      ExtendFinderVisitor2.prototype.visitRulesetOut = function(rulesetNode) {
-        if (!rulesetNode.root) {
-          this.contexts.length = this.contexts.length - 1;
-        }
-      };
-      ExtendFinderVisitor2.prototype.visitMedia = function(mediaNode, visitArgs) {
-        mediaNode.allExtends = [];
-        this.allExtendsStack.push(mediaNode.allExtends);
-      };
-      ExtendFinderVisitor2.prototype.visitMediaOut = function(mediaNode) {
-        this.allExtendsStack.length = this.allExtendsStack.length - 1;
-      };
-      ExtendFinderVisitor2.prototype.visitAtRule = function(atRuleNode, visitArgs) {
-        atRuleNode.allExtends = [];
-        this.allExtendsStack.push(atRuleNode.allExtends);
-      };
-      ExtendFinderVisitor2.prototype.visitAtRuleOut = function(atRuleNode) {
-        this.allExtendsStack.length = this.allExtendsStack.length - 1;
-      };
-      return ExtendFinderVisitor2;
-    }();
-    var ProcessExtendsVisitor = function() {
-      function ProcessExtendsVisitor2() {
-        this._visitor = new visitor_1.default(this);
-      }
-      ProcessExtendsVisitor2.prototype.run = function(root) {
-        var extendFinder = new ExtendFinderVisitor();
-        this.extendIndices = {};
-        extendFinder.run(root);
-        if (!extendFinder.foundExtends) {
+        ExtendFinderVisitor2.prototype.run = function(root) {
+          root = this._visitor.visit(root);
+          root.allExtends = this.allExtendsStack[0];
           return root;
-        }
-        root.allExtends = root.allExtends.concat(this.doExtendChaining(root.allExtends, root.allExtends));
-        this.allExtendsStack = [root.allExtends];
-        var newRoot = this._visitor.visit(root);
-        this.checkExtendsForNonMatched(root.allExtends);
-        return newRoot;
-      };
-      ProcessExtendsVisitor2.prototype.checkExtendsForNonMatched = function(extendList) {
-        var indices = this.extendIndices;
-        extendList.filter(function(extend) {
-          return !extend.hasFoundMatches && extend.parent_ids.length == 1;
-        }).forEach(function(extend) {
-          var selector = "_unknown_";
-          try {
-            selector = extend.selector.toCSS({});
-          } catch (_) {
+        };
+        ExtendFinderVisitor2.prototype.visitDeclaration = function(declNode, visitArgs) {
+          visitArgs.visitDeeper = false;
+        };
+        ExtendFinderVisitor2.prototype.visitMixinDefinition = function(mixinDefinitionNode, visitArgs) {
+          visitArgs.visitDeeper = false;
+        };
+        ExtendFinderVisitor2.prototype.visitRuleset = function(rulesetNode, visitArgs) {
+          if (rulesetNode.root) {
+            return;
           }
-          if (!indices[extend.index + " " + selector]) {
-            indices[extend.index + " " + selector] = true;
-            logger_1.default.warn("extend '" + selector + "' has no matches");
-          }
-        });
-      };
-      ProcessExtendsVisitor2.prototype.doExtendChaining = function(extendsList, extendsListTarget, iterationCount) {
-        var extendIndex;
-        var targetExtendIndex;
-        var matches;
-        var extendsToAdd = [];
-        var newSelector;
-        var extendVisitor = this;
-        var selectorPath;
-        var extend;
-        var targetExtend;
-        var newExtend;
-        iterationCount = iterationCount || 0;
-        for (extendIndex = 0; extendIndex < extendsList.length; extendIndex++) {
-          for (targetExtendIndex = 0; targetExtendIndex < extendsListTarget.length; targetExtendIndex++) {
-            extend = extendsList[extendIndex];
-            targetExtend = extendsListTarget[targetExtendIndex];
-            if (extend.parent_ids.indexOf(targetExtend.object_id) >= 0) {
-              continue;
+          var i;
+          var j;
+          var extend;
+          var allSelectorsExtendList = [];
+          var extendList;
+          var rules = rulesetNode.rules, ruleCnt = rules ? rules.length : 0;
+          for (i = 0; i < ruleCnt; i++) {
+            if (rulesetNode.rules[i] instanceof tree_1.default.Extend) {
+              allSelectorsExtendList.push(rules[i]);
+              rulesetNode.extendOnEveryPath = true;
             }
-            selectorPath = [targetExtend.selfSelectors[0]];
-            matches = extendVisitor.findMatch(extend, selectorPath);
-            if (matches.length) {
-              extend.hasFoundMatches = true;
-              extend.selfSelectors.forEach(function(selfSelector) {
-                var info = targetExtend.visibilityInfo();
-                newSelector = extendVisitor.extendSelector(matches, selectorPath, selfSelector, extend.isVisible());
-                newExtend = new tree_1.default.Extend(targetExtend.selector, targetExtend.option, 0, targetExtend.fileInfo(), info);
-                newExtend.selfSelectors = newSelector;
-                newSelector[newSelector.length - 1].extendList = [newExtend];
-                extendsToAdd.push(newExtend);
-                newExtend.ruleset = targetExtend.ruleset;
-                newExtend.parent_ids = newExtend.parent_ids.concat(targetExtend.parent_ids, extend.parent_ids);
-                if (targetExtend.firstExtendOnThisSelectorPath) {
-                  newExtend.firstExtendOnThisSelectorPath = true;
-                  targetExtend.ruleset.paths.push(newSelector);
-                }
+          }
+          var paths = rulesetNode.paths;
+          for (i = 0; i < paths.length; i++) {
+            var selectorPath = paths[i], selector = selectorPath[selectorPath.length - 1], selExtendList = selector.extendList;
+            extendList = selExtendList ? utils.copyArray(selExtendList).concat(allSelectorsExtendList) : allSelectorsExtendList;
+            if (extendList) {
+              extendList = extendList.map(function(allSelectorsExtend) {
+                return allSelectorsExtend.clone();
               });
             }
+            for (j = 0; j < extendList.length; j++) {
+              this.foundExtends = true;
+              extend = extendList[j];
+              extend.findSelfSelectors(selectorPath);
+              extend.ruleset = rulesetNode;
+              if (j === 0) {
+                extend.firstExtendOnThisSelectorPath = true;
+              }
+              this.allExtendsStack[this.allExtendsStack.length - 1].push(extend);
+            }
           }
+          this.contexts.push(rulesetNode.selectors);
+        };
+        ExtendFinderVisitor2.prototype.visitRulesetOut = function(rulesetNode) {
+          if (!rulesetNode.root) {
+            this.contexts.length = this.contexts.length - 1;
+          }
+        };
+        ExtendFinderVisitor2.prototype.visitMedia = function(mediaNode, visitArgs) {
+          mediaNode.allExtends = [];
+          this.allExtendsStack.push(mediaNode.allExtends);
+        };
+        ExtendFinderVisitor2.prototype.visitMediaOut = function(mediaNode) {
+          this.allExtendsStack.length = this.allExtendsStack.length - 1;
+        };
+        ExtendFinderVisitor2.prototype.visitAtRule = function(atRuleNode, visitArgs) {
+          atRuleNode.allExtends = [];
+          this.allExtendsStack.push(atRuleNode.allExtends);
+        };
+        ExtendFinderVisitor2.prototype.visitAtRuleOut = function(atRuleNode) {
+          this.allExtendsStack.length = this.allExtendsStack.length - 1;
+        };
+        return ExtendFinderVisitor2;
+      }()
+    );
+    var ProcessExtendsVisitor = (
+      /** @class */
+      function() {
+        function ProcessExtendsVisitor2() {
+          this._visitor = new visitor_1.default(this);
         }
-        if (extendsToAdd.length) {
-          this.extendChainCount++;
-          if (iterationCount > 100) {
-            var selectorOne = "{unable to calculate}";
-            var selectorTwo = "{unable to calculate}";
+        ProcessExtendsVisitor2.prototype.run = function(root) {
+          var extendFinder = new ExtendFinderVisitor();
+          this.extendIndices = {};
+          extendFinder.run(root);
+          if (!extendFinder.foundExtends) {
+            return root;
+          }
+          root.allExtends = root.allExtends.concat(this.doExtendChaining(root.allExtends, root.allExtends));
+          this.allExtendsStack = [root.allExtends];
+          var newRoot = this._visitor.visit(root);
+          this.checkExtendsForNonMatched(root.allExtends);
+          return newRoot;
+        };
+        ProcessExtendsVisitor2.prototype.checkExtendsForNonMatched = function(extendList) {
+          var indices = this.extendIndices;
+          extendList.filter(function(extend) {
+            return !extend.hasFoundMatches && extend.parent_ids.length == 1;
+          }).forEach(function(extend) {
+            var selector = "_unknown_";
             try {
-              selectorOne = extendsToAdd[0].selfSelectors[0].toCSS();
-              selectorTwo = extendsToAdd[0].selector.toCSS();
-            } catch (e) {
+              selector = extend.selector.toCSS({});
+            } catch (_) {
             }
-            throw { message: "extend circular reference detected. One of the circular extends is currently:" + selectorOne + ":extend(" + selectorTwo + ")" };
-          }
-          return extendsToAdd.concat(extendVisitor.doExtendChaining(extendsToAdd, extendsListTarget, iterationCount + 1));
-        } else {
-          return extendsToAdd;
-        }
-      };
-      ProcessExtendsVisitor2.prototype.visitDeclaration = function(ruleNode, visitArgs) {
-        visitArgs.visitDeeper = false;
-      };
-      ProcessExtendsVisitor2.prototype.visitMixinDefinition = function(mixinDefinitionNode, visitArgs) {
-        visitArgs.visitDeeper = false;
-      };
-      ProcessExtendsVisitor2.prototype.visitSelector = function(selectorNode, visitArgs) {
-        visitArgs.visitDeeper = false;
-      };
-      ProcessExtendsVisitor2.prototype.visitRuleset = function(rulesetNode, visitArgs) {
-        if (rulesetNode.root) {
-          return;
-        }
-        var matches;
-        var pathIndex;
-        var extendIndex;
-        var allExtends = this.allExtendsStack[this.allExtendsStack.length - 1];
-        var selectorsToAdd = [];
-        var extendVisitor = this;
-        var selectorPath;
-        for (extendIndex = 0; extendIndex < allExtends.length; extendIndex++) {
-          for (pathIndex = 0; pathIndex < rulesetNode.paths.length; pathIndex++) {
-            selectorPath = rulesetNode.paths[pathIndex];
-            if (rulesetNode.extendOnEveryPath) {
-              continue;
+            if (!indices[extend.index + " " + selector]) {
+              indices[extend.index + " " + selector] = true;
+              logger_1.default.warn("extend '" + selector + "' has no matches");
             }
-            var extendList = selectorPath[selectorPath.length - 1].extendList;
-            if (extendList && extendList.length) {
-              continue;
-            }
-            matches = this.findMatch(allExtends[extendIndex], selectorPath);
-            if (matches.length) {
-              allExtends[extendIndex].hasFoundMatches = true;
-              allExtends[extendIndex].selfSelectors.forEach(function(selfSelector) {
-                var extendedSelectors;
-                extendedSelectors = extendVisitor.extendSelector(matches, selectorPath, selfSelector, allExtends[extendIndex].isVisible());
-                selectorsToAdd.push(extendedSelectors);
-              });
+          });
+        };
+        ProcessExtendsVisitor2.prototype.doExtendChaining = function(extendsList, extendsListTarget, iterationCount) {
+          var extendIndex;
+          var targetExtendIndex;
+          var matches;
+          var extendsToAdd = [];
+          var newSelector;
+          var extendVisitor = this;
+          var selectorPath;
+          var extend;
+          var targetExtend;
+          var newExtend;
+          iterationCount = iterationCount || 0;
+          for (extendIndex = 0; extendIndex < extendsList.length; extendIndex++) {
+            for (targetExtendIndex = 0; targetExtendIndex < extendsListTarget.length; targetExtendIndex++) {
+              extend = extendsList[extendIndex];
+              targetExtend = extendsListTarget[targetExtendIndex];
+              if (extend.parent_ids.indexOf(targetExtend.object_id) >= 0) {
+                continue;
+              }
+              selectorPath = [targetExtend.selfSelectors[0]];
+              matches = extendVisitor.findMatch(extend, selectorPath);
+              if (matches.length) {
+                extend.hasFoundMatches = true;
+                extend.selfSelectors.forEach(function(selfSelector) {
+                  var info = targetExtend.visibilityInfo();
+                  newSelector = extendVisitor.extendSelector(matches, selectorPath, selfSelector, extend.isVisible());
+                  newExtend = new tree_1.default.Extend(targetExtend.selector, targetExtend.option, 0, targetExtend.fileInfo(), info);
+                  newExtend.selfSelectors = newSelector;
+                  newSelector[newSelector.length - 1].extendList = [newExtend];
+                  extendsToAdd.push(newExtend);
+                  newExtend.ruleset = targetExtend.ruleset;
+                  newExtend.parent_ids = newExtend.parent_ids.concat(targetExtend.parent_ids, extend.parent_ids);
+                  if (targetExtend.firstExtendOnThisSelectorPath) {
+                    newExtend.firstExtendOnThisSelectorPath = true;
+                    targetExtend.ruleset.paths.push(newSelector);
+                  }
+                });
+              }
             }
           }
-        }
-        rulesetNode.paths = rulesetNode.paths.concat(selectorsToAdd);
-      };
-      ProcessExtendsVisitor2.prototype.findMatch = function(extend, haystackSelectorPath) {
-        var haystackSelectorIndex;
-        var hackstackSelector;
-        var hackstackElementIndex;
-        var haystackElement;
-        var targetCombinator;
-        var i;
-        var extendVisitor = this;
-        var needleElements = extend.selector.elements;
-        var potentialMatches = [];
-        var potentialMatch;
-        var matches = [];
-        for (haystackSelectorIndex = 0; haystackSelectorIndex < haystackSelectorPath.length; haystackSelectorIndex++) {
-          hackstackSelector = haystackSelectorPath[haystackSelectorIndex];
-          for (hackstackElementIndex = 0; hackstackElementIndex < hackstackSelector.elements.length; hackstackElementIndex++) {
-            haystackElement = hackstackSelector.elements[hackstackElementIndex];
-            if (extend.allowBefore || haystackSelectorIndex === 0 && hackstackElementIndex === 0) {
-              potentialMatches.push({
-                pathIndex: haystackSelectorIndex,
-                index: hackstackElementIndex,
-                matched: 0,
-                initialCombinator: haystackElement.combinator
-              });
+          if (extendsToAdd.length) {
+            this.extendChainCount++;
+            if (iterationCount > 100) {
+              var selectorOne = "{unable to calculate}";
+              var selectorTwo = "{unable to calculate}";
+              try {
+                selectorOne = extendsToAdd[0].selfSelectors[0].toCSS();
+                selectorTwo = extendsToAdd[0].selector.toCSS();
+              } catch (e) {
+              }
+              throw { message: "extend circular reference detected. One of the circular extends is currently:" + selectorOne + ":extend(" + selectorTwo + ")" };
             }
-            for (i = 0; i < potentialMatches.length; i++) {
-              potentialMatch = potentialMatches[i];
-              targetCombinator = haystackElement.combinator.value;
-              if (targetCombinator === "" && hackstackElementIndex === 0) {
-                targetCombinator = " ";
+            return extendsToAdd.concat(extendVisitor.doExtendChaining(extendsToAdd, extendsListTarget, iterationCount + 1));
+          } else {
+            return extendsToAdd;
+          }
+        };
+        ProcessExtendsVisitor2.prototype.visitDeclaration = function(ruleNode, visitArgs) {
+          visitArgs.visitDeeper = false;
+        };
+        ProcessExtendsVisitor2.prototype.visitMixinDefinition = function(mixinDefinitionNode, visitArgs) {
+          visitArgs.visitDeeper = false;
+        };
+        ProcessExtendsVisitor2.prototype.visitSelector = function(selectorNode, visitArgs) {
+          visitArgs.visitDeeper = false;
+        };
+        ProcessExtendsVisitor2.prototype.visitRuleset = function(rulesetNode, visitArgs) {
+          if (rulesetNode.root) {
+            return;
+          }
+          var matches;
+          var pathIndex;
+          var extendIndex;
+          var allExtends = this.allExtendsStack[this.allExtendsStack.length - 1];
+          var selectorsToAdd = [];
+          var extendVisitor = this;
+          var selectorPath;
+          for (extendIndex = 0; extendIndex < allExtends.length; extendIndex++) {
+            for (pathIndex = 0; pathIndex < rulesetNode.paths.length; pathIndex++) {
+              selectorPath = rulesetNode.paths[pathIndex];
+              if (rulesetNode.extendOnEveryPath) {
+                continue;
               }
-              if (!extendVisitor.isElementValuesEqual(needleElements[potentialMatch.matched].value, haystackElement.value) || potentialMatch.matched > 0 && needleElements[potentialMatch.matched].combinator.value !== targetCombinator) {
-                potentialMatch = null;
-              } else {
-                potentialMatch.matched++;
+              var extendList = selectorPath[selectorPath.length - 1].extendList;
+              if (extendList && extendList.length) {
+                continue;
               }
-              if (potentialMatch) {
-                potentialMatch.finished = potentialMatch.matched === needleElements.length;
-                if (potentialMatch.finished && (!extend.allowAfter && (hackstackElementIndex + 1 < hackstackSelector.elements.length || haystackSelectorIndex + 1 < haystackSelectorPath.length))) {
+              matches = this.findMatch(allExtends[extendIndex], selectorPath);
+              if (matches.length) {
+                allExtends[extendIndex].hasFoundMatches = true;
+                allExtends[extendIndex].selfSelectors.forEach(function(selfSelector) {
+                  var extendedSelectors;
+                  extendedSelectors = extendVisitor.extendSelector(matches, selectorPath, selfSelector, allExtends[extendIndex].isVisible());
+                  selectorsToAdd.push(extendedSelectors);
+                });
+              }
+            }
+          }
+          rulesetNode.paths = rulesetNode.paths.concat(selectorsToAdd);
+        };
+        ProcessExtendsVisitor2.prototype.findMatch = function(extend, haystackSelectorPath) {
+          var haystackSelectorIndex;
+          var hackstackSelector;
+          var hackstackElementIndex;
+          var haystackElement;
+          var targetCombinator;
+          var i;
+          var extendVisitor = this;
+          var needleElements = extend.selector.elements;
+          var potentialMatches = [];
+          var potentialMatch;
+          var matches = [];
+          for (haystackSelectorIndex = 0; haystackSelectorIndex < haystackSelectorPath.length; haystackSelectorIndex++) {
+            hackstackSelector = haystackSelectorPath[haystackSelectorIndex];
+            for (hackstackElementIndex = 0; hackstackElementIndex < hackstackSelector.elements.length; hackstackElementIndex++) {
+              haystackElement = hackstackSelector.elements[hackstackElementIndex];
+              if (extend.allowBefore || haystackSelectorIndex === 0 && hackstackElementIndex === 0) {
+                potentialMatches.push({
+                  pathIndex: haystackSelectorIndex,
+                  index: hackstackElementIndex,
+                  matched: 0,
+                  initialCombinator: haystackElement.combinator
+                });
+              }
+              for (i = 0; i < potentialMatches.length; i++) {
+                potentialMatch = potentialMatches[i];
+                targetCombinator = haystackElement.combinator.value;
+                if (targetCombinator === "" && hackstackElementIndex === 0) {
+                  targetCombinator = " ";
+                }
+                if (!extendVisitor.isElementValuesEqual(needleElements[potentialMatch.matched].value, haystackElement.value) || potentialMatch.matched > 0 && needleElements[potentialMatch.matched].combinator.value !== targetCombinator) {
                   potentialMatch = null;
+                } else {
+                  potentialMatch.matched++;
                 }
-              }
-              if (potentialMatch) {
-                if (potentialMatch.finished) {
-                  potentialMatch.length = needleElements.length;
-                  potentialMatch.endPathIndex = haystackSelectorIndex;
-                  potentialMatch.endPathElementIndex = hackstackElementIndex + 1;
-                  potentialMatches.length = 0;
-                  matches.push(potentialMatch);
+                if (potentialMatch) {
+                  potentialMatch.finished = potentialMatch.matched === needleElements.length;
+                  if (potentialMatch.finished && (!extend.allowAfter && (hackstackElementIndex + 1 < hackstackSelector.elements.length || haystackSelectorIndex + 1 < haystackSelectorPath.length))) {
+                    potentialMatch = null;
+                  }
                 }
-              } else {
-                potentialMatches.splice(i, 1);
-                i--;
+                if (potentialMatch) {
+                  if (potentialMatch.finished) {
+                    potentialMatch.length = needleElements.length;
+                    potentialMatch.endPathIndex = haystackSelectorIndex;
+                    potentialMatch.endPathElementIndex = hackstackElementIndex + 1;
+                    potentialMatches.length = 0;
+                    matches.push(potentialMatch);
+                  }
+                } else {
+                  potentialMatches.splice(i, 1);
+                  i--;
+                }
               }
             }
           }
-        }
-        return matches;
-      };
-      ProcessExtendsVisitor2.prototype.isElementValuesEqual = function(elementValue1, elementValue2) {
-        if (typeof elementValue1 === "string" || typeof elementValue2 === "string") {
-          return elementValue1 === elementValue2;
-        }
-        if (elementValue1 instanceof tree_1.default.Attribute) {
-          if (elementValue1.op !== elementValue2.op || elementValue1.key !== elementValue2.key) {
-            return false;
+          return matches;
+        };
+        ProcessExtendsVisitor2.prototype.isElementValuesEqual = function(elementValue1, elementValue2) {
+          if (typeof elementValue1 === "string" || typeof elementValue2 === "string") {
+            return elementValue1 === elementValue2;
           }
-          if (!elementValue1.value || !elementValue2.value) {
-            if (elementValue1.value || elementValue2.value) {
+          if (elementValue1 instanceof tree_1.default.Attribute) {
+            if (elementValue1.op !== elementValue2.op || elementValue1.key !== elementValue2.key) {
               return false;
             }
-            return true;
+            if (!elementValue1.value || !elementValue2.value) {
+              if (elementValue1.value || elementValue2.value) {
+                return false;
+              }
+              return true;
+            }
+            elementValue1 = elementValue1.value.value || elementValue1.value;
+            elementValue2 = elementValue2.value.value || elementValue2.value;
+            return elementValue1 === elementValue2;
           }
-          elementValue1 = elementValue1.value.value || elementValue1.value;
-          elementValue2 = elementValue2.value.value || elementValue2.value;
-          return elementValue1 === elementValue2;
-        }
-        elementValue1 = elementValue1.value;
-        elementValue2 = elementValue2.value;
-        if (elementValue1 instanceof tree_1.default.Selector) {
-          if (!(elementValue2 instanceof tree_1.default.Selector) || elementValue1.elements.length !== elementValue2.elements.length) {
-            return false;
-          }
-          for (var i = 0; i < elementValue1.elements.length; i++) {
-            if (elementValue1.elements[i].combinator.value !== elementValue2.elements[i].combinator.value) {
-              if (i !== 0 || (elementValue1.elements[i].combinator.value || " ") !== (elementValue2.elements[i].combinator.value || " ")) {
+          elementValue1 = elementValue1.value;
+          elementValue2 = elementValue2.value;
+          if (elementValue1 instanceof tree_1.default.Selector) {
+            if (!(elementValue2 instanceof tree_1.default.Selector) || elementValue1.elements.length !== elementValue2.elements.length) {
+              return false;
+            }
+            for (var i = 0; i < elementValue1.elements.length; i++) {
+              if (elementValue1.elements[i].combinator.value !== elementValue2.elements[i].combinator.value) {
+                if (i !== 0 || (elementValue1.elements[i].combinator.value || " ") !== (elementValue2.elements[i].combinator.value || " ")) {
+                  return false;
+                }
+              }
+              if (!this.isElementValuesEqual(elementValue1.elements[i].value, elementValue2.elements[i].value)) {
                 return false;
               }
             }
-            if (!this.isElementValuesEqual(elementValue1.elements[i].value, elementValue2.elements[i].value)) {
-              return false;
+            return true;
+          }
+          return false;
+        };
+        ProcessExtendsVisitor2.prototype.extendSelector = function(matches, selectorPath, replacementSelector, isVisible) {
+          var currentSelectorPathIndex = 0, currentSelectorPathElementIndex = 0, path4 = [], matchIndex, selector, firstElement, match, newElements;
+          for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
+            match = matches[matchIndex];
+            selector = selectorPath[match.pathIndex];
+            firstElement = new tree_1.default.Element(match.initialCombinator, replacementSelector.elements[0].value, replacementSelector.elements[0].isVariable, replacementSelector.elements[0].getIndex(), replacementSelector.elements[0].fileInfo());
+            if (match.pathIndex > currentSelectorPathIndex && currentSelectorPathElementIndex > 0) {
+              path4[path4.length - 1].elements = path4[path4.length - 1].elements.concat(selectorPath[currentSelectorPathIndex].elements.slice(currentSelectorPathElementIndex));
+              currentSelectorPathElementIndex = 0;
+              currentSelectorPathIndex++;
+            }
+            newElements = selector.elements.slice(currentSelectorPathElementIndex, match.index).concat([firstElement]).concat(replacementSelector.elements.slice(1));
+            if (currentSelectorPathIndex === match.pathIndex && matchIndex > 0) {
+              path4[path4.length - 1].elements = path4[path4.length - 1].elements.concat(newElements);
+            } else {
+              path4 = path4.concat(selectorPath.slice(currentSelectorPathIndex, match.pathIndex));
+              path4.push(new tree_1.default.Selector(newElements));
+            }
+            currentSelectorPathIndex = match.endPathIndex;
+            currentSelectorPathElementIndex = match.endPathElementIndex;
+            if (currentSelectorPathElementIndex >= selectorPath[currentSelectorPathIndex].elements.length) {
+              currentSelectorPathElementIndex = 0;
+              currentSelectorPathIndex++;
             }
           }
-          return true;
-        }
-        return false;
-      };
-      ProcessExtendsVisitor2.prototype.extendSelector = function(matches, selectorPath, replacementSelector, isVisible) {
-        var currentSelectorPathIndex = 0, currentSelectorPathElementIndex = 0, path4 = [], matchIndex, selector, firstElement, match, newElements;
-        for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
-          match = matches[matchIndex];
-          selector = selectorPath[match.pathIndex];
-          firstElement = new tree_1.default.Element(match.initialCombinator, replacementSelector.elements[0].value, replacementSelector.elements[0].isVariable, replacementSelector.elements[0].getIndex(), replacementSelector.elements[0].fileInfo());
-          if (match.pathIndex > currentSelectorPathIndex && currentSelectorPathElementIndex > 0) {
+          if (currentSelectorPathIndex < selectorPath.length && currentSelectorPathElementIndex > 0) {
             path4[path4.length - 1].elements = path4[path4.length - 1].elements.concat(selectorPath[currentSelectorPathIndex].elements.slice(currentSelectorPathElementIndex));
-            currentSelectorPathElementIndex = 0;
             currentSelectorPathIndex++;
           }
-          newElements = selector.elements.slice(currentSelectorPathElementIndex, match.index).concat([firstElement]).concat(replacementSelector.elements.slice(1));
-          if (currentSelectorPathIndex === match.pathIndex && matchIndex > 0) {
-            path4[path4.length - 1].elements = path4[path4.length - 1].elements.concat(newElements);
-          } else {
-            path4 = path4.concat(selectorPath.slice(currentSelectorPathIndex, match.pathIndex));
-            path4.push(new tree_1.default.Selector(newElements));
-          }
-          currentSelectorPathIndex = match.endPathIndex;
-          currentSelectorPathElementIndex = match.endPathElementIndex;
-          if (currentSelectorPathElementIndex >= selectorPath[currentSelectorPathIndex].elements.length) {
-            currentSelectorPathElementIndex = 0;
-            currentSelectorPathIndex++;
-          }
-        }
-        if (currentSelectorPathIndex < selectorPath.length && currentSelectorPathElementIndex > 0) {
-          path4[path4.length - 1].elements = path4[path4.length - 1].elements.concat(selectorPath[currentSelectorPathIndex].elements.slice(currentSelectorPathElementIndex));
-          currentSelectorPathIndex++;
-        }
-        path4 = path4.concat(selectorPath.slice(currentSelectorPathIndex, selectorPath.length));
-        path4 = path4.map(function(currentValue) {
-          var derived = currentValue.createDerived(currentValue.elements);
-          if (isVisible) {
-            derived.ensureVisibility();
-          } else {
-            derived.ensureInvisibility();
-          }
-          return derived;
-        });
-        return path4;
-      };
-      ProcessExtendsVisitor2.prototype.visitMedia = function(mediaNode, visitArgs) {
-        var newAllExtends = mediaNode.allExtends.concat(this.allExtendsStack[this.allExtendsStack.length - 1]);
-        newAllExtends = newAllExtends.concat(this.doExtendChaining(newAllExtends, mediaNode.allExtends));
-        this.allExtendsStack.push(newAllExtends);
-      };
-      ProcessExtendsVisitor2.prototype.visitMediaOut = function(mediaNode) {
-        var lastIndex = this.allExtendsStack.length - 1;
-        this.allExtendsStack.length = lastIndex;
-      };
-      ProcessExtendsVisitor2.prototype.visitAtRule = function(atRuleNode, visitArgs) {
-        var newAllExtends = atRuleNode.allExtends.concat(this.allExtendsStack[this.allExtendsStack.length - 1]);
-        newAllExtends = newAllExtends.concat(this.doExtendChaining(newAllExtends, atRuleNode.allExtends));
-        this.allExtendsStack.push(newAllExtends);
-      };
-      ProcessExtendsVisitor2.prototype.visitAtRuleOut = function(atRuleNode) {
-        var lastIndex = this.allExtendsStack.length - 1;
-        this.allExtendsStack.length = lastIndex;
-      };
-      return ProcessExtendsVisitor2;
-    }();
+          path4 = path4.concat(selectorPath.slice(currentSelectorPathIndex, selectorPath.length));
+          path4 = path4.map(function(currentValue) {
+            var derived = currentValue.createDerived(currentValue.elements);
+            if (isVisible) {
+              derived.ensureVisibility();
+            } else {
+              derived.ensureInvisibility();
+            }
+            return derived;
+          });
+          return path4;
+        };
+        ProcessExtendsVisitor2.prototype.visitMedia = function(mediaNode, visitArgs) {
+          var newAllExtends = mediaNode.allExtends.concat(this.allExtendsStack[this.allExtendsStack.length - 1]);
+          newAllExtends = newAllExtends.concat(this.doExtendChaining(newAllExtends, mediaNode.allExtends));
+          this.allExtendsStack.push(newAllExtends);
+        };
+        ProcessExtendsVisitor2.prototype.visitMediaOut = function(mediaNode) {
+          var lastIndex = this.allExtendsStack.length - 1;
+          this.allExtendsStack.length = lastIndex;
+        };
+        ProcessExtendsVisitor2.prototype.visitAtRule = function(atRuleNode, visitArgs) {
+          var newAllExtends = atRuleNode.allExtends.concat(this.allExtendsStack[this.allExtendsStack.length - 1]);
+          newAllExtends = newAllExtends.concat(this.doExtendChaining(newAllExtends, atRuleNode.allExtends));
+          this.allExtendsStack.push(newAllExtends);
+        };
+        ProcessExtendsVisitor2.prototype.visitAtRuleOut = function(atRuleNode) {
+          var lastIndex = this.allExtendsStack.length - 1;
+          this.allExtendsStack.length = lastIndex;
+        };
+        return ProcessExtendsVisitor2;
+      }()
+    );
     exports.default = ProcessExtendsVisitor;
   }
 });
@@ -16758,59 +16922,62 @@ var require_join_selector_visitor = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/join-selector-visitor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var visitor_1 = tslib_1.__importDefault(require_visitor());
-    var JoinSelectorVisitor = function() {
-      function JoinSelectorVisitor2() {
-        this.contexts = [[]];
-        this._visitor = new visitor_1.default(this);
-      }
-      JoinSelectorVisitor2.prototype.run = function(root) {
-        return this._visitor.visit(root);
-      };
-      JoinSelectorVisitor2.prototype.visitDeclaration = function(declNode, visitArgs) {
-        visitArgs.visitDeeper = false;
-      };
-      JoinSelectorVisitor2.prototype.visitMixinDefinition = function(mixinDefinitionNode, visitArgs) {
-        visitArgs.visitDeeper = false;
-      };
-      JoinSelectorVisitor2.prototype.visitRuleset = function(rulesetNode, visitArgs) {
-        var context2 = this.contexts[this.contexts.length - 1];
-        var paths = [];
-        var selectors;
-        this.contexts.push(paths);
-        if (!rulesetNode.root) {
-          selectors = rulesetNode.selectors;
-          if (selectors) {
-            selectors = selectors.filter(function(selector) {
-              return selector.getIsOutput();
-            });
-            rulesetNode.selectors = selectors.length ? selectors : selectors = null;
+    var JoinSelectorVisitor = (
+      /** @class */
+      function() {
+        function JoinSelectorVisitor2() {
+          this.contexts = [[]];
+          this._visitor = new visitor_1.default(this);
+        }
+        JoinSelectorVisitor2.prototype.run = function(root) {
+          return this._visitor.visit(root);
+        };
+        JoinSelectorVisitor2.prototype.visitDeclaration = function(declNode, visitArgs) {
+          visitArgs.visitDeeper = false;
+        };
+        JoinSelectorVisitor2.prototype.visitMixinDefinition = function(mixinDefinitionNode, visitArgs) {
+          visitArgs.visitDeeper = false;
+        };
+        JoinSelectorVisitor2.prototype.visitRuleset = function(rulesetNode, visitArgs) {
+          var context2 = this.contexts[this.contexts.length - 1];
+          var paths = [];
+          var selectors;
+          this.contexts.push(paths);
+          if (!rulesetNode.root) {
+            selectors = rulesetNode.selectors;
             if (selectors) {
-              rulesetNode.joinSelectors(paths, context2, selectors);
+              selectors = selectors.filter(function(selector) {
+                return selector.getIsOutput();
+              });
+              rulesetNode.selectors = selectors.length ? selectors : selectors = null;
+              if (selectors) {
+                rulesetNode.joinSelectors(paths, context2, selectors);
+              }
             }
+            if (!selectors) {
+              rulesetNode.rules = null;
+            }
+            rulesetNode.paths = paths;
           }
-          if (!selectors) {
-            rulesetNode.rules = null;
+        };
+        JoinSelectorVisitor2.prototype.visitRulesetOut = function(rulesetNode) {
+          this.contexts.length = this.contexts.length - 1;
+        };
+        JoinSelectorVisitor2.prototype.visitMedia = function(mediaNode, visitArgs) {
+          var context2 = this.contexts[this.contexts.length - 1];
+          mediaNode.rules[0].root = context2.length === 0 || context2[0].multiMedia;
+        };
+        JoinSelectorVisitor2.prototype.visitAtRule = function(atRuleNode, visitArgs) {
+          var context2 = this.contexts[this.contexts.length - 1];
+          if (atRuleNode.rules && atRuleNode.rules.length) {
+            atRuleNode.rules[0].root = atRuleNode.isRooted || context2.length === 0 || null;
           }
-          rulesetNode.paths = paths;
-        }
-      };
-      JoinSelectorVisitor2.prototype.visitRulesetOut = function(rulesetNode) {
-        this.contexts.length = this.contexts.length - 1;
-      };
-      JoinSelectorVisitor2.prototype.visitMedia = function(mediaNode, visitArgs) {
-        var context2 = this.contexts[this.contexts.length - 1];
-        mediaNode.rules[0].root = context2.length === 0 || context2[0].multiMedia;
-      };
-      JoinSelectorVisitor2.prototype.visitAtRule = function(atRuleNode, visitArgs) {
-        var context2 = this.contexts[this.contexts.length - 1];
-        if (atRuleNode.rules && atRuleNode.rules.length) {
-          atRuleNode.rules[0].root = atRuleNode.isRooted || context2.length === 0 || null;
-        }
-      };
-      return JoinSelectorVisitor2;
-    }();
+        };
+        return JoinSelectorVisitor2;
+      }()
+    );
     exports.default = JoinSelectorVisitor;
   }
 });
@@ -16820,70 +16987,73 @@ var require_to_css_visitor = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/to-css-visitor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var tree_1 = tslib_1.__importDefault(require_tree());
     var visitor_1 = tslib_1.__importDefault(require_visitor());
-    var CSSVisitorUtils = function() {
-      function CSSVisitorUtils2(context2) {
-        this._visitor = new visitor_1.default(this);
-        this._context = context2;
-      }
-      CSSVisitorUtils2.prototype.containsSilentNonBlockedChild = function(bodyRules) {
-        var rule;
-        if (!bodyRules) {
-          return false;
+    var CSSVisitorUtils = (
+      /** @class */
+      function() {
+        function CSSVisitorUtils2(context2) {
+          this._visitor = new visitor_1.default(this);
+          this._context = context2;
         }
-        for (var r = 0; r < bodyRules.length; r++) {
-          rule = bodyRules[r];
-          if (rule.isSilent && rule.isSilent(this._context) && !rule.blocksVisibility()) {
-            return true;
+        CSSVisitorUtils2.prototype.containsSilentNonBlockedChild = function(bodyRules) {
+          var rule;
+          if (!bodyRules) {
+            return false;
           }
-        }
-        return false;
-      };
-      CSSVisitorUtils2.prototype.keepOnlyVisibleChilds = function(owner) {
-        if (owner && owner.rules) {
-          owner.rules = owner.rules.filter(function(thing) {
-            return thing.isVisible();
-          });
-        }
-      };
-      CSSVisitorUtils2.prototype.isEmpty = function(owner) {
-        return owner && owner.rules ? owner.rules.length === 0 : true;
-      };
-      CSSVisitorUtils2.prototype.hasVisibleSelector = function(rulesetNode) {
-        return rulesetNode && rulesetNode.paths ? rulesetNode.paths.length > 0 : false;
-      };
-      CSSVisitorUtils2.prototype.resolveVisibility = function(node, originalRules) {
-        if (!node.blocksVisibility()) {
-          if (this.isEmpty(node) && !this.containsSilentNonBlockedChild(originalRules)) {
+          for (var r = 0; r < bodyRules.length; r++) {
+            rule = bodyRules[r];
+            if (rule.isSilent && rule.isSilent(this._context) && !rule.blocksVisibility()) {
+              return true;
+            }
+          }
+          return false;
+        };
+        CSSVisitorUtils2.prototype.keepOnlyVisibleChilds = function(owner) {
+          if (owner && owner.rules) {
+            owner.rules = owner.rules.filter(function(thing) {
+              return thing.isVisible();
+            });
+          }
+        };
+        CSSVisitorUtils2.prototype.isEmpty = function(owner) {
+          return owner && owner.rules ? owner.rules.length === 0 : true;
+        };
+        CSSVisitorUtils2.prototype.hasVisibleSelector = function(rulesetNode) {
+          return rulesetNode && rulesetNode.paths ? rulesetNode.paths.length > 0 : false;
+        };
+        CSSVisitorUtils2.prototype.resolveVisibility = function(node, originalRules) {
+          if (!node.blocksVisibility()) {
+            if (this.isEmpty(node) && !this.containsSilentNonBlockedChild(originalRules)) {
+              return;
+            }
+            return node;
+          }
+          var compiledRulesBody = node.rules[0];
+          this.keepOnlyVisibleChilds(compiledRulesBody);
+          if (this.isEmpty(compiledRulesBody)) {
             return;
           }
+          node.ensureVisibility();
+          node.removeVisibilityBlock();
           return node;
-        }
-        var compiledRulesBody = node.rules[0];
-        this.keepOnlyVisibleChilds(compiledRulesBody);
-        if (this.isEmpty(compiledRulesBody)) {
-          return;
-        }
-        node.ensureVisibility();
-        node.removeVisibilityBlock();
-        return node;
-      };
-      CSSVisitorUtils2.prototype.isVisibleRuleset = function(rulesetNode) {
-        if (rulesetNode.firstRoot) {
+        };
+        CSSVisitorUtils2.prototype.isVisibleRuleset = function(rulesetNode) {
+          if (rulesetNode.firstRoot) {
+            return true;
+          }
+          if (this.isEmpty(rulesetNode)) {
+            return false;
+          }
+          if (!rulesetNode.root && !this.hasVisibleSelector(rulesetNode)) {
+            return false;
+          }
           return true;
-        }
-        if (this.isEmpty(rulesetNode)) {
-          return false;
-        }
-        if (!rulesetNode.root && !this.hasVisibleSelector(rulesetNode)) {
-          return false;
-        }
-        return true;
-      };
-      return CSSVisitorUtils2;
-    }();
+        };
+        return CSSVisitorUtils2;
+      }()
+    );
     var ToCSSVisitor = function(context2) {
       this._visitor = new visitor_1.default(this);
       this._context = context2;
@@ -17127,7 +17297,7 @@ var require_visitors = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/visitors/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var visitor_1 = tslib_1.__importDefault(require_visitor());
     var import_visitor_1 = tslib_1.__importDefault(require_import_visitor());
     var set_tree_visibility_visitor_1 = tslib_1.__importDefault(require_set_tree_visibility_visitor());
@@ -17296,7 +17466,7 @@ var require_parser_input = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/parser/parser-input.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var chunker_1 = tslib_1.__importDefault(require_chunker());
     exports.default = function() {
       var input;
@@ -17626,7 +17796,7 @@ var require_parser = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/parser/parser.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var less_error_1 = tslib_1.__importDefault(require_less_error());
     var tree_1 = tslib_1.__importDefault(require_tree());
     var visitors_1 = tslib_1.__importDefault(require_visitors());
@@ -17707,6 +17877,12 @@ var require_parser = __commonJS({
         imports,
         fileInfo,
         parseNode,
+        //
+        // Parse an input string into an abstract syntax tree,
+        // @param str A string containing 'less' markup
+        // @param callback call `callback` when done.
+        // @param [additionalData] An optional map which can contains vars - a map (key, value) of variables to apply
+        //
         parse: function(str, callback, additionalData) {
           var root;
           var err = null;
@@ -17795,7 +17971,51 @@ var require_parser = __commonJS({
             return finish();
           }
         },
+        //
+        // Here in, the parsing rules/functions
+        //
+        // The basic structure of the syntax tree generated is as follows:
+        //
+        //   Ruleset ->  Declaration -> Value -> Expression -> Entity
+        //
+        // Here's some Less code:
+        //
+        //    .class {
+        //      color: #fff;
+        //      border: 1px solid #000;
+        //      width: @w + 4px;
+        //      > .child {...}
+        //    }
+        //
+        // And here's what the parse tree might look like:
+        //
+        //     Ruleset (Selector '.class', [
+        //         Declaration ("color",  Value ([Expression [Color #fff]]))
+        //         Declaration ("border", Value ([Expression [Dimension 1px][Keyword "solid"][Color #000]]))
+        //         Declaration ("width",  Value ([Expression [Operation " + " [Variable "@w"][Dimension 4px]]]))
+        //         Ruleset (Selector [Element '>', '.child'], [...])
+        //     ])
+        //
+        //  In general, most rules will try to parse a token with the `$re()` function, and if the return
+        //  value is truly, will return a new node, of the relevant type. Sometimes, we need to check
+        //  first, before parsing, that's when we use `peek()`.
+        //
         parsers: parsers = {
+          //
+          // The `primary` rule is the *entry* and *exit* point of the parser.
+          // The rules here can appear at any level of the parse tree.
+          //
+          // The recursive nature of the grammar is an interplay between the `block`
+          // rule, which represents `{ ... }`, the `ruleset` rule, and this `primary` rule,
+          // as represented by this simplified grammar:
+          //
+          //     primary  →  (ruleset | declaration)+
+          //     ruleset  →  selector+ block
+          //     block    →  '{' primary '}'
+          //
+          // Only at one point is the primary rule not called from the
+          // block rule: at the root level.
+          //
           primary: function() {
             var mixin = this.mixin;
             var root = [];
@@ -17834,16 +18054,26 @@ var require_parser = __commonJS({
             }
             return root;
           },
+          // comments are collected by the main parsing mechanism and then assigned to nodes
+          // where the current structure allows it
           comment: function() {
             if (parserInput.commentStore.length) {
               var comment = parserInput.commentStore.shift();
               return new tree_1.default.Comment(comment.text, comment.isLineComment, comment.index, fileInfo);
             }
           },
+          //
+          // Entities are tokens which can be found inside an Expression
+          //
           entities: {
             mixinLookup: function() {
               return parsers.mixin.call(true, true);
             },
+            //
+            // A string, which supports escaping " and '
+            //
+            //     "milky way" 'he\'s the one!'
+            //
             quoted: function(forceEscaped) {
               var str;
               var index = parserInput.i;
@@ -17863,12 +18093,24 @@ var require_parser = __commonJS({
               parserInput.forget();
               return new tree_1.default.Quoted(str.charAt(0), str.substr(1, str.length - 2), isEscaped, index, fileInfo);
             },
+            //
+            // A catch-all word, such as:
+            //
+            //     black border-collapse
+            //
             keyword: function() {
               var k = parserInput.$char("%") || parserInput.$re(/^\[?(?:[\w-]|\\(?:[A-Fa-f0-9]{1,6} ?|[^A-Fa-f0-9]))+\]?/);
               if (k) {
                 return tree_1.default.Color.fromKeyword(k) || new tree_1.default.Keyword(k);
               }
             },
+            //
+            // A function call
+            //
+            //     rgb(255, 0, 255)
+            //
+            // The arguments are parsed with the `entities.arguments` parser.
+            //
             call: function() {
               var name;
               var args;
@@ -17900,6 +18142,14 @@ var require_parser = __commonJS({
               parserInput.forget();
               return new tree_1.default.Call(name, args, index, fileInfo);
             },
+            //
+            // Parsing rules for functions with non-standard args, e.g.:
+            //
+            //     boolean(not(2 > 1))
+            //
+            //     This is a quick prototype, to be modified/improved when
+            //     more custom-parsed funcs come (e.g. `selector(...)`)
+            //
             customFuncCall: function(name) {
               return {
                 alpha: f(parsers.ieAlpha, true),
@@ -17910,6 +18160,8 @@ var require_parser = __commonJS({
                 return {
                   parse,
                   stop
+                  // when true - stop after parse() and return its result, 
+                  // otherwise continue for plain args
                 };
               }
               function condition() {
@@ -17951,6 +18203,11 @@ var require_parser = __commonJS({
             literal: function() {
               return this.dimension() || this.color() || this.quoted() || this.unicodeDescriptor();
             },
+            // Assignments are argument entities for calls.
+            // They are present in ie filter properties as shown below.
+            //
+            //     filter: progid:DXImageTransform.Microsoft.Alpha( *opacity=50* )
+            //
             assignment: function() {
               var key;
               var value;
@@ -17972,6 +18229,13 @@ var require_parser = __commonJS({
                 parserInput.restore();
               }
             },
+            //
+            // Parse url() tokens
+            //
+            // We use a specific rule for urls, because they don't really behave like
+            // standard function calls. The difference is that the argument doesn't have
+            // to be enclosed within a string, so it can't be parsed as an Expression.
+            //
             url: function() {
               var value;
               var index = parserInput.i;
@@ -17985,6 +18249,14 @@ var require_parser = __commonJS({
               expectChar(")");
               return new tree_1.default.URL(value.value != null || value instanceof tree_1.default.Variable || value instanceof tree_1.default.Property ? value : new tree_1.default.Anonymous(value, index), index, fileInfo);
             },
+            //
+            // A Variable entity, such as `@fink`, in
+            //
+            //     width: @fink + 2px
+            //
+            // We use a different parser for variable definitions,
+            // see `parsers.variable`.
+            //
             variable: function() {
               var ch;
               var name;
@@ -18004,6 +18276,7 @@ var require_parser = __commonJS({
               }
               parserInput.restore();
             },
+            // A variable entity using the protective {} e.g. @{var}
             variableCurly: function() {
               var curly;
               var index = parserInput.i;
@@ -18011,6 +18284,11 @@ var require_parser = __commonJS({
                 return new tree_1.default.Variable("@" + curly[1], index, fileInfo);
               }
             },
+            //
+            // A Property accessor, such as `$color`, in
+            //
+            //     background-color: $color
+            //
             property: function() {
               var name;
               var index = parserInput.i;
@@ -18018,6 +18296,7 @@ var require_parser = __commonJS({
                 return new tree_1.default.Property(name, index, fileInfo);
               }
             },
+            // A property entity useing the protective {} e.g. ${prop}
             propertyCurly: function() {
               var curly;
               var index = parserInput.i;
@@ -18025,6 +18304,13 @@ var require_parser = __commonJS({
                 return new tree_1.default.Property("$" + curly[1], index, fileInfo);
               }
             },
+            //
+            // A Hexadecimal color
+            //
+            //     #4F3C2F
+            //
+            // `rgb` and `hsl` colors are parsed through the `entities.call` parser.
+            //
             color: function() {
               var rgb;
               parserInput.save();
@@ -18053,6 +18339,11 @@ var require_parser = __commonJS({
                 return color;
               }
             },
+            //
+            // A Dimension, that is, a number and a unit
+            //
+            //     0.5em 95%
+            //
             dimension: function() {
               if (parserInput.peekNotNumeric()) {
                 return;
@@ -18062,6 +18353,11 @@ var require_parser = __commonJS({
                 return new tree_1.default.Dimension(value[1], value[2]);
               }
             },
+            //
+            // A unicode descriptor, as is used in unicode-range
+            //
+            // U+0??  or U+00A1-00A9
+            //
             unicodeDescriptor: function() {
               var ud;
               ud = parserInput.$re(/^U\+[0-9a-fA-F?]+(\-[0-9a-fA-F?]+)?/);
@@ -18069,6 +18365,11 @@ var require_parser = __commonJS({
                 return new tree_1.default.UnicodeDescriptor(ud[0]);
               }
             },
+            //
+            // JavaScript code to be evaluated
+            //
+            //     `window.location.href`
+            //
             javascript: function() {
               var js;
               var index = parserInput.i;
@@ -18087,12 +18388,25 @@ var require_parser = __commonJS({
               parserInput.restore("invalid javascript definition");
             }
           },
+          //
+          // The variable part of a variable definition. Used in the `rule` parser
+          //
+          //     @fink:
+          //
           variable: function() {
             var name;
             if (parserInput.currentChar() === "@" && (name = parserInput.$re(/^(@[\w-]+)\s*:/))) {
               return name[1];
             }
           },
+          //
+          // Call a variable value to retrieve a detached ruleset
+          // or a value from a detached ruleset's rules.
+          //
+          //     @fink();
+          //     @fink;
+          //     color: @fink[@color];
+          //
           variableCall: function(parsedName) {
             var lookups;
             var i = parserInput.i;
@@ -18119,6 +18433,9 @@ var require_parser = __commonJS({
             }
             parserInput.restore();
           },
+          //
+          // extend syntax - used to extend selectors
+          //
           extend: function(isRule) {
             var elements;
             var e;
@@ -18160,10 +18477,32 @@ var require_parser = __commonJS({
             }
             return extendList;
           },
+          //
+          // extendRule - used in a rule to extend all the parent selectors
+          //
           extendRule: function() {
             return this.extend(true);
           },
+          //
+          // Mixins
+          //
           mixin: {
+            //
+            // A Mixin call, with an optional argument list
+            //
+            //     #mixins > .square(#fff);
+            //     #mixins.square(#fff);
+            //     .rounded(4px, black);
+            //     .button;
+            //
+            // We can lookup / return a value using the lookup syntax:
+            //
+            //     color: #mixin.square(#fff)[@color];
+            //
+            // The `while` loop is there because mixins can be
+            // namespaced, but we only support the child and descendant
+            // selector for now.
+            //
             call: function(inValue, getLookup) {
               var s = parserInput.currentChar();
               var important = false;
@@ -18209,6 +18548,10 @@ var require_parser = __commonJS({
               }
               parserInput.restore();
             },
+            /**
+             * Matching elements for mixins
+             * (Start with . or # and can have > )
+             */
             elements: function() {
               var elements;
               var e;
@@ -18340,6 +18683,25 @@ var require_parser = __commonJS({
               returner.args = isSemiColonSeparated ? argsSemiColon : argsComma;
               return returner;
             },
+            //
+            // A Mixin definition, with a list of parameters
+            //
+            //     .rounded (@radius: 2px, @color) {
+            //        ...
+            //     }
+            //
+            // Until we have a finer grained state-machine, we have to
+            // do a look-ahead, to make sure we don't have a mixin call.
+            // See the `rule` function for more information.
+            //
+            // We start by matching `.rounded (`, and then proceed on to
+            // the argument list, which has optional default values.
+            // We store the parameters in `params`, with a `value` key,
+            // if there is a value, such as in the case of `@radius`.
+            //
+            // Once we've got our params list, and a closing `)`, we parse
+            // the `{...}` block.
+            //
             definition: function() {
               var name;
               var params = [];
@@ -18416,13 +18778,27 @@ var require_parser = __commonJS({
               parserInput.restore();
             }
           },
+          //
+          // Entities are the smallest recognized token,
+          // and can be found inside a rule's value.
+          //
           entity: function() {
             var entities = this.entities;
             return this.comment() || entities.literal() || entities.variable() || entities.url() || entities.property() || entities.call() || entities.keyword() || this.mixin.call(true) || entities.javascript();
           },
+          //
+          // A Declaration terminator. Note that we use `peek()` to check for '}',
+          // because the `block` rule will be expecting it, but we still need to make sure
+          // it's there, if ';' was omitted.
+          //
           end: function() {
             return parserInput.$char(";") || parserInput.peek("}");
           },
+          //
+          // IE's alpha function
+          //
+          //     alpha(opacity=88)
+          //
           ieAlpha: function() {
             var value;
             if (!parserInput.$re(/^opacity=/i)) {
@@ -18436,6 +18812,18 @@ var require_parser = __commonJS({
             expectChar(")");
             return new tree_1.default.Quoted("", "alpha(opacity=" + value + ")");
           },
+          //
+          // A Selector Element
+          //
+          //     div
+          //     + h1
+          //     #socks
+          //     input[type="text"]
+          //
+          // Elements are the building blocks for Selectors,
+          // they are made out of a `Combinator` (see combinator rule),
+          // and an element name, such as a tag a class, or `*`.
+          //
           element: function() {
             var e;
             var c;
@@ -18460,6 +18848,15 @@ var require_parser = __commonJS({
               return new tree_1.default.Element(c, e, e instanceof tree_1.default.Variable, index, fileInfo);
             }
           },
+          //
+          // Combinators combine elements together, in a Selector.
+          //
+          // Because our parser isn't white-space sensitive, special care
+          // has to be taken, when parsing the descendant combinator, ` `,
+          // as it's an empty space. We have to check the previous character
+          // in the input, to see if it's a ` ` character. More info on how
+          // we deal with this in *combinator.js*.
+          //
           combinator: function() {
             var c = parserInput.currentChar();
             if (c === "/") {
@@ -18487,6 +18884,15 @@ var require_parser = __commonJS({
               return new tree_1.default.Combinator(null);
             }
           },
+          //
+          // A CSS Selector
+          // with less extensions e.g. the ability to extend and guard
+          //
+          //     .class > div + h1
+          //     li a:hover
+          //
+          // Selectors are made out of one or more Elements, see above.
+          //
           selector: function(isLess) {
             var index = parserInput.i;
             var elements;
@@ -18580,6 +18986,10 @@ var require_parser = __commonJS({
             expectChar("]");
             return new tree_1.default.Attribute(key, op, val, cif);
           },
+          //
+          // The `block` rule is used by `ruleset` and `mixin.definition`.
+          // It's a wrapper around the `primary` rule, with added `{}`.
+          //
           block: function() {
             var content;
             if (parserInput.$char("{") && (content = this.primary()) && parserInput.$char("}")) {
@@ -18617,6 +19027,9 @@ var require_parser = __commonJS({
             }
             parserInput.restore();
           },
+          //
+          // div, .class, body > p {...}
+          //
           ruleset: function() {
             var selectors;
             var rules;
@@ -18697,6 +19110,15 @@ var require_parser = __commonJS({
               return new tree_1.default.Anonymous(match[1], index);
             }
           },
+          /**
+           * Used for custom properties, at-rules, and variables (as fallback)
+           * Parses almost anything inside of {} [] () "" blocks
+           * until it reaches outer-most tokens.
+           *
+           * First, it will try to parse comments and entities to reach
+           * the end. This is mostly like the Expression parser except no
+           * math is allowed.
+           */
           permissiveValue: function(untilTokens) {
             var i;
             var e;
@@ -18770,6 +19192,16 @@ var require_parser = __commonJS({
             }
             parserInput.restore();
           },
+          //
+          // An @import atrule
+          //
+          //     @import "lib";
+          //
+          // Depending on our environment, importing is done differently:
+          // In the browser, it's an XHR request, in Node, it would be a
+          // file-system operation. The function used for importing is
+          // stored in `import`, which we pass to the Import constructor.
+          //
           "import": function() {
             var path4;
             var features;
@@ -18908,6 +19340,11 @@ var require_parser = __commonJS({
             }
             parserInput.restore();
           },
+          //
+          // A @plugin directive, used to import plugins dynamically.
+          //
+          //     @plugin (args) "lib";
+          //
           plugin: function() {
             var path4;
             var args;
@@ -18951,6 +19388,11 @@ var require_parser = __commonJS({
               return null;
             }
           },
+          //
+          // A CSS AtRule
+          //
+          //     @charset "utf-8";
+          //
           atrule: function() {
             var index = parserInput.i;
             var name;
@@ -19031,6 +19473,14 @@ var require_parser = __commonJS({
             }
             parserInput.restore("at-rule options not recognised");
           },
+          //
+          // A Value is a comma-delimited list of Expressions
+          //
+          //     font-family: Baskerville, Georgia, serif;
+          //
+          // In a Rule, a Value represents everything after the `:`,
+          // and before the `;`.
+          //
           value: function() {
             var e;
             var expressions = [];
@@ -19175,11 +19625,11 @@ var require_parser = __commonJS({
             var result;
             var logical;
             var next;
-            var self2 = this;
+            var self = this;
             function insideCondition() {
-              var cond = self2.negatedCondition(needsParens) || self2.parenthesisCondition(needsParens);
+              var cond = self.negatedCondition(needsParens) || self.parenthesisCondition(needsParens);
               if (!cond && !needsParens) {
-                return self2.atomicCondition(needsParens);
+                return self.atomicCondition(needsParens);
               }
               return cond;
             }
@@ -19296,6 +19746,10 @@ var require_parser = __commonJS({
               return c;
             }
           },
+          //
+          // An operand is anything that can be part of an operation,
+          // such as a Color, or a Variable
+          //
           operand: function() {
             var entities = this.entities;
             var negate;
@@ -19309,6 +19763,13 @@ var require_parser = __commonJS({
             }
             return o;
           },
+          //
+          // Expressions either represent mathematical operations,
+          // or white-space delimited Entities.
+          //
+          //     1px solid black
+          //     @var * 2
+          //
           expression: function() {
             var entities = [];
             var e;
@@ -19406,7 +19867,7 @@ var require_boolean = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/boolean.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var anonymous_1 = tslib_1.__importDefault(require_anonymous());
     var keyword_1 = tslib_1.__importDefault(require_keyword());
     function boolean(condition) {
@@ -19434,7 +19895,7 @@ var require_color2 = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/color.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var dimension_1 = tslib_1.__importDefault(require_dimension());
     var color_1 = tslib_1.__importDefault(require_color());
     var quoted_1 = tslib_1.__importDefault(require_quoted());
@@ -19726,6 +20187,10 @@ var require_color2 = __commonJS({
         hsl.h = hue < 0 ? 360 + hue : hue;
         return hsla(color, hsl);
       },
+      //
+      // Copyright (c) 2006-2009 Hampton Catlin, Natalie Weizenbaum, and Chris Eppstein
+      // http://sass-lang.com
+      //
       mix: function(color1, color2, weight) {
         if (!weight) {
           weight = new dimension_1.default(50);
@@ -19772,6 +20237,44 @@ var require_color2 = __commonJS({
           return dark;
         }
       },
+      // Changes made in 2.7.0 - Reverted in 3.0.0
+      // contrast: function (color, color1, color2, threshold) {
+      //     // Return which of `color1` and `color2` has the greatest contrast with `color`
+      //     // according to the standard WCAG contrast ratio calculation.
+      //     // http://www.w3.org/TR/WCAG20/#contrast-ratiodef
+      //     // The threshold param is no longer used, in line with SASS.
+      //     // filter: contrast(3.2);
+      //     // should be kept as is, so check for color
+      //     if (!color.rgb) {
+      //         return null;
+      //     }
+      //     if (typeof color1 === 'undefined') {
+      //         color1 = colorFunctions.rgba(0, 0, 0, 1.0);
+      //     }
+      //     if (typeof color2 === 'undefined') {
+      //         color2 = colorFunctions.rgba(255, 255, 255, 1.0);
+      //     }
+      //     var contrast1, contrast2;
+      //     var luma = color.luma();
+      //     var luma1 = color1.luma();
+      //     var luma2 = color2.luma();
+      //     // Calculate contrast ratios for each color
+      //     if (luma > luma1) {
+      //         contrast1 = (luma + 0.05) / (luma1 + 0.05);
+      //     } else {
+      //         contrast1 = (luma1 + 0.05) / (luma + 0.05);
+      //     }
+      //     if (luma > luma2) {
+      //         contrast2 = (luma + 0.05) / (luma2 + 0.05);
+      //     } else {
+      //         contrast2 = (luma2 + 0.05) / (luma + 0.05);
+      //     }
+      //     if (contrast1 > contrast2) {
+      //         return color1;
+      //     } else {
+      //         return color2;
+      //     }
+      // },
       argb: function(color) {
         return new anonymous_1.default(color.toARGB());
       },
@@ -19805,7 +20308,7 @@ var require_color_blending = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/color-blending.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var color_1 = tslib_1.__importDefault(require_color());
     function colorBlend(mode, color1, color2) {
       var ab = color1.alpha;
@@ -19856,6 +20359,7 @@ var require_color_blending = __commonJS({
       exclusion: function(cb, cs) {
         return cb + cs - 2 * cb * cs;
       },
+      // non-w3c functions:
       average: function(cb, cs) {
         return (cb + cs) / 2;
       },
@@ -19878,7 +20382,7 @@ var require_data_uri = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/data-uri.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var quoted_1 = tslib_1.__importDefault(require_quoted());
     var url_1 = tslib_1.__importDefault(require_url());
     var utils = tslib_1.__importStar(require_utils4());
@@ -19945,7 +20449,7 @@ var require_list = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/list.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var comment_1 = tslib_1.__importDefault(require_comment());
     var node_1 = tslib_1.__importDefault(require_node());
     var dimension_1 = tslib_1.__importDefault(require_dimension());
@@ -19981,6 +20485,14 @@ var require_list = __commonJS({
       length: function(values) {
         return new dimension_1.default(getItemsFromNode(values).length);
       },
+      /**
+       * Creates a Less list of incremental values.
+       * Modeled after Lodash's range function, also exists natively in PHP
+       *
+       * @param {Dimension} [start=1]
+       * @param {Dimension} end  - e.g. 10 or 10px - unit is added to output
+       * @param {Dimension} [step=1]
+       */
       range: function(start, end, step) {
         var from;
         var to;
@@ -20075,7 +20587,7 @@ var require_math_helper = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/math-helper.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var dimension_1 = tslib_1.__importDefault(require_dimension());
     var MathHelper = function(fn, unit, n) {
       if (!(n instanceof dimension_1.default)) {
@@ -20097,9 +20609,10 @@ var require_math = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/math.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var math_helper_js_1 = tslib_1.__importDefault(require_math_helper());
     var mathFunctions = {
+      // name,  unit
       ceil: null,
       floor: null,
       sqrt: null,
@@ -20132,7 +20645,7 @@ var require_number = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/number.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var dimension_1 = tslib_1.__importDefault(require_dimension());
     var anonymous_1 = tslib_1.__importDefault(require_anonymous());
     var math_helper_js_1 = tslib_1.__importDefault(require_math_helper());
@@ -20240,7 +20753,7 @@ var require_string = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/string.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var quoted_1 = tslib_1.__importDefault(require_quoted());
     var anonymous_1 = tslib_1.__importDefault(require_anonymous());
     var javascript_1 = tslib_1.__importDefault(require_javascript());
@@ -20281,7 +20794,7 @@ var require_svg = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/svg.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var dimension_1 = tslib_1.__importDefault(require_dimension());
     var color_1 = tslib_1.__importDefault(require_color());
     var expression_1 = tslib_1.__importDefault(require_expression());
@@ -20369,7 +20882,7 @@ var require_types2 = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/types.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var keyword_1 = tslib_1.__importDefault(require_keyword());
     var detached_ruleset_1 = tslib_1.__importDefault(require_detached_ruleset());
     var dimension_1 = tslib_1.__importDefault(require_dimension());
@@ -20450,7 +20963,7 @@ var require_functions = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/functions/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var function_registry_1 = tslib_1.__importDefault(require_function_registry());
     var function_caller_1 = tslib_1.__importDefault(require_function_caller());
     var boolean_1 = tslib_1.__importDefault(require_boolean());
@@ -20487,7 +21000,7 @@ var require_transform_tree = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/transform-tree.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var contexts_1 = tslib_1.__importDefault(require_contexts());
     var visitors_1 = tslib_1.__importDefault(require_visitors());
     var tree_1 = tslib_1.__importDefault(require_tree());
@@ -20563,96 +21076,99 @@ var require_plugin_manager = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/plugin-manager.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var PluginManager = function() {
-      function PluginManager2(less3) {
-        this.less = less3;
-        this.visitors = [];
-        this.preProcessors = [];
-        this.postProcessors = [];
-        this.installedPlugins = [];
-        this.fileManagers = [];
-        this.iterator = -1;
-        this.pluginCache = {};
-        this.Loader = new less3.PluginLoader(less3);
-      }
-      PluginManager2.prototype.addPlugins = function(plugins) {
-        if (plugins) {
-          for (var i = 0; i < plugins.length; i++) {
-            this.addPlugin(plugins[i]);
-          }
+    var PluginManager = (
+      /** @class */
+      function() {
+        function PluginManager2(less3) {
+          this.less = less3;
+          this.visitors = [];
+          this.preProcessors = [];
+          this.postProcessors = [];
+          this.installedPlugins = [];
+          this.fileManagers = [];
+          this.iterator = -1;
+          this.pluginCache = {};
+          this.Loader = new less3.PluginLoader(less3);
         }
-      };
-      PluginManager2.prototype.addPlugin = function(plugin, filename, functionRegistry) {
-        this.installedPlugins.push(plugin);
-        if (filename) {
-          this.pluginCache[filename] = plugin;
-        }
-        if (plugin.install) {
-          plugin.install(this.less, this, functionRegistry || this.less.functions.functionRegistry);
-        }
-      };
-      PluginManager2.prototype.get = function(filename) {
-        return this.pluginCache[filename];
-      };
-      PluginManager2.prototype.addVisitor = function(visitor) {
-        this.visitors.push(visitor);
-      };
-      PluginManager2.prototype.addPreProcessor = function(preProcessor, priority) {
-        var indexToInsertAt;
-        for (indexToInsertAt = 0; indexToInsertAt < this.preProcessors.length; indexToInsertAt++) {
-          if (this.preProcessors[indexToInsertAt].priority >= priority) {
-            break;
-          }
-        }
-        this.preProcessors.splice(indexToInsertAt, 0, { preProcessor, priority });
-      };
-      PluginManager2.prototype.addPostProcessor = function(postProcessor, priority) {
-        var indexToInsertAt;
-        for (indexToInsertAt = 0; indexToInsertAt < this.postProcessors.length; indexToInsertAt++) {
-          if (this.postProcessors[indexToInsertAt].priority >= priority) {
-            break;
-          }
-        }
-        this.postProcessors.splice(indexToInsertAt, 0, { postProcessor, priority });
-      };
-      PluginManager2.prototype.addFileManager = function(manager) {
-        this.fileManagers.push(manager);
-      };
-      PluginManager2.prototype.getPreProcessors = function() {
-        var preProcessors = [];
-        for (var i = 0; i < this.preProcessors.length; i++) {
-          preProcessors.push(this.preProcessors[i].preProcessor);
-        }
-        return preProcessors;
-      };
-      PluginManager2.prototype.getPostProcessors = function() {
-        var postProcessors = [];
-        for (var i = 0; i < this.postProcessors.length; i++) {
-          postProcessors.push(this.postProcessors[i].postProcessor);
-        }
-        return postProcessors;
-      };
-      PluginManager2.prototype.getVisitors = function() {
-        return this.visitors;
-      };
-      PluginManager2.prototype.visitor = function() {
-        var self2 = this;
-        return {
-          first: function() {
-            self2.iterator = -1;
-            return self2.visitors[self2.iterator];
-          },
-          get: function() {
-            self2.iterator += 1;
-            return self2.visitors[self2.iterator];
+        PluginManager2.prototype.addPlugins = function(plugins) {
+          if (plugins) {
+            for (var i = 0; i < plugins.length; i++) {
+              this.addPlugin(plugins[i]);
+            }
           }
         };
-      };
-      PluginManager2.prototype.getFileManagers = function() {
-        return this.fileManagers;
-      };
-      return PluginManager2;
-    }();
+        PluginManager2.prototype.addPlugin = function(plugin, filename, functionRegistry) {
+          this.installedPlugins.push(plugin);
+          if (filename) {
+            this.pluginCache[filename] = plugin;
+          }
+          if (plugin.install) {
+            plugin.install(this.less, this, functionRegistry || this.less.functions.functionRegistry);
+          }
+        };
+        PluginManager2.prototype.get = function(filename) {
+          return this.pluginCache[filename];
+        };
+        PluginManager2.prototype.addVisitor = function(visitor) {
+          this.visitors.push(visitor);
+        };
+        PluginManager2.prototype.addPreProcessor = function(preProcessor, priority) {
+          var indexToInsertAt;
+          for (indexToInsertAt = 0; indexToInsertAt < this.preProcessors.length; indexToInsertAt++) {
+            if (this.preProcessors[indexToInsertAt].priority >= priority) {
+              break;
+            }
+          }
+          this.preProcessors.splice(indexToInsertAt, 0, { preProcessor, priority });
+        };
+        PluginManager2.prototype.addPostProcessor = function(postProcessor, priority) {
+          var indexToInsertAt;
+          for (indexToInsertAt = 0; indexToInsertAt < this.postProcessors.length; indexToInsertAt++) {
+            if (this.postProcessors[indexToInsertAt].priority >= priority) {
+              break;
+            }
+          }
+          this.postProcessors.splice(indexToInsertAt, 0, { postProcessor, priority });
+        };
+        PluginManager2.prototype.addFileManager = function(manager) {
+          this.fileManagers.push(manager);
+        };
+        PluginManager2.prototype.getPreProcessors = function() {
+          var preProcessors = [];
+          for (var i = 0; i < this.preProcessors.length; i++) {
+            preProcessors.push(this.preProcessors[i].preProcessor);
+          }
+          return preProcessors;
+        };
+        PluginManager2.prototype.getPostProcessors = function() {
+          var postProcessors = [];
+          for (var i = 0; i < this.postProcessors.length; i++) {
+            postProcessors.push(this.postProcessors[i].postProcessor);
+          }
+          return postProcessors;
+        };
+        PluginManager2.prototype.getVisitors = function() {
+          return this.visitors;
+        };
+        PluginManager2.prototype.visitor = function() {
+          var self = this;
+          return {
+            first: function() {
+              self.iterator = -1;
+              return self.visitors[self.iterator];
+            },
+            get: function() {
+              self.iterator += 1;
+              return self.visitors[self.iterator];
+            }
+          };
+        };
+        PluginManager2.prototype.getFileManagers = function() {
+          return this.fileManagers;
+        };
+        return PluginManager2;
+      }()
+    );
     var pm;
     var PluginManagerFactory = function(less3, newFactory) {
       if (newFactory || !pm) {
@@ -20670,128 +21186,131 @@ var require_source_map_output = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function default_1(environment) {
-      var SourceMapOutput = function() {
-        function SourceMapOutput2(options) {
-          this._css = [];
-          this._rootNode = options.rootNode;
-          this._contentsMap = options.contentsMap;
-          this._contentsIgnoredCharsMap = options.contentsIgnoredCharsMap;
-          if (options.sourceMapFilename) {
-            this._sourceMapFilename = options.sourceMapFilename.replace(/\\/g, "/");
-          }
-          this._outputFilename = options.outputFilename;
-          this.sourceMapURL = options.sourceMapURL;
-          if (options.sourceMapBasepath) {
-            this._sourceMapBasepath = options.sourceMapBasepath.replace(/\\/g, "/");
-          }
-          if (options.sourceMapRootpath) {
-            this._sourceMapRootpath = options.sourceMapRootpath.replace(/\\/g, "/");
-            if (this._sourceMapRootpath.charAt(this._sourceMapRootpath.length - 1) !== "/") {
-              this._sourceMapRootpath += "/";
+      var SourceMapOutput = (
+        /** @class */
+        function() {
+          function SourceMapOutput2(options) {
+            this._css = [];
+            this._rootNode = options.rootNode;
+            this._contentsMap = options.contentsMap;
+            this._contentsIgnoredCharsMap = options.contentsIgnoredCharsMap;
+            if (options.sourceMapFilename) {
+              this._sourceMapFilename = options.sourceMapFilename.replace(/\\/g, "/");
             }
-          } else {
-            this._sourceMapRootpath = "";
-          }
-          this._outputSourceFiles = options.outputSourceFiles;
-          this._sourceMapGeneratorConstructor = environment.getSourceMapGenerator();
-          this._lineNumber = 0;
-          this._column = 0;
-        }
-        SourceMapOutput2.prototype.removeBasepath = function(path4) {
-          if (this._sourceMapBasepath && path4.indexOf(this._sourceMapBasepath) === 0) {
-            path4 = path4.substring(this._sourceMapBasepath.length);
-            if (path4.charAt(0) === "\\" || path4.charAt(0) === "/") {
-              path4 = path4.substring(1);
+            this._outputFilename = options.outputFilename;
+            this.sourceMapURL = options.sourceMapURL;
+            if (options.sourceMapBasepath) {
+              this._sourceMapBasepath = options.sourceMapBasepath.replace(/\\/g, "/");
             }
-          }
-          return path4;
-        };
-        SourceMapOutput2.prototype.normalizeFilename = function(filename) {
-          filename = filename.replace(/\\/g, "/");
-          filename = this.removeBasepath(filename);
-          return (this._sourceMapRootpath || "") + filename;
-        };
-        SourceMapOutput2.prototype.add = function(chunk, fileInfo, index, mapLines) {
-          if (!chunk) {
-            return;
-          }
-          var lines, sourceLines, columns, sourceColumns, i;
-          if (fileInfo && fileInfo.filename) {
-            var inputSource = this._contentsMap[fileInfo.filename];
-            if (this._contentsIgnoredCharsMap[fileInfo.filename]) {
-              index -= this._contentsIgnoredCharsMap[fileInfo.filename];
-              if (index < 0) {
-                index = 0;
+            if (options.sourceMapRootpath) {
+              this._sourceMapRootpath = options.sourceMapRootpath.replace(/\\/g, "/");
+              if (this._sourceMapRootpath.charAt(this._sourceMapRootpath.length - 1) !== "/") {
+                this._sourceMapRootpath += "/";
               }
-              inputSource = inputSource.slice(this._contentsIgnoredCharsMap[fileInfo.filename]);
+            } else {
+              this._sourceMapRootpath = "";
             }
-            if (inputSource === void 0) {
-              this._css.push(chunk);
+            this._outputSourceFiles = options.outputSourceFiles;
+            this._sourceMapGeneratorConstructor = environment.getSourceMapGenerator();
+            this._lineNumber = 0;
+            this._column = 0;
+          }
+          SourceMapOutput2.prototype.removeBasepath = function(path4) {
+            if (this._sourceMapBasepath && path4.indexOf(this._sourceMapBasepath) === 0) {
+              path4 = path4.substring(this._sourceMapBasepath.length);
+              if (path4.charAt(0) === "\\" || path4.charAt(0) === "/") {
+                path4 = path4.substring(1);
+              }
+            }
+            return path4;
+          };
+          SourceMapOutput2.prototype.normalizeFilename = function(filename) {
+            filename = filename.replace(/\\/g, "/");
+            filename = this.removeBasepath(filename);
+            return (this._sourceMapRootpath || "") + filename;
+          };
+          SourceMapOutput2.prototype.add = function(chunk, fileInfo, index, mapLines) {
+            if (!chunk) {
               return;
             }
-            inputSource = inputSource.substring(0, index);
-            sourceLines = inputSource.split("\n");
-            sourceColumns = sourceLines[sourceLines.length - 1];
-          }
-          lines = chunk.split("\n");
-          columns = lines[lines.length - 1];
-          if (fileInfo && fileInfo.filename) {
-            if (!mapLines) {
-              this._sourceMapGenerator.addMapping({
-                generated: { line: this._lineNumber + 1, column: this._column },
-                original: { line: sourceLines.length, column: sourceColumns.length },
-                source: this.normalizeFilename(fileInfo.filename)
-              });
-            } else {
-              for (i = 0; i < lines.length; i++) {
+            var lines, sourceLines, columns, sourceColumns, i;
+            if (fileInfo && fileInfo.filename) {
+              var inputSource = this._contentsMap[fileInfo.filename];
+              if (this._contentsIgnoredCharsMap[fileInfo.filename]) {
+                index -= this._contentsIgnoredCharsMap[fileInfo.filename];
+                if (index < 0) {
+                  index = 0;
+                }
+                inputSource = inputSource.slice(this._contentsIgnoredCharsMap[fileInfo.filename]);
+              }
+              if (inputSource === void 0) {
+                this._css.push(chunk);
+                return;
+              }
+              inputSource = inputSource.substring(0, index);
+              sourceLines = inputSource.split("\n");
+              sourceColumns = sourceLines[sourceLines.length - 1];
+            }
+            lines = chunk.split("\n");
+            columns = lines[lines.length - 1];
+            if (fileInfo && fileInfo.filename) {
+              if (!mapLines) {
                 this._sourceMapGenerator.addMapping({
-                  generated: { line: this._lineNumber + i + 1, column: i === 0 ? this._column : 0 },
-                  original: { line: sourceLines.length + i, column: i === 0 ? sourceColumns.length : 0 },
+                  generated: { line: this._lineNumber + 1, column: this._column },
+                  original: { line: sourceLines.length, column: sourceColumns.length },
                   source: this.normalizeFilename(fileInfo.filename)
                 });
-              }
-            }
-          }
-          if (lines.length === 1) {
-            this._column += columns.length;
-          } else {
-            this._lineNumber += lines.length - 1;
-            this._column = columns.length;
-          }
-          this._css.push(chunk);
-        };
-        SourceMapOutput2.prototype.isEmpty = function() {
-          return this._css.length === 0;
-        };
-        SourceMapOutput2.prototype.toCSS = function(context2) {
-          this._sourceMapGenerator = new this._sourceMapGeneratorConstructor({ file: this._outputFilename, sourceRoot: null });
-          if (this._outputSourceFiles) {
-            for (var filename in this._contentsMap) {
-              if (this._contentsMap.hasOwnProperty(filename)) {
-                var source = this._contentsMap[filename];
-                if (this._contentsIgnoredCharsMap[filename]) {
-                  source = source.slice(this._contentsIgnoredCharsMap[filename]);
+              } else {
+                for (i = 0; i < lines.length; i++) {
+                  this._sourceMapGenerator.addMapping({
+                    generated: { line: this._lineNumber + i + 1, column: i === 0 ? this._column : 0 },
+                    original: { line: sourceLines.length + i, column: i === 0 ? sourceColumns.length : 0 },
+                    source: this.normalizeFilename(fileInfo.filename)
+                  });
                 }
-                this._sourceMapGenerator.setSourceContent(this.normalizeFilename(filename), source);
               }
             }
-          }
-          this._rootNode.genCSS(context2, this);
-          if (this._css.length > 0) {
-            var sourceMapURL = void 0;
-            var sourceMapContent = JSON.stringify(this._sourceMapGenerator.toJSON());
-            if (this.sourceMapURL) {
-              sourceMapURL = this.sourceMapURL;
-            } else if (this._sourceMapFilename) {
-              sourceMapURL = this._sourceMapFilename;
+            if (lines.length === 1) {
+              this._column += columns.length;
+            } else {
+              this._lineNumber += lines.length - 1;
+              this._column = columns.length;
             }
-            this.sourceMapURL = sourceMapURL;
-            this.sourceMap = sourceMapContent;
-          }
-          return this._css.join("");
-        };
-        return SourceMapOutput2;
-      }();
+            this._css.push(chunk);
+          };
+          SourceMapOutput2.prototype.isEmpty = function() {
+            return this._css.length === 0;
+          };
+          SourceMapOutput2.prototype.toCSS = function(context2) {
+            this._sourceMapGenerator = new this._sourceMapGeneratorConstructor({ file: this._outputFilename, sourceRoot: null });
+            if (this._outputSourceFiles) {
+              for (var filename in this._contentsMap) {
+                if (this._contentsMap.hasOwnProperty(filename)) {
+                  var source = this._contentsMap[filename];
+                  if (this._contentsIgnoredCharsMap[filename]) {
+                    source = source.slice(this._contentsIgnoredCharsMap[filename]);
+                  }
+                  this._sourceMapGenerator.setSourceContent(this.normalizeFilename(filename), source);
+                }
+              }
+            }
+            this._rootNode.genCSS(context2, this);
+            if (this._css.length > 0) {
+              var sourceMapURL = void 0;
+              var sourceMapContent = JSON.stringify(this._sourceMapGenerator.toJSON());
+              if (this.sourceMapURL) {
+                sourceMapURL = this.sourceMapURL;
+              } else if (this._sourceMapFilename) {
+                sourceMapURL = this._sourceMapFilename;
+              }
+              this.sourceMapURL = sourceMapURL;
+              this.sourceMap = sourceMapContent;
+            }
+            return this._css.join("");
+          };
+          return SourceMapOutput2;
+        }()
+      );
       return SourceMapOutput;
     }
     exports.default = default_1;
@@ -20804,72 +21323,75 @@ var require_source_map_builder = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function default_1(SourceMapOutput, environment) {
-      var SourceMapBuilder = function() {
-        function SourceMapBuilder2(options) {
-          this.options = options;
-        }
-        SourceMapBuilder2.prototype.toCSS = function(rootNode, options, imports) {
-          var sourceMapOutput = new SourceMapOutput({
-            contentsIgnoredCharsMap: imports.contentsIgnoredChars,
-            rootNode,
-            contentsMap: imports.contents,
-            sourceMapFilename: this.options.sourceMapFilename,
-            sourceMapURL: this.options.sourceMapURL,
-            outputFilename: this.options.sourceMapOutputFilename,
-            sourceMapBasepath: this.options.sourceMapBasepath,
-            sourceMapRootpath: this.options.sourceMapRootpath,
-            outputSourceFiles: this.options.outputSourceFiles,
-            sourceMapGenerator: this.options.sourceMapGenerator,
-            sourceMapFileInline: this.options.sourceMapFileInline,
-            disableSourcemapAnnotation: this.options.disableSourcemapAnnotation
-          });
-          var css = sourceMapOutput.toCSS(options);
-          this.sourceMap = sourceMapOutput.sourceMap;
-          this.sourceMapURL = sourceMapOutput.sourceMapURL;
-          if (this.options.sourceMapInputFilename) {
-            this.sourceMapInputFilename = sourceMapOutput.normalizeFilename(this.options.sourceMapInputFilename);
+      var SourceMapBuilder = (
+        /** @class */
+        function() {
+          function SourceMapBuilder2(options) {
+            this.options = options;
           }
-          if (this.options.sourceMapBasepath !== void 0 && this.sourceMapURL !== void 0) {
-            this.sourceMapURL = sourceMapOutput.removeBasepath(this.sourceMapURL);
-          }
-          return css + this.getCSSAppendage();
-        };
-        SourceMapBuilder2.prototype.getCSSAppendage = function() {
-          var sourceMapURL = this.sourceMapURL;
-          if (this.options.sourceMapFileInline) {
-            if (this.sourceMap === void 0) {
+          SourceMapBuilder2.prototype.toCSS = function(rootNode, options, imports) {
+            var sourceMapOutput = new SourceMapOutput({
+              contentsIgnoredCharsMap: imports.contentsIgnoredChars,
+              rootNode,
+              contentsMap: imports.contents,
+              sourceMapFilename: this.options.sourceMapFilename,
+              sourceMapURL: this.options.sourceMapURL,
+              outputFilename: this.options.sourceMapOutputFilename,
+              sourceMapBasepath: this.options.sourceMapBasepath,
+              sourceMapRootpath: this.options.sourceMapRootpath,
+              outputSourceFiles: this.options.outputSourceFiles,
+              sourceMapGenerator: this.options.sourceMapGenerator,
+              sourceMapFileInline: this.options.sourceMapFileInline,
+              disableSourcemapAnnotation: this.options.disableSourcemapAnnotation
+            });
+            var css = sourceMapOutput.toCSS(options);
+            this.sourceMap = sourceMapOutput.sourceMap;
+            this.sourceMapURL = sourceMapOutput.sourceMapURL;
+            if (this.options.sourceMapInputFilename) {
+              this.sourceMapInputFilename = sourceMapOutput.normalizeFilename(this.options.sourceMapInputFilename);
+            }
+            if (this.options.sourceMapBasepath !== void 0 && this.sourceMapURL !== void 0) {
+              this.sourceMapURL = sourceMapOutput.removeBasepath(this.sourceMapURL);
+            }
+            return css + this.getCSSAppendage();
+          };
+          SourceMapBuilder2.prototype.getCSSAppendage = function() {
+            var sourceMapURL = this.sourceMapURL;
+            if (this.options.sourceMapFileInline) {
+              if (this.sourceMap === void 0) {
+                return "";
+              }
+              sourceMapURL = "data:application/json;base64," + environment.encodeBase64(this.sourceMap);
+            }
+            if (this.options.disableSourcemapAnnotation) {
               return "";
             }
-            sourceMapURL = "data:application/json;base64," + environment.encodeBase64(this.sourceMap);
-          }
-          if (this.options.disableSourcemapAnnotation) {
+            if (sourceMapURL) {
+              return "/*# sourceMappingURL=" + sourceMapURL + " */";
+            }
             return "";
-          }
-          if (sourceMapURL) {
-            return "/*# sourceMappingURL=" + sourceMapURL + " */";
-          }
-          return "";
-        };
-        SourceMapBuilder2.prototype.getExternalSourceMap = function() {
-          return this.sourceMap;
-        };
-        SourceMapBuilder2.prototype.setExternalSourceMap = function(sourceMap) {
-          this.sourceMap = sourceMap;
-        };
-        SourceMapBuilder2.prototype.isInline = function() {
-          return this.options.sourceMapFileInline;
-        };
-        SourceMapBuilder2.prototype.getSourceMapURL = function() {
-          return this.sourceMapURL;
-        };
-        SourceMapBuilder2.prototype.getOutputFilename = function() {
-          return this.options.sourceMapOutputFilename;
-        };
-        SourceMapBuilder2.prototype.getInputFilename = function() {
-          return this.sourceMapInputFilename;
-        };
-        return SourceMapBuilder2;
-      }();
+          };
+          SourceMapBuilder2.prototype.getExternalSourceMap = function() {
+            return this.sourceMap;
+          };
+          SourceMapBuilder2.prototype.setExternalSourceMap = function(sourceMap) {
+            this.sourceMap = sourceMap;
+          };
+          SourceMapBuilder2.prototype.isInline = function() {
+            return this.options.sourceMapFileInline;
+          };
+          SourceMapBuilder2.prototype.getSourceMapURL = function() {
+            return this.sourceMapURL;
+          };
+          SourceMapBuilder2.prototype.getOutputFilename = function() {
+            return this.options.sourceMapOutputFilename;
+          };
+          SourceMapBuilder2.prototype.getInputFilename = function() {
+            return this.sourceMapInputFilename;
+          };
+          return SourceMapBuilder2;
+        }()
+      );
       return SourceMapBuilder;
     }
     exports.default = default_1;
@@ -20881,64 +21403,67 @@ var require_parse_tree = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/parse-tree.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var less_error_1 = tslib_1.__importDefault(require_less_error());
     var transform_tree_1 = tslib_1.__importDefault(require_transform_tree());
     var logger_1 = tslib_1.__importDefault(require_logger());
     function default_1(SourceMapBuilder) {
-      var ParseTree = function() {
-        function ParseTree2(root, imports) {
-          this.root = root;
-          this.imports = imports;
-        }
-        ParseTree2.prototype.toCSS = function(options) {
-          var evaldRoot;
-          var result = {};
-          var sourceMapBuilder;
-          try {
-            evaldRoot = transform_tree_1.default(this.root, options);
-          } catch (e) {
-            throw new less_error_1.default(e, this.imports);
+      var ParseTree = (
+        /** @class */
+        function() {
+          function ParseTree2(root, imports) {
+            this.root = root;
+            this.imports = imports;
           }
-          try {
-            var compress = Boolean(options.compress);
-            if (compress) {
-              logger_1.default.warn("The compress option has been deprecated. We recommend you use a dedicated css minifier, for instance see less-plugin-clean-css.");
+          ParseTree2.prototype.toCSS = function(options) {
+            var evaldRoot;
+            var result = {};
+            var sourceMapBuilder;
+            try {
+              evaldRoot = transform_tree_1.default(this.root, options);
+            } catch (e) {
+              throw new less_error_1.default(e, this.imports);
             }
-            var toCSSOptions = {
-              compress,
-              dumpLineNumbers: options.dumpLineNumbers,
-              strictUnits: Boolean(options.strictUnits),
-              numPrecision: 8
-            };
+            try {
+              var compress = Boolean(options.compress);
+              if (compress) {
+                logger_1.default.warn("The compress option has been deprecated. We recommend you use a dedicated css minifier, for instance see less-plugin-clean-css.");
+              }
+              var toCSSOptions = {
+                compress,
+                dumpLineNumbers: options.dumpLineNumbers,
+                strictUnits: Boolean(options.strictUnits),
+                numPrecision: 8
+              };
+              if (options.sourceMap) {
+                sourceMapBuilder = new SourceMapBuilder(options.sourceMap);
+                result.css = sourceMapBuilder.toCSS(evaldRoot, toCSSOptions, this.imports);
+              } else {
+                result.css = evaldRoot.toCSS(toCSSOptions);
+              }
+            } catch (e) {
+              throw new less_error_1.default(e, this.imports);
+            }
+            if (options.pluginManager) {
+              var postProcessors = options.pluginManager.getPostProcessors();
+              for (var i = 0; i < postProcessors.length; i++) {
+                result.css = postProcessors[i].process(result.css, { sourceMap: sourceMapBuilder, options, imports: this.imports });
+              }
+            }
             if (options.sourceMap) {
-              sourceMapBuilder = new SourceMapBuilder(options.sourceMap);
-              result.css = sourceMapBuilder.toCSS(evaldRoot, toCSSOptions, this.imports);
-            } else {
-              result.css = evaldRoot.toCSS(toCSSOptions);
+              result.map = sourceMapBuilder.getExternalSourceMap();
             }
-          } catch (e) {
-            throw new less_error_1.default(e, this.imports);
-          }
-          if (options.pluginManager) {
-            var postProcessors = options.pluginManager.getPostProcessors();
-            for (var i = 0; i < postProcessors.length; i++) {
-              result.css = postProcessors[i].process(result.css, { sourceMap: sourceMapBuilder, options, imports: this.imports });
+            result.imports = [];
+            for (var file in this.imports.files) {
+              if (this.imports.files.hasOwnProperty(file) && file !== this.imports.rootFilename) {
+                result.imports.push(file);
+              }
             }
-          }
-          if (options.sourceMap) {
-            result.map = sourceMapBuilder.getExternalSourceMap();
-          }
-          result.imports = [];
-          for (var file in this.imports.files) {
-            if (this.imports.files.hasOwnProperty(file) && file !== this.imports.rootFilename) {
-              result.imports.push(file);
-            }
-          }
-          return result;
-        };
-        return ParseTree2;
-      }();
+            return result;
+          };
+          return ParseTree2;
+        }()
+      );
       return ParseTree;
     }
     exports.default = default_1;
@@ -20950,131 +21475,134 @@ var require_import_manager = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/import-manager.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var contexts_1 = tslib_1.__importDefault(require_contexts());
     var parser_1 = tslib_1.__importDefault(require_parser());
     var less_error_1 = tslib_1.__importDefault(require_less_error());
     var utils = tslib_1.__importStar(require_utils4());
     var logger_1 = tslib_1.__importDefault(require_logger());
     function default_1(environment) {
-      var ImportManager = function() {
-        function ImportManager2(less3, context2, rootFileInfo) {
-          this.less = less3;
-          this.rootFilename = rootFileInfo.filename;
-          this.paths = context2.paths || [];
-          this.contents = {};
-          this.contentsIgnoredChars = {};
-          this.mime = context2.mime;
-          this.error = null;
-          this.context = context2;
-          this.queue = [];
-          this.files = {};
-        }
-        ImportManager2.prototype.push = function(path4, tryAppendExtension, currentFileInfo, importOptions, callback) {
-          var importManager = this, pluginLoader = this.context.pluginManager.Loader;
-          this.queue.push(path4);
-          var fileParsedFunc = function(e, root, fullPath) {
-            importManager.queue.splice(importManager.queue.indexOf(path4), 1);
-            var importedEqualsRoot = fullPath === importManager.rootFilename;
-            if (importOptions.optional && e) {
-              callback(null, { rules: [] }, false, null);
-              logger_1.default.info("The file " + fullPath + " was skipped because it was not found and the import was marked optional.");
-            } else {
-              if (!importManager.files[fullPath] && !importOptions.inline) {
-                importManager.files[fullPath] = { root, options: importOptions };
-              }
-              if (e && !importManager.error) {
-                importManager.error = e;
-              }
-              callback(e, root, importedEqualsRoot, fullPath);
-            }
-          };
-          var newFileInfo = {
-            rewriteUrls: this.context.rewriteUrls,
-            entryPath: currentFileInfo.entryPath,
-            rootpath: currentFileInfo.rootpath,
-            rootFilename: currentFileInfo.rootFilename
-          };
-          var fileManager = environment.getFileManager(path4, currentFileInfo.currentDirectory, this.context, environment);
-          if (!fileManager) {
-            fileParsedFunc({ message: "Could not find a file-manager for " + path4 });
-            return;
+      var ImportManager = (
+        /** @class */
+        function() {
+          function ImportManager2(less3, context2, rootFileInfo) {
+            this.less = less3;
+            this.rootFilename = rootFileInfo.filename;
+            this.paths = context2.paths || [];
+            this.contents = {};
+            this.contentsIgnoredChars = {};
+            this.mime = context2.mime;
+            this.error = null;
+            this.context = context2;
+            this.queue = [];
+            this.files = {};
           }
-          var loadFileCallback = function(loadedFile2) {
-            var plugin;
-            var resolvedFilename = loadedFile2.filename;
-            var contents = loadedFile2.contents.replace(/^\uFEFF/, "");
-            newFileInfo.currentDirectory = fileManager.getPath(resolvedFilename);
-            if (newFileInfo.rewriteUrls) {
-              newFileInfo.rootpath = fileManager.join(importManager.context.rootpath || "", fileManager.pathDiff(newFileInfo.currentDirectory, newFileInfo.entryPath));
-              if (!fileManager.isPathAbsolute(newFileInfo.rootpath) && fileManager.alwaysMakePathsAbsolute()) {
-                newFileInfo.rootpath = fileManager.join(newFileInfo.entryPath, newFileInfo.rootpath);
+          ImportManager2.prototype.push = function(path4, tryAppendExtension, currentFileInfo, importOptions, callback) {
+            var importManager = this, pluginLoader = this.context.pluginManager.Loader;
+            this.queue.push(path4);
+            var fileParsedFunc = function(e, root, fullPath) {
+              importManager.queue.splice(importManager.queue.indexOf(path4), 1);
+              var importedEqualsRoot = fullPath === importManager.rootFilename;
+              if (importOptions.optional && e) {
+                callback(null, { rules: [] }, false, null);
+                logger_1.default.info("The file " + fullPath + " was skipped because it was not found and the import was marked optional.");
+              } else {
+                if (!importManager.files[fullPath] && !importOptions.inline) {
+                  importManager.files[fullPath] = { root, options: importOptions };
+                }
+                if (e && !importManager.error) {
+                  importManager.error = e;
+                }
+                callback(e, root, importedEqualsRoot, fullPath);
               }
+            };
+            var newFileInfo = {
+              rewriteUrls: this.context.rewriteUrls,
+              entryPath: currentFileInfo.entryPath,
+              rootpath: currentFileInfo.rootpath,
+              rootFilename: currentFileInfo.rootFilename
+            };
+            var fileManager = environment.getFileManager(path4, currentFileInfo.currentDirectory, this.context, environment);
+            if (!fileManager) {
+              fileParsedFunc({ message: "Could not find a file-manager for " + path4 });
+              return;
             }
-            newFileInfo.filename = resolvedFilename;
-            var newEnv = new contexts_1.default.Parse(importManager.context);
-            newEnv.processImports = false;
-            importManager.contents[resolvedFilename] = contents;
-            if (currentFileInfo.reference || importOptions.reference) {
-              newFileInfo.reference = true;
+            var loadFileCallback = function(loadedFile2) {
+              var plugin;
+              var resolvedFilename = loadedFile2.filename;
+              var contents = loadedFile2.contents.replace(/^\uFEFF/, "");
+              newFileInfo.currentDirectory = fileManager.getPath(resolvedFilename);
+              if (newFileInfo.rewriteUrls) {
+                newFileInfo.rootpath = fileManager.join(importManager.context.rootpath || "", fileManager.pathDiff(newFileInfo.currentDirectory, newFileInfo.entryPath));
+                if (!fileManager.isPathAbsolute(newFileInfo.rootpath) && fileManager.alwaysMakePathsAbsolute()) {
+                  newFileInfo.rootpath = fileManager.join(newFileInfo.entryPath, newFileInfo.rootpath);
+                }
+              }
+              newFileInfo.filename = resolvedFilename;
+              var newEnv = new contexts_1.default.Parse(importManager.context);
+              newEnv.processImports = false;
+              importManager.contents[resolvedFilename] = contents;
+              if (currentFileInfo.reference || importOptions.reference) {
+                newFileInfo.reference = true;
+              }
+              if (importOptions.isPlugin) {
+                plugin = pluginLoader.evalPlugin(contents, newEnv, importManager, importOptions.pluginArgs, newFileInfo);
+                if (plugin instanceof less_error_1.default) {
+                  fileParsedFunc(plugin, null, resolvedFilename);
+                } else {
+                  fileParsedFunc(null, plugin, resolvedFilename);
+                }
+              } else if (importOptions.inline) {
+                fileParsedFunc(null, contents, resolvedFilename);
+              } else {
+                if (importManager.files[resolvedFilename] && !importManager.files[resolvedFilename].options.multiple && !importOptions.multiple) {
+                  fileParsedFunc(null, importManager.files[resolvedFilename].root, resolvedFilename);
+                } else {
+                  new parser_1.default(newEnv, importManager, newFileInfo).parse(contents, function(e, root) {
+                    fileParsedFunc(e, root, resolvedFilename);
+                  });
+                }
+              }
+            };
+            var loadedFile;
+            var promise;
+            var context2 = utils.clone(this.context);
+            if (tryAppendExtension) {
+              context2.ext = importOptions.isPlugin ? ".js" : ".less";
             }
             if (importOptions.isPlugin) {
-              plugin = pluginLoader.evalPlugin(contents, newEnv, importManager, importOptions.pluginArgs, newFileInfo);
-              if (plugin instanceof less_error_1.default) {
-                fileParsedFunc(plugin, null, resolvedFilename);
+              context2.mime = "application/javascript";
+              if (context2.syncImport) {
+                loadedFile = pluginLoader.loadPluginSync(path4, currentFileInfo.currentDirectory, context2, environment, fileManager);
               } else {
-                fileParsedFunc(null, plugin, resolvedFilename);
+                promise = pluginLoader.loadPlugin(path4, currentFileInfo.currentDirectory, context2, environment, fileManager);
               }
-            } else if (importOptions.inline) {
-              fileParsedFunc(null, contents, resolvedFilename);
             } else {
-              if (importManager.files[resolvedFilename] && !importManager.files[resolvedFilename].options.multiple && !importOptions.multiple) {
-                fileParsedFunc(null, importManager.files[resolvedFilename].root, resolvedFilename);
+              if (context2.syncImport) {
+                loadedFile = fileManager.loadFileSync(path4, currentFileInfo.currentDirectory, context2, environment);
               } else {
-                new parser_1.default(newEnv, importManager, newFileInfo).parse(contents, function(e, root) {
-                  fileParsedFunc(e, root, resolvedFilename);
+                promise = fileManager.loadFile(path4, currentFileInfo.currentDirectory, context2, environment, function(err, loadedFile2) {
+                  if (err) {
+                    fileParsedFunc(err);
+                  } else {
+                    loadFileCallback(loadedFile2);
+                  }
                 });
               }
             }
+            if (loadedFile) {
+              if (!loadedFile.filename) {
+                fileParsedFunc(loadedFile);
+              } else {
+                loadFileCallback(loadedFile);
+              }
+            } else if (promise) {
+              promise.then(loadFileCallback, fileParsedFunc);
+            }
           };
-          var loadedFile;
-          var promise;
-          var context2 = utils.clone(this.context);
-          if (tryAppendExtension) {
-            context2.ext = importOptions.isPlugin ? ".js" : ".less";
-          }
-          if (importOptions.isPlugin) {
-            context2.mime = "application/javascript";
-            if (context2.syncImport) {
-              loadedFile = pluginLoader.loadPluginSync(path4, currentFileInfo.currentDirectory, context2, environment, fileManager);
-            } else {
-              promise = pluginLoader.loadPlugin(path4, currentFileInfo.currentDirectory, context2, environment, fileManager);
-            }
-          } else {
-            if (context2.syncImport) {
-              loadedFile = fileManager.loadFileSync(path4, currentFileInfo.currentDirectory, context2, environment);
-            } else {
-              promise = fileManager.loadFile(path4, currentFileInfo.currentDirectory, context2, environment, function(err, loadedFile2) {
-                if (err) {
-                  fileParsedFunc(err);
-                } else {
-                  loadFileCallback(loadedFile2);
-                }
-              });
-            }
-          }
-          if (loadedFile) {
-            if (!loadedFile.filename) {
-              fileParsedFunc(loadedFile);
-            } else {
-              loadFileCallback(loadedFile);
-            }
-          } else if (promise) {
-            promise.then(loadFileCallback, fileParsedFunc);
-          }
-        };
-        return ImportManager2;
-      }();
+          return ImportManager2;
+        }()
+      );
       return ImportManager;
     }
     exports.default = default_1;
@@ -21086,7 +21614,7 @@ var require_parse = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/parse.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var contexts_1 = tslib_1.__importDefault(require_contexts());
     var parser_1 = tslib_1.__importDefault(require_parser());
     var plugin_manager_1 = tslib_1.__importDefault(require_plugin_manager());
@@ -21169,7 +21697,7 @@ var require_render = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/render.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var utils = tslib_1.__importStar(require_utils4());
     function default_1(environment, ParseTree, ImportManager) {
       var render = function(input, options, callback) {
@@ -21382,7 +21910,7 @@ var require_less = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var environment_1 = tslib_1.__importDefault(require_environment2());
     var data_1 = tslib_1.__importDefault(require_data());
     var tree_1 = tslib_1.__importDefault(require_tree());
@@ -21471,6 +21999,7 @@ var require_less = __commonJS({
 var require_lessc_helper = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less-node/lessc-helper.js"(exports) {
     var lessc_helper = {
+      // Stylize a string
       stylize: function(str, style) {
         var styles = {
           "reset": [0, 0],
@@ -21484,6 +22013,7 @@ var require_lessc_helper = __commonJS({
         };
         return "\x1B[" + styles[style][0] + "m" + str + "\x1B[" + styles[style][1] + "m";
       },
+      // Print command line options
       printUsage: function() {
         console.log("usage: lessc [option option=parameter ...] <source> [destination]");
         console.log("");
@@ -21565,7 +22095,7 @@ var require_plugin_loader = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less-node/plugin-loader.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var path_1 = tslib_1.__importDefault(__require("path"));
     var abstract_plugin_loader_js_1 = tslib_1.__importDefault(require_abstract_plugin_loader());
     var PluginLoader = function(less3) {
@@ -21621,20 +22151,56 @@ var require_default_options = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     function default_1() {
       return {
+        /* Inline Javascript - @plugin still allowed */
         javascriptEnabled: false,
+        /* Outputs a makefile import dependency list to stdout. */
         depends: false,
+        /* (DEPRECATED) Compress using less built-in compression.
+         * This does an okay job but does not utilise all the tricks of
+         * dedicated css compression. */
         compress: false,
+        /* Runs the less parser and just reports errors without any output. */
         lint: false,
+        /* Sets available include paths.
+         * If the file in an @import rule does not exist at that exact location,
+         * less will look for it at the location(s) passed to this option.
+         * You might use this for instance to specify a path to a library which
+         * you want to be referenced simply and relatively in the less files. */
         paths: [],
+        /* color output in the terminal */
         color: true,
+        /* The strictImports controls whether the compiler will allow an @import inside of either
+         * @media blocks or (a later addition) other selector blocks.
+         * See: https://github.com/less/less.js/issues/656 */
         strictImports: false,
+        /* Allow Imports from Insecure HTTPS Hosts */
         insecure: false,
+        /* Allows you to add a path to every generated import and url in your css.
+         * This does not affect less import statements that are processed, just ones
+         * that are left in the output css. */
         rootpath: "",
+        /* By default URLs are kept as-is, so if you import a file in a sub-directory
+         * that references an image, exactly the same URL will be output in the css.
+         * This option allows you to re-write URL's in imported files so that the
+         * URL is always relative to the base imported file */
         rewriteUrls: false,
+        /* How to process math
+         *   0 always           - eagerly try to solve all operations
+         *   1 parens-division  - require parens for division "/"
+         *   2 parens | strict  - require parens for all operations
+         *   3 strict-legacy    - legacy strict behavior (super-strict)
+         */
         math: 1,
+        /* Without this option, less attempts to guess at the output unit when it does maths. */
         strictUnits: false,
+        /* Effectively the declaration is put at the top of your base Less file,
+         * meaning it can be used but it also can be overridden if this variable
+         * is defined in the file. */
         globalVars: null,
+        /* As opposed to the global variable option, this puts the declaration at the
+         * end of your base file, meaning it will override anything defined in your Less file. */
         modifyVars: null,
+        /* This option allows you to specify a argument to go on to every URL.  */
         urlArgs: ""
       };
     }
@@ -21770,7 +22336,7 @@ var require_image_size = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less-node/image-size.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var dimension_1 = tslib_1.__importDefault(require_dimension());
     var expression_1 = tslib_1.__importDefault(require_expression());
     var function_registry_1 = tslib_1.__importDefault(require_function_registry());
@@ -21824,7 +22390,7 @@ var require_less_node = __commonJS({
   "node_modules/.pnpm/less@4.1.3/node_modules/less/lib/less-node/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
+    var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var environment_1 = tslib_1.__importDefault(require_environment());
     var file_manager_1 = tslib_1.__importDefault(require_file_manager());
     var url_file_manager_1 = tslib_1.__importDefault(require_url_file_manager());
@@ -21856,7 +22422,7 @@ import CleanCSS from "clean-css";
 // src/constants.ts
 import { normalizePath } from "vite";
 var VITE_CLIENT_ENTRY = "/@vite/client";
-var VITE_PLUGIN_THEME_CLIENT_ENTRY = normalizePath("node_modules/@kirklin/vite-plugin-vben-theme/es/");
+var VITE_PLUGIN_THEME_CLIENT_ENTRY = normalizePath("node_modules/vite-vue-plugin-theme/es/");
 var CLIENT_PUBLIC_ABSOLUTE_PATH = normalizePath(`/${VITE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
 var CLIENT_PUBLIC_PATH = normalizePath(`${VITE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
 var commentRE = /\\\\?n|\n|\\\\?r|\/\*[\s\S]+?\*\//g;
@@ -21901,7 +22467,7 @@ function createFileHash() {
 async function minifyCSS(css, config) {
   const res = new CleanCSS({
     rebase: false,
-    ...config.build.cleanCssOptions
+    ...config.esbuild
   }).minify(css);
   if (res.errors && res.errors.length) {
     console.error(`error when minifying css:
@@ -21982,17 +22548,70 @@ function createContext(options) {
 }
 
 // src/injectClientPlugin.ts
-var debug = Debug("vite:inject-@kirklin/vite-plugin-vben-theme-client");
+var debug = Debug("vite:inject-vite-vue-plugin-theme-client");
 function injectClientPlugin() {
   const context2 = createContext();
   return {
-    name: "vite:inject-@kirklin/vite-plugin-vben-theme-client",
+    name: "vite:inject-vite-vue-plugin-theme-client",
     enforce: "pre",
+    // configResolved(resolvedConfig) {
+    //   config = resolvedConfig;
+    //   isServer = resolvedConfig.command === 'serve';
+    //   needSourcemap = !!resolvedConfig.build.sourcemap;
+    // },
+    // resolveId(id) {
+    //   if (id.includes('vite-vue-plugin-theme')) {
+    //     console.log('resolveId', id);
+    //   }
+    // if (id === virtualModuleId) {
+    //
+    //   console.log('virtual:theme-config', virtualModuleId, resolvedVirtualModuleId)
+    //   return resolvedVirtualModuleId
+    // }
+    // },
+    // load(id) {
+    //   if (id === resolvedVirtualModuleId) {
+    //     console.log('load ok')
+    //     const getOutputFile = (name?: string) => {
+    //       return JSON.stringify(`${config.base}${config.build.assetsDir}/${name}`)
+    //     }
+    //
+    //     return `
+    //     export const colorPluginOptions = ${JSON.stringify(colorPluginOptions)};
+    //     export const colorPluginOutputFileName = ${getOutputFile(colorPluginCssOutputName)};
+    //     export const antdDarkPluginOutputFileName = ${getOutputFile(antdDarkCssOutputName)};
+    //     export const antdDarkPluginExtractCss = ${antdDarkExtractCss};
+    //     export const antdDarkPluginLoadLink = ${antdDarkLoadLink};
+    //     export const isProd = ${!isServer};
+    //     `
+    //   }
+    // },
+    // transformIndexHtml: {
+    //   enforce: 'pre',
+    //   async transform(html) {
+    //     if (html.includes(CLIENT_PUBLIC_ABSOLUTE_PATH)) {
+    //       return html;
+    //     }
+    //     return {
+    //       html,
+    //       tags: [
+    //         {
+    //           tag: 'script',
+    //           attrs: {
+    //             type: 'module',
+    //             src: CLIENT_PUBLIC_ABSOLUTE_PATH,
+    //           },
+    //           injectTo: 'head-prepend',
+    //         },
+    //       ],
+    //     };
+    //   },
+    // },
     async transform(code, id) {
       const nid = normalizePath2(id);
-      const path4 = normalizePath2("@kirklin/vite-plugin-vben-theme/es/client.js");
+      const path4 = normalizePath2("vite-vue-plugin-theme/es/client.js");
       const getMap = () => context2.needSourceMap ? this.getCombinedSourcemap() : null;
-      if (nid === CLIENT_PUBLIC_ABSOLUTE_PATH || nid.endsWith(path4) || nid.includes("@kirklin/vite-plugin-vben-theme/es") || nid.includes("@kirklin/vite-plugin-vben-theme_es") || nid.includes(path4.replace(/\//gi, "_"))) {
+      if (nid === CLIENT_PUBLIC_ABSOLUTE_PATH || nid.endsWith(path4) || nid.includes("vite-vue-plugin-theme/es") || nid.includes("vite-vue-plugin-theme_es") || nid.includes(path4.replace(/\//gi, "_"))) {
         debug("transform client file:", id, code);
         const {
           base,
@@ -22358,7 +22977,7 @@ ${code}`);
             build: { outDir, assetsDir }
           } = context2.viteOptions;
           console.log(
-            `${colors.cyan("\n\u2728 [@kirklin/vite-plugin-vben-theme:antd-dark]")} - extract antd dark css code file is successfully:`
+            `${colors.cyan("\n\u2728 [vite-vue-plugin-theme:antd-dark]")} - extract antd dark css code file is successfully:`
           );
           try {
             const { size } = import_fs_extra.default.statSync(path2.join(outDir, assetsDir, cssOutputName));
@@ -22375,7 +22994,7 @@ ${code}`);
 }
 
 // src/index.ts
-var debug2 = Debug2("@kirklin/vite-plugin-vben-theme");
+var debug2 = Debug2("vite-vue-plugin-theme");
 function viteThemePlugin(opt) {
   const styleMap = /* @__PURE__ */ new Map();
   const extCssSet = /* @__PURE__ */ new Set();
@@ -22496,7 +23115,7 @@ function viteThemePlugin(opt) {
             build: { outDir, assetsDir }
           } = context2.viteOptions;
           console.log(
-            `${colors2.cyan("\n\u2728 [@kirklin/vite-plugin-vben-theme]")} - extract css code file is successfully:`
+            `${colors2.cyan("\n\u2728 [xingyuv-vite-vue-plugin-theme]")} - extract css code file is successfully:`
           );
           try {
             const { size } = import_fs_extra2.default.statSync(path3.join(outDir, assetsDir, cssOutputName));
@@ -22537,4 +23156,8 @@ export {
   toNum3,
   viteThemePlugin
 };
-/*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
+/*! Bundled license information:
+
+sax/lib/sax.js:
+  (*! http://mths.be/fromcodepoint v0.1.0 by @mathias *)
+*/

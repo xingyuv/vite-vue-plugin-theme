@@ -26,7 +26,7 @@ export interface ViteThemeOptions {
   verbose?: boolean;
 }
 
-const debug = Debug("@kirklin/vite-plugin-vben-theme");
+const debug = Debug("vite-vue-plugin-theme");
 
 export function viteThemePlugin(opt: ViteThemeOptions): PluginOption {
   const styleMap = new Map<string, string>();
@@ -182,7 +182,7 @@ export function viteThemePlugin(opt: ViteThemeOptions): PluginOption {
             build: { outDir, assetsDir },
           } = context.viteOptions;
           console.log(
-            `${colors.cyan("\n✨ [@kirklin/vite-plugin-vben-theme]")} - extract css code file is successfully:`,
+            `${colors.cyan("\n✨ [xingyuv-vite-vue-plugin-theme]")} - extract css code file is successfully:`,
           );
           try {
             const { size } = fs.statSync(path.join(outDir, assetsDir, cssOutputName));

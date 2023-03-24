@@ -4,13 +4,13 @@ import { debug as Debug } from "debug";
 import { CLIENT_PUBLIC_ABSOLUTE_PATH } from "./constants";
 import { createContext } from "./context";
 
-const debug = Debug("vite:inject-@kirklin/vite-plugin-vben-theme-client");
+const debug = Debug("vite:inject-vite-vue-plugin-theme-client");
 
 export function injectClientPlugin(): Plugin {
   const context = createContext();
 
   return {
-    name: "vite:inject-@kirklin/vite-plugin-vben-theme-client",
+    name: "vite:inject-vite-vue-plugin-theme-client",
     enforce: "pre",
     // configResolved(resolvedConfig) {
     //   config = resolvedConfig;
@@ -18,7 +18,7 @@ export function injectClientPlugin(): Plugin {
     //   needSourcemap = !!resolvedConfig.build.sourcemap;
     // },
     // resolveId(id) {
-    //   if (id.includes('@kirklin/vite-plugin-vben-theme')) {
+    //   if (id.includes('vite-vue-plugin-theme')) {
     //     console.log('resolveId', id);
     //   }
     // if (id === virtualModuleId) {
@@ -70,14 +70,14 @@ export function injectClientPlugin(): Plugin {
 
     async transform(code, id) {
       const nid = normalizePath(id);
-      const path = normalizePath("@kirklin/vite-plugin-vben-theme/es/client.js");
+      const path = normalizePath("vite-vue-plugin-theme/es/client.js");
       const getMap = () => (context.needSourceMap ? this.getCombinedSourcemap() : null);
 
       if (
         nid === CLIENT_PUBLIC_ABSOLUTE_PATH
         || nid.endsWith(path)
-        || nid.includes("@kirklin/vite-plugin-vben-theme/es")
-        || nid.includes("@kirklin/vite-plugin-vben-theme_es")
+        || nid.includes("vite-vue-plugin-theme/es")
+        || nid.includes("vite-vue-plugin-theme_es")
         // support .vite cache
         || nid.includes(path.replace(/\//gi, "_"))
       ) {
