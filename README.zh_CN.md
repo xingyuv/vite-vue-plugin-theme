@@ -10,7 +10,7 @@
 
 ### 安装 (pnpm or npm)
 
-**vite version:** >=4.2.0
+**vite version:** >=4.3.0
 
 ```
 pnpm i vite-vue-plugin-theme -D

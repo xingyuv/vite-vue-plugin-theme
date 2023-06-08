@@ -4,14 +4,13 @@
 
 [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript_code style][code-style-image]][code-style-url]
 
-
 Vite plugin for dynamically changing the theme color of the interface
 
 After vite processes the css and dynamically analyzes the color value in the css text that matches the plug-in configuration, extract the specified color style code from all output css files. And create a `app-theme-style.css` file containing only color styles, dynamically insert it into the specified position (the bottom of the default body), and then replace the custom style/component library style color used with the new color, In order to achieve the purpose of dynamically changing the theme color of the project
 
 ### Install (pnpm or npm)
 
-**vite version:** >=4.2.0
+**vite version:** >=4.3.0
 
 ```
 pnpm i vite-vue-plugin-theme -D
@@ -58,7 +57,6 @@ export default defineConfig({
 | customerExtractVariable | `(css:string)=>string` | - | Custom css matching color extraction logic |
 | fileName | `string` | `app-theme-style.hash.css` | File name output after packaging |
 | injectTo | `body` or `head` or `body-prepend` | `body` | The css loaded in the production environment is injected into the label body |
-
 
 ## License
 
