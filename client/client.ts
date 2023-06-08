@@ -1,7 +1,7 @@
 export const globalField = "__VITE_THEME__";
-export const styleTagId = "__VITE_PLUGIN_THEME__";
+export const styleTagId = "__VITE_VUE_PLUGIN_THEME__";
 export const darkStyleTagId = "__VITE_PLUGIN_DARK_THEME__";
-export const linkID = "__VITE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
+export const linkID = "__VITE_VUE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
 
 export interface Options {
   colorVariables: string[];

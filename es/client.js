@@ -1,7 +1,7 @@
 export const globalField = "__VITE_THEME__";
-export const styleTagId = "__VITE_PLUGIN_THEME__";
+export const styleTagId = "__VITE_VUE_PLUGIN_THEME__";
 export const darkStyleTagId = "__VITE_PLUGIN_DARK_THEME__";
-export const linkID = "__VITE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
+export const linkID = "__VITE_VUE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
 const colorPluginOutputFileName = __COLOR_PLUGIN_OUTPUT_FILE_NAME__;
 const isProd = __PROD__;
 const colorPluginOptions = __COLOR_PLUGIN_OPTIONS__;

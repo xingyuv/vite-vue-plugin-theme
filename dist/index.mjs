@@ -22422,9 +22422,9 @@ import CleanCSS from "clean-css";
 // src/constants.ts
 import { normalizePath } from "vite";
 var VITE_CLIENT_ENTRY = "/@vite/client";
-var VITE_PLUGIN_THEME_CLIENT_ENTRY = normalizePath("node_modules/vite-vue-plugin-theme/es/");
-var CLIENT_PUBLIC_ABSOLUTE_PATH = normalizePath(`/${VITE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
-var CLIENT_PUBLIC_PATH = normalizePath(`${VITE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
+var VITE_VUE_PLUGIN_THEME_CLIENT_ENTRY = normalizePath("node_modules/vite-vue-plugin-theme/es/");
+var CLIENT_PUBLIC_ABSOLUTE_PATH = normalizePath(`/${VITE_VUE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
+var CLIENT_PUBLIC_PATH = normalizePath(`${VITE_VUE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
 var commentRE = /\\\\?n|\n|\\\\?r|\/\*[\s\S]+?\*\//g;
 var cssLangs = "\\.(css|less|sass|scss|styl|stylus|postcss)($|\\?)";
 var colorRE = /#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})|rgba?\((.*),\s*(.*),\s*(.*)(?:,\s*(.*(?:.*)?))?\)/gi;
@@ -22435,7 +22435,7 @@ var ruleRE = /(\w+-)*\w+:/;
 var cssValueRE = /(\s?[a-z0-9]+\s)*/;
 var safeEmptyRE = /\s?/;
 var importSafeRE = /(\s*!important)?/;
-var linkID = "__VITE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
+var linkID = "__VITE_VUE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
 
 // src/utils.ts
 function getVariablesReg(colors3) {

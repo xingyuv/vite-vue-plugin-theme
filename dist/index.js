@@ -22429,9 +22429,9 @@ var import_clean_css = __toESM(require("clean-css"));
 // src/constants.ts
 var import_vite = require("vite");
 var VITE_CLIENT_ENTRY = "/@vite/client";
-var VITE_PLUGIN_THEME_CLIENT_ENTRY = (0, import_vite.normalizePath)("node_modules/vite-vue-plugin-theme/es/");
-var CLIENT_PUBLIC_ABSOLUTE_PATH = (0, import_vite.normalizePath)(`/${VITE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
-var CLIENT_PUBLIC_PATH = (0, import_vite.normalizePath)(`${VITE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
+var VITE_VUE_PLUGIN_THEME_CLIENT_ENTRY = (0, import_vite.normalizePath)("node_modules/vite-vue-plugin-theme/es/");
+var CLIENT_PUBLIC_ABSOLUTE_PATH = (0, import_vite.normalizePath)(`/${VITE_VUE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
+var CLIENT_PUBLIC_PATH = (0, import_vite.normalizePath)(`${VITE_VUE_PLUGIN_THEME_CLIENT_ENTRY}/client.js`);
 var commentRE = /\\\\?n|\n|\\\\?r|\/\*[\s\S]+?\*\//g;
 var cssLangs = "\\.(css|less|sass|scss|styl|stylus|postcss)($|\\?)";
 var colorRE = /#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})|rgba?\((.*),\s*(.*),\s*(.*)(?:,\s*(.*(?:.*)?))?\)/gi;
@@ -22442,7 +22442,7 @@ var ruleRE = /(\w+-)*\w+:/;
 var cssValueRE = /(\s?[a-z0-9]+\s)*/;
 var safeEmptyRE = /\s?/;
 var importSafeRE = /(\s*!important)?/;
-var linkID = "__VITE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
+var linkID = "__VITE_VUE_PLUGIN_THEME-ANTD_DARK_THEME_LINK__";
 
 // src/utils.ts
 function getVariablesReg(colors3) {
